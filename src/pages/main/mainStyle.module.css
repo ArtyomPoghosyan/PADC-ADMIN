@@ -1,0 +1,47 @@
+.layout_container {
+    display: flex;
+    min-height: 929px;
+}
+
+.main_container {
+    display: flex;
+    flex-direction: row;
+    width: 1311px;
+    justify-content: space-between;
+    padding-left: 106px;
+    list-style: none;
+}
+
+li {
+    font-size: 16px;
+    color: #1677ff;
+}
+
+.breadCrump_container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: aliceblue;
+    height: 35px;
+    align-items: center;
+}
+
+.header_container {
+    padding: 0;
+    background: white;
+    position: relative;
+    margin-left: 15px;
+    display: flex;
+    align-items: center
+}
+
+.logo_container {
+    display: flex;
+    width: 100%;
+    justify-content: center
+}
+
+.logo {
+    width: 80%;
+    padding: 10px
+}

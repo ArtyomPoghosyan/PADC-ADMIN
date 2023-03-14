@@ -1,0 +1,48 @@
+.login_container {
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    height: 100vh !important
+}
+
+.logo {
+    width: 280px !important;
+    position: relative !important
+}
+
+.spin{
+    height: "30px" !important
+}
+
+.cridential_error {
+    font-size: 17px;
+    color: red;
+}
+
+.login_container {
+    height: 40px
+}
+
+.ant-alert-message {
+    display: flex !important;
+}
+
+.alert_message {
+    display: flex !important;
+}
+
+.ant-form-item-control-input-content {
+    display: flex !important;
+}
+
+.remember_me_container {
+    display: flex;
+
+}
+
+.remember_me{
+    display:flex ;
+    width: 100%;
+}
+
