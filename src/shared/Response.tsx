@@ -6,7 +6,8 @@ import { useAppDispatch } from "../hooks";
 export const Response: React.FC<any> = (props) => {
     const dispatch = useAppDispatch();
     const { isLoading, isSuccess, error } = props.data
-    const [errors, setError] = useState("")
+    const [errors, setError] = useState("");
+    
     useEffect(() => {
         if (error || isSuccess) {
             setTimeout(() => {

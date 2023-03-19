@@ -45,7 +45,7 @@ export const CurrentVacancie: React.FC = () => {
     }
 
     const onFinish = () => {
-        const data = { shortDescription: value, description: editorText }
+        const data = { shortDescription: value, description: editorText?editorText:text }
         dispatch(EditCurrentVacancieThunk({ id, data }))
     }
 

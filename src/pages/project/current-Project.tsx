@@ -46,7 +46,7 @@ export const CurrentProject: React.FC = () => {
 
     const onFinish = (values) => {
         const { title, description } = values;
-        const data = { title, description: editorText }
+        const data = { title, description: editorText ? editorText : description }
         dispatch(EditCurrentProjectThunk({ id, data }))
     }
 

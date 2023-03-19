@@ -49,9 +49,8 @@ export const CurrentTraining: React.FC = () => {
 
     const RawDraftContentState = (arg) => {
         let desc = ""
-        arg.blocks.map(item =>  desc += item.text)
+        arg.blocks.map(item => desc += item.text)
         setEditorText(desc)
-
     }
 
     const onEditorStateChange = (editorState) => {
@@ -68,8 +67,9 @@ export const CurrentTraining: React.FC = () => {
         const { date: { $d } } = values;
         const { name, description, type, image } = values;
         const convertDate = moment($d, dayFormat).format(dayFormat);
+        console.log(description)
         const data: IAddTraining = {
-            name, description: editorText,
+            name, description: editorText ? editorText : description,
             date: convertDate, image, type
         }
         dispatch(EditCurrentTrainingThunk({ id, data }))
@@ -95,7 +95,7 @@ export const CurrentTraining: React.FC = () => {
 
     return (
         <div className={trainingStyle.form_container}>
-            {(isLoadingEdit || isSuccessEdit || trainingErrorEdit) ?
+            {(isLoadingEdit || trainingErrorEdit) ?
                 <Response data={{ isLoading: isLoadingEdit, isSuccess: isSuccessEdit, error: trainingError }}
                     defaultState={defaultState} /> :
                 <Form
