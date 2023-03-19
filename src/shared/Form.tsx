@@ -6,7 +6,7 @@ import { Form, Input, Button, Select, DatePicker, Upload, UploadFile, UploadProp
 import moment from 'moment';
 
 import { useForm } from 'antd/es/form/Form';
-import { ITrainingEdit, ITrainingEditDate } from '../interface/commonInterace/interface';
+import { ITrainingEdit, ITrainingEditDate } from '../models/common/common';
 import { RcFile } from 'antd/es/upload';
 
 export const FormComponent: React.FC = () => {
@@ -18,7 +18,6 @@ export const FormComponent: React.FC = () => {
         const convertDate = moment($d, 'YYYY-MM-DD').format('DD/MM/YYYY');
         const { name, description, type, image } = values;
         const data: ITrainingEditDate = { name, description, type, image: fileList, date: convertDate }
-        console.log(data)
     }
     const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
         setFileList(newFileList);

@@ -38,7 +38,10 @@ li {
 .logo_container {
     display: flex;
     width: 100%;
-    justify-content: center
+    justify-content: center;
+    /* border-right: 2px solid #888; */
+    background-color: #ffffff !important;
+    /* box-shadow: 5px 0 5px -2px #888; */
 }
 
 .logo {

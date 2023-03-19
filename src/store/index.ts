@@ -1,15 +1,18 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import loginReducer from "../feature/login/loginSlice";
-import userReducer from "../feature/user/userSlice";
-import projectReducer from "../feature/project/projectSlice";
-import vacancieReducer from "../feature/vacancies/vacancieSlice";
-import trainingReducer from "../feature/training/trainingSlice";
-import currentTraining from "../feature/training/currentTrainingPageSlice";
-import editCurrentTraining from "../feature/training/editCurrentTrainingApi";
-import addTraining from "../feature/training/addTrainingPageSlice";
-import currentVacancie from "../feature/vacancies/currentVacanciePageSlice";
-import editCurrentVacancie from "../feature/vacancies/editCurrentVacancieSlice";
-import addVacancie from "../feature/vacancies/addVacanciePageslice";
+import loginReducer from "../slices/login/login-Slice";
+import userReducer from "../slices/user/user-Slice";
+import projectReducer from "../slices/project/project-Slice";
+import vacancieReducer from "../slices/vacancies/vacancie-Slice";
+import trainingReducer from "../slices/training/training-Slice";
+import currentTraining from "../slices/training/current-Training-Slice";
+import editCurrentTraining from "../slices/training/edit-Training-Slice";
+import addTraining from "../slices/training/add-Training-Slice";
+import currentVacancie from "../slices/vacancies/current-Vacancie-Slice";
+import editCurrentVacancie from "../slices/vacancies/edit-Vacancie-Slice";
+import addVacancie from "../slices/vacancies/add-Vacancie-slice";
+import currentProject from "../slices/project/current-Projet-Slice";
+import editCurrentProject from "../slices/project/edit-Project-Slice";
+import addProject from "../slices/project/add-Project-Slice";
 
 export const Store = configureStore({
     reducer: {
@@ -23,7 +26,10 @@ export const Store = configureStore({
         addTraining:addTraining,
         currentVacancie:currentVacancie,
         editcurrentVacnacie:editCurrentVacancie,
-        addVacancie:addVacancie
+        addVacancie:addVacancie,
+        currentProject:currentProject,
+        editCurrentProject:editCurrentProject,
+        addProject:addProject
     },
 });
 

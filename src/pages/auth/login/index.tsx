@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { axiosLogin } from '../../../feature/login/loginSlice';
+import { LoginThunk } from '../../../slices/login/login-Slice';
 
 import { useNavigate } from 'react-router-dom';
-import { ILogin } from 'src/interface';
 
-import LoginStyle from "./LoginStyle.module.css";
+
+import LoginStyle from "./login-Style.module.css";
 import logo from "../../../shared/images.ts/padc-logo.svg"
 
 import Cookies from 'universal-cookie';
@@ -14,9 +14,11 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { Alert } from 'antd';
 import { Spin } from 'antd';
+import { ILogin } from '../../../models/auth';
 
 
-export const LoginPage: React.FC = () => {
+
+export const Login: React.FC = () => {
     const cookies = new Cookies();
     const { isLoading, isSuccess, loginData, loginError } = useAppSelector((state: any) => state.login);
     const dispatch = useAppDispatch();
@@ -24,7 +26,7 @@ export const LoginPage: React.FC = () => {
     
     const attentionText= "Attention !! This website is only for internal usage for users certified by PADC LLC."
     const onFinish = (values: ILogin) => {
-        dispatch(axiosLogin(values));
+        dispatch(LoginThunk(values));
     };
 
     useEffect(() => {
@@ -46,7 +48,7 @@ export const LoginPage: React.FC = () => {
                     {loginError ? <p className={LoginStyle.cridential_error}>{loginError}</p> : <p></p>}
                 </div>
                 <Form
-                    style={{ width: "470px", marginTop: "10px" }}
+                    style={{ width: "850px", marginTop: "10px" }}
                     name="normal_login"
                     className="login-form"
                     initialValues={{ remember: true }}
@@ -56,16 +58,16 @@ export const LoginPage: React.FC = () => {
                         name="email"
                         rules={[{ required: true, message: 'Please input your Email!' }]}
                     >
-                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
+                        <Input prefix={<UserOutlined className="site-form-item-icon" />} style={{width:"500px"}} placeholder="Email" />
                     </Form.Item>
                     <Form.Item
                         name="password"
-                        rules={[{ required: true, message: 'Please input your Password!' }]}
-                    >
+                        rules={[{ required: true, message: 'Please input your Password!' }]}>
                         <Input
                             prefix={<LockOutlined className="site-form-item-icon" />}
                             type="password"
                             placeholder="Password"
+                            style={{width:"500px"}}
                         />
                     </Form.Item>
                     <Form.Item  className={LoginStyle.remember_me}>
@@ -75,7 +77,7 @@ export const LoginPage: React.FC = () => {
                     </Form.Item>
 
                     <Form.Item>
-                        <Button style={{ width: "100%" }} type="primary" htmlType="submit" className="login-form-button">
+                        <Button style={{ width: "500px" }} type="primary" htmlType="submit" className="login-form-button">
                             Log in
                         </Button>
                     </Form.Item>

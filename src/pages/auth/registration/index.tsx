@@ -1,9 +1,9 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import LoginStyle from "../login/LoginStyle.module.css";
+import LoginStyle from "../login/login-Style.module.css";
 import logo from "../../../shared/images.ts/logo.png";
 
-export const RegistrationPage: React.FC = () => {
+export const Registration: React.FC = () => {
 
     const onFinish = (values: any) => {
         console.log('Success:', values);

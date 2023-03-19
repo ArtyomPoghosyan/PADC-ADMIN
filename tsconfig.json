@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "base-URL": "./",
     "target": "es5",
     "lib": [
       "dom",
@@ -23,7 +23,7 @@
     "jsx": "react-jsx",
     "paths": {
       "@api/*": [
-        "src/basic-api/*"
+        "src/base-URL/*"
       ]
     },
     "outDir": "../../dist",

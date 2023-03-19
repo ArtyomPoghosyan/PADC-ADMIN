@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "baseUrl": ".",
+      "base-URL": ".",
       "paths": {
         "@/*": ["./src/*"],
         "@Modules/*": ["./src/Modules/*"],

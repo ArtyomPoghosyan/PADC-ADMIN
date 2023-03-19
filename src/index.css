@@ -74,15 +74,9 @@ code {
 
 }
 
-/* .Form {
+.Form {
   width: "900px" !important
-} */
-
-/* .ant-layout-sider{
-  max-width: 300px !important;
-  min-width: 200px ;
-  width: 200px !important;
-} */
+}
 
 header svg {
   width: 20px;
@@ -101,10 +95,10 @@ header svg {
   max-height: 260px;
 }
 
-/* .ant-form-item-control-input {
-  position: relative;
-  display: flex;
-  align-items: center;
-  min-height: 32px;
+.ant-form-item-control-input {
   width: 850px;
-} */
+}
+
+.mainStyle_header_container__33CC6{
+  margin-left: 0 !important;
+}

@@ -1,38 +1,41 @@
 import { Route, Routes } from "react-router-dom";
-import { DashBoardPage } from "src/pages/dashBoardPage";
-import { CurrentProjectPage } from "src/pages/projectPage/currentProjectPage";
-import { AddTrainingPage } from "src/pages/trainingPage/addTrainingPage";
-import { CurrentUserPage } from "src/pages/userPage/currentUserPage";
-import { AddVacanciePage } from "src/pages/vacanciesPage/addVacanciesPage";
-import { CurrentVacanciePage } from "src/pages/vacanciesPage/currentVacanciePage";
-import { LoginPage } from "../pages/auth/login";
-import { RegistrationPage } from "../pages/auth/registration";
+// import { DashBoard } from "src/pages/dash-Board";
+// import { CurrentProject } from "src/pages/project/current-Project";
+// import { AddTraining } from "src/pages/training/add-Training";
+// import { CurrentUser } from "src/pages/user/current-User";
+// import { AddVacancie } from "src/pages/vacancies/add-Vacancies";
+// import { CurrentVacancie } from "src/pages/vacancies/current-Vacancie";
+import { Login } from "../pages/auth/login";
+import { Registration } from "../pages/auth/registration";
+import { DashBoard } from "../pages/dash-Board";
 import { MainPage } from "../pages/main";
-import { ProjectPage } from "../pages/projectPage";
-import { TrainingPage } from "../pages/trainingPage";
-import {  CurrentTrainingPage } from "../pages/trainingPage/currentTrainingPage";
-import { UserPage } from "../pages/userPage";
-import { VacanciePage } from "../pages/vacanciesPage/allVacanciesPage";
+import { AddProject, AllProjects, CurrentProject } from "../pages/project";
+import { AddTraining, AllTrainings } from "../pages/training";
+import { CurrentTraining } from "../pages/training/current-Training";
+import { AllUsers, CurrentUser } from "../pages/user";
+import { AddVacancie, CurrentVacancie } from "../pages/vacancies";
+import { AllVacancies } from "../pages/vacancies/all-Vacancies";
 
 export const Routers: React.FC = () => {
     return (
         <div>
             <Routes>
 
-                <Route path="/" element={<LoginPage />} />
-                <Route path="registration" element={<RegistrationPage />} />
+                <Route path="/" element={<Login />} />
+                <Route path="registration" element={<Registration />} />
                 <Route path="/" element={<MainPage />}>
-                    <Route path="dashboard" element={<DashBoardPage />} />
-                    <Route path="users" element={<UserPage />} />
-                        <Route path="users/:id" element={<CurrentUserPage />} />
-                    <Route path="trainings" element={<TrainingPage />} />
-                        <Route path="trainings/:id" element={<CurrentTrainingPage />} />
-                        <Route path="trainings/add" element={<AddTrainingPage />}/>
-                    <Route path="projects" element={<ProjectPage />} />
-                        <Route path="projects/:id" element={<CurrentProjectPage />} />
-                    <Route path="vacancies" element={<VacanciePage />} />
-                        <Route path="vacancies/:id" element={<CurrentVacanciePage />} />
-                        <Route path="vacancies/add" element={<AddVacanciePage />} />
+                    <Route path="dashboard" element={<DashBoard />} />
+                    <Route path="users" element={<AllUsers />} />
+                    <Route path="users/:id" element={<CurrentUser />} />
+                    <Route path="trainings" element={<AllTrainings />} />
+                    <Route path="trainings/:id" element={<CurrentTraining />} />
+                    <Route path="trainings/add" element={<AddTraining />} />
+                    <Route path="projects" element={<AllProjects />} />
+                    <Route path="projects/:id" element={<CurrentProject />} />
+                    <Route path="projects/add" element={<AddProject />} />
+                    <Route path="vacancies" element={<AllVacancies />} />
+                    <Route path="vacancies/:id" element={<CurrentVacancie />} />
+                    <Route path="vacancies/add" element={<AddVacancie />} />
 
                 </Route>
             </Routes>

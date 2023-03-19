@@ -1,20 +1,17 @@
 import { Result, Spin } from "antd";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "src/hooks";
+import { useAppDispatch } from "../hooks";
+
 
 export const Response: React.FC<any> = (props) => {
-    console.log("helo")
     const dispatch = useAppDispatch();
     const { isLoading, isSuccess, error } = props.data
     const [errors, setError] = useState("")
     useEffect(() => {
         if (error || isSuccess) {
             setTimeout(() => {
-                console.log('asdfff')
                 dispatch(props.defaultState())
             }, 3000);
-            // console.log('privet putin')
-            // dispatch(props.defaultState())
             setError(error)
         }
     }, [error, isSuccess]);
