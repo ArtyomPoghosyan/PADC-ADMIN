@@ -1,5 +1,5 @@
 import { descriptors } from 'chart.js/dist/core/core.defaults';
-export interface IDataReducer {
+export interface ITrainingData {
     isLoading: boolean,
     isSuccess: boolean,
     trainingData: {

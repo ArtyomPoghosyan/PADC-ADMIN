@@ -1,18 +1,19 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import loginReducer from "../slices/login/login-Slice";
-import userReducer from "../slices/user/user-Slice";
-import projectReducer from "../slices/project/project-Slice";
-import vacancieReducer from "../slices/vacancies/vacancie-Slice";
-import trainingReducer from "../slices/training/training-Slice";
-import currentTraining from "../slices/training/current-Training-Slice";
-import editCurrentTraining from "../slices/training/edit-Training-Slice";
-import addTraining from "../slices/training/add-Training-Slice";
-import currentVacancie from "../slices/vacancies/current-Vacancie-Slice";
-import editCurrentVacancie from "../slices/vacancies/edit-Vacancie-Slice";
-import addVacancie from "../slices/vacancies/add-Vacancie-slice";
-import currentProject from "../slices/project/current-Projet-Slice";
-import editCurrentProject from "../slices/project/edit-Project-Slice";
-import addProject from "../slices/project/add-Project-Slice";
+import loginReducer from "../slices/login/login";
+import userReducer from "../slices/user/user";
+import projectReducer from "../slices/project/project";
+import vacancieReducer from "../slices/vacancies/vacancie";
+import trainingReducer from "../slices/training/training";
+import currentTraining from "../slices/training/current-training";
+import editCurrentTraining from "../slices/training/edit-training";
+import addTraining from "../slices/training/add-training";
+import currentVacancie from "../slices/vacancies/current-vacancie";
+import editCurrentVacancie from "../slices/vacancies/edit-vacancie";
+import addVacancie from "../slices/vacancies/add-vacancie";
+import currentProject from "../slices/project/current-projet";
+import editCurrentProject from "../slices/project/edit-project";
+import addProject from "../slices/project/add-project";
+import CurrentUser from "../slices/user/current-user";
 
 export const Store = configureStore({
     reducer: {
@@ -29,7 +30,8 @@ export const Store = configureStore({
         addVacancie:addVacancie,
         currentProject:currentProject,
         editCurrentProject:editCurrentProject,
-        addProject:addProject
+        addProject:addProject,
+        currentUser:CurrentUser
     },
 });
 

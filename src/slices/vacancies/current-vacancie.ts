@@ -1,8 +1,11 @@
-import { CurrentVacancieApi } from '../../base-URL/vacancie/index';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
+
 import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
 
+import { CurrentVacancieApi } from '../../services';
+
 type combineVacancieState = IModel & BaseResponse<[], 'currentVacancieData'> & ErrorResponse<null, 'currentVacancieError'>;
+
 const initialState: combineVacancieState = {
     isLoading: false,
     isSuccess: false,
@@ -12,7 +15,7 @@ const initialState: combineVacancieState = {
 
 export const CurrentVacancieThunk = createAsyncThunk(
     "currentVacancie/CurrentVacancieThunk",
-    async (id: string | undefined) => {
+    async (id: undefined | string ) => {
         try {
             const response = await CurrentVacancieApi(id);
             return Promise.resolve(response.data)
@@ -26,23 +29,23 @@ const CurrentVacancieSlice = createSlice({
     name: "currentVacancie",
     initialState,
     reducers: {
-            defaultState(state) {
-                state.isLoading=false;
-                state.isSuccess=false;
-                state.currentVacancieError= null; 
-            }
+        defaultState(state) {
+            state.isLoading = false;
+            state.isSuccess = false;
+            state.currentVacancieError = null;
+        }
     },
     extraReducers(builder) {
         builder
             .addCase(CurrentVacancieThunk.pending, (state: combineVacancieState) => {
                 state.isLoading = true;
             })
-            .addCase(CurrentVacancieThunk.fulfilled, (state:combineVacancieState, action: AnyAction) => {
+            .addCase(CurrentVacancieThunk.fulfilled, (state: combineVacancieState, action: AnyAction) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.currentVacancieData = action.payload
             })
-            .addCase(CurrentVacancieThunk.rejected, (state:combineVacancieState, action: AnyAction) => {
+            .addCase(CurrentVacancieThunk.rejected, (state: combineVacancieState, action: AnyAction) => {
                 state.isSuccess = false;
                 state.currentVacancieError = action?.error?.message
             })

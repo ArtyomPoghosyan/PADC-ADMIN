@@ -12,7 +12,7 @@ import { Layout, Menu, theme } from 'antd';
 
 import logo from "../../shared/images.ts/padc-logo.svg";
 
-import mainStyle from "./mainStyle.module.css";
+import mainStyle from "./main-style.module.css";
 
 export enum NavigationEnum {
     FIRST = "1",

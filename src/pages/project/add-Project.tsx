@@ -8,11 +8,11 @@ import { Response } from '../../shared/response';
 
 import { useSelector } from 'react-redux';
 
-import projectStyle from "./project-Style.module.css";
+import projectStyle from "./project-style.module.css";
 import { useAppDispatch } from '../../hooks';
 import { IState } from '../../models/common';
 import { IAddProject } from '../../models/projects';
-import { AddProjectThunk, defaultstate } from '../../slices/project/add-Project-Slice';
+import { AddProjectThunk, defaultstate } from '../../slices/project/add-project';
 import { SuccessResponse } from '../../shared/success-response';
 
 export const AddProject: React.FC = () => {

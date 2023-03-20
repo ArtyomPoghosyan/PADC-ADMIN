@@ -1,10 +1,12 @@
-import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getAllTrainingRequest } from '../../base-URL/training/index';
+import { AnyAction, createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IDataReducer } from '../../models/trainings/trainings';
+
+import { getAllTrainingRequest } from '../../services';
+
+import { ITrainingData } from '../../models/trainings/trainings';
 import { Iaction } from '../../models/common/common';
 
-const initialState: IDataReducer = {
+const initialState: ITrainingData = {
     isLoading: false,
     isSuccess: false,
     trainingData: {
@@ -31,15 +33,15 @@ const trainingSlice = createSlice({
     reducers: {},
     extraReducers(builder:any) {
         builder
-            .addCase(TrainingThunk.pending, (state: IDataReducer) => {
+            .addCase(TrainingThunk.pending, (state: ITrainingData) => {
                 state.isLoading = true
             })
-            .addCase(TrainingThunk.fulfilled, (state: IDataReducer, action: Iaction) => {
+            .addCase(TrainingThunk.fulfilled, (state: ITrainingData, action: Iaction) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.trainingData.data = action.payload
             })
-            .addCase(TrainingThunk.rejected, (state: IDataReducer, action: AnyAction) => {
+            .addCase(TrainingThunk.rejected, (state: ITrainingData, action: AnyAction) => {
                 state.isSuccess = false;
                 state.trainingError = action?.error?.message
             })

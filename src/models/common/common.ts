@@ -30,7 +30,8 @@ export interface IState {
     editcurrentVacnacie:AnyAction,
     currentProject:AnyAction,
     editCurrentProject:AnyAction,
-    addProject:AnyAction
+    addProject:AnyAction,
+    currentUser:AnyAction
 }
 
 

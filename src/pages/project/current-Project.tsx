@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import projectStyle from "./project-Style.module.css"
+import projectStyle from "./project-style.module.css"
 
 import { Form, Input } from 'antd';
 import { useForm } from 'antd/es/form/Form';
@@ -18,8 +18,8 @@ import { useParams } from 'react-router-dom';
 import { IState } from '../../models/common';
 import { useAppDispatch } from '../../hooks';
 
-import { EditCurrentProjectThunk, ProjectState } from '../../slices/project/edit-Project-Slice';
-import { CurrentProjectThunk } from '../../slices/project/current-Projet-Slice';
+import { EditCurrentProjectThunk, ProjectState } from '../../slices/project/edit-project';
+import { CurrentProjectThunk } from '../../slices/project/current-projet';
 import { SuccessResponse } from '../../shared/success-response';
 
 export const CurrentProject: React.FC = () => {

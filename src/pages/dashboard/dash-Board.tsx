@@ -1,5 +1,5 @@
 import { ChartBar, DoughnutBar, LineBar } from "../../shared/charts";
-import dashboardStyle from "./dash-Board-Style.module.css";
+import dashboardStyle from "./dashboard-style.module.css";
 
 export const DashBoard: React.FC = () => {
 

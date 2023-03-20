@@ -1,4 +1,5 @@
-import { editCurentProjectAPi } from '../../base-URL/project/index';
+import { editCurentProjectAPi } from '../../services';
+
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
 

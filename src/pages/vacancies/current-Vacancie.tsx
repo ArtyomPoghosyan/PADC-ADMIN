@@ -13,13 +13,13 @@ import { Input } from "antd"
 import { Form } from 'antd';
 import { useForm } from "antd/es/form/Form";
 
-import vacancieStyle from "./vacancie-Style.module.css";
+import vacancieStyle from "./vacancie-style.module.css";
 import { IState } from "../../models/common";
 
 import { useAppDispatch } from "../../hooks";
 
-import { EditCurrentVacancieThunk, vacancieState } from "../../slices/vacancies/edit-Vacancie-Slice";
-import { CurrentVacancieThunk } from "../../slices/vacancies/current-Vacancie-Slice";
+import { EditCurrentVacancieThunk, vacancieState } from "../../slices/vacancies/edit-vacancie";
+import { CurrentVacancieThunk } from "../../slices/vacancies/current-vacancie";
 import { ButtonLoading } from "../../shared/button-loading";
 import { SuccessResponse } from "../../shared/success-response";
 

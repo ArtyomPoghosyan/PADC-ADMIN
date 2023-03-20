@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { LoginThunk } from '../../../slices/login/login-Slice';
+import { LoginThunk } from '../../../slices/login/login';
 
 import { useNavigate } from 'react-router-dom';
 

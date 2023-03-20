@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import React from 'react';
 import { TableComponent } from "../../shared/table";
 import { useAppDispatch } from "../../hooks";
-import { UserThunk } from "../../slices/user/user-Slice";
+import { UserThunk } from "../../slices/user/user";
 import { IState } from "../../models/common/common";
 import moment from "moment";
 
@@ -26,14 +26,14 @@ export const AllUsers: React.FC = () => {
                     width: 30,
                 },
                 {
-                    title: 'FirstName',
+                    title: 'First name',
                     dataIndex: "firstName",
                     key: 'age',
                     width: 150,
                     ellipsis: true,
                 },
                 {
-                    title: 'LastName',
+                    title: 'Last name',
                     dataIndex: "lastName",
                     key: 'address 1',
                     width: 150,
@@ -69,7 +69,7 @@ export const AllUsers: React.FC = () => {
         setSelectedRowKeys(newSelectedRowKeys);
     };
 
-    const user = userData?.data?.map((item: any, index: number) => {
+    const user = userData?.data?.map((item, index: number) => {
         return ({
             ...item,
             index: index+1,

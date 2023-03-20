@@ -1,9 +1,11 @@
-import { EditCurrentTrainingApi } from '../../base-URL/index';
+import { EditCurrentTrainingApi } from '../../services';
+
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
-import { IDataReducer } from '../../models/trainings';
+
+import { ITrainingData } from '../../models/trainings';
 import { IEditData } from '../../models/common';
  
-const initialState: IDataReducer = {
+const initialState: ITrainingData = {
     isLoading: false,
     isSuccess: false,
     trainingData: {
@@ -36,15 +38,15 @@ const editCurrentTrainingSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(EditCurrentTrainingThunk.pending, (state: IDataReducer) => {
+            .addCase(EditCurrentTrainingThunk.pending, (state: ITrainingData) => {
                 state.isLoading = true
             })
-            .addCase(EditCurrentTrainingThunk.fulfilled, (state: IDataReducer, action: AnyAction) => {
+            .addCase(EditCurrentTrainingThunk.fulfilled, (state: ITrainingData, action: AnyAction) => {
                 state.isLoading = false;
                     state.isSuccess = true;
                     state.trainingData.data = action.payload
             })
-            .addCase(EditCurrentTrainingThunk.rejected, (state: IDataReducer, action: AnyAction) => {
+            .addCase(EditCurrentTrainingThunk.rejected, (state: ITrainingData, action: AnyAction) => {
                 state.isSuccess = false;
                     state.trainingError = action?.error?.message
             })

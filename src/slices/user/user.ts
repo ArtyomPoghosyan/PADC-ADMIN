@@ -1,7 +1,9 @@
 import { AnyAction, createSlice } from '@reduxjs/toolkit';
-import { GetAllUserApi } from '../../base-URL/index';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import { BaseResponse, ErrorResponse, IModel } from '../../models/common/common';
+
+import { GetAllUserApi } from '../../services';
 
 export type combineUserState = IModel & BaseResponse<[], 'userData'> & ErrorResponse<null, 'userError'>;
 

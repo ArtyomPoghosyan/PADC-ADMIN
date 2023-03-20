@@ -1,3 +1,3 @@
-export * from "./all-Project";
-export * from "./current-Project";
-export * from "./add-Project";
+export * from "./add-project";
+export * from "./all-project";
+export * from "./current-project";

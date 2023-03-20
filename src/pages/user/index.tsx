@@ -1,2 +1,2 @@
-export * from "./all-User";
-export * from "./current-User";
+export * from "./all-user";
+export * from "./current-user";

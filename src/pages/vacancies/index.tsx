@@ -1,3 +1,3 @@
-export * from "./all-Vacancies";
-export * from "./add-Vacancies";
-export * from "./current-Vacancie";
+export * from "./all-vacancies";
+export * from "./add-vacancies";
+export * from "./current-vacancie";

@@ -1,3 +1,3 @@
-export * from "./all-Training";
-export * from "./current-Training";
-export * from "./add-Training"
+export * from "./add-training";
+export * from "./all-training";
+export * from "./current-training"

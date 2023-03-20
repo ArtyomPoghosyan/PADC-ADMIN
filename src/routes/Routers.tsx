@@ -7,14 +7,14 @@ import { Route, Routes } from "react-router-dom";
 // import { CurrentVacancie } from "src/pages/vacancies/current-Vacancie";
 import { Login } from "../pages/auth/login";
 import { Registration } from "../pages/auth/registration";
-import { DashBoard } from "../pages/dash-Board";
+import { DashBoard } from "../pages/dashboard";
 import { MainPage } from "../pages/main";
 import { AddProject, AllProjects, CurrentProject } from "../pages/project";
-import { AddTraining, AllTrainings } from "../pages/training";
-import { CurrentTraining } from "../pages/training/current-Training";
+import { AddTraining, AllTrainings, CurrentTraining } from "../pages/training";
+
 import { AllUsers, CurrentUser } from "../pages/user";
 import { AddVacancie, CurrentVacancie } from "../pages/vacancies";
-import { AllVacancies } from "../pages/vacancies/all-Vacancies";
+import { AllVacancies } from "../pages/vacancies/all-vacancies";
 
 export const Routers: React.FC = () => {
     return (

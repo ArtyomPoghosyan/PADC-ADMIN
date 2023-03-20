@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import trainingStyle from "./training-Style.module.css"
+import trainingStyle from "./training-style.module.css"
 import { Form, Input, Button, Select, DatePicker, Upload, UploadFile, UploadProps, Spin, } from 'antd';
 import { EditorState } from 'draft-js';
 
@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 import { IState } from '../../models/common';
 import { IAddTraining } from '../../models/trainings';
 
-import { AddTrainingThunk, defaultState } from '../../slices/training/add-Training-Slice';
+import { AddTrainingThunk, defaultState } from '../../slices/training/add-training';
 import { SuccessResponse } from '../../shared/success-response';
 
 export const AddTraining: React.FC = () => {
@@ -42,7 +42,6 @@ export const AddTraining: React.FC = () => {
         description?.blocks?.forEach(item => descriptionBlock += item.text);
         let data: IAddTraining = { name, description: descriptionBlock, type, date: convertDate, image: fileList[0] };
         dispatch(AddTrainingThunk(data));
-
     }
 
     const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
@@ -59,7 +58,7 @@ export const AddTraining: React.FC = () => {
                     wrapperCol={{ span: 14 }}
                     layout="horizontal"
                     onFinish={onFinish} autoComplete="off">
-                        
+
                     {isSuccess ? <SuccessResponse navigate={"trainings"} isLoading={isLoading} isSuccess={isSuccess}
                         defaultState={defaultState} /> : null}
 
@@ -108,5 +107,3 @@ export const AddTraining: React.FC = () => {
         </div>
     )
 }
-
-

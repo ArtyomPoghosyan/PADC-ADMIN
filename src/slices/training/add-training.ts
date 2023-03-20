@@ -1,5 +1,7 @@
 import { HTTPHelper } from '../../helpers/http.helper';
-import { addTrainingApi } from '../../base-URL/training/Training';
+
+import { addTrainingApi } from '../../services';
+
 import { AnyAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
 import { IAddTraining } from '../../models/trainings';

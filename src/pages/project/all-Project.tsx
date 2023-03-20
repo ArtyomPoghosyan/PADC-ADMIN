@@ -3,11 +3,11 @@ import { Button } from 'antd';
 import { useSelector } from 'react-redux';
 import { TableComponent } from '../../shared/table';
 import { useAppDispatch } from '../../hooks';
-import { axiosProject } from '../../slices/project/project-Slice';
+import { axiosProject } from '../../slices/project/project';
 import { IState } from '../../models/common/common';
 
 import { useNavigate } from 'react-router-dom';
-import projectStyle from "./project-Style.module.css";
+import projectStyle from "./project-style.module.css";
 import { IProjectData } from '../../models/projects';
 
 export const AllProjects: React.FC = () => {
@@ -64,7 +64,7 @@ export const AllProjects: React.FC = () => {
     <div className={projectStyle.training_page_container}>
       <div className={projectStyle.button_container}>
         <Button onClick={() => { navigation("add") }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
-          Add Training
+          Add Project
         </Button>
       </div>
       <TableComponent loading={isLoading} columns={renderTable} dataSource={project}

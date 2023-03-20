@@ -1,7 +1,9 @@
-import { AddVacancieApi } from '../../base-URL/vacancie/index';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
+
 import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
 import { IAddVacancieData } from '../../models/vacancies';
+
+import { AddVacancieApi } from '../../services';
 
 
 type combineVacancieState = IModel & BaseResponse<[], 'currentVacancieData'> & ErrorResponse<null, 'currentVacancieError'>;

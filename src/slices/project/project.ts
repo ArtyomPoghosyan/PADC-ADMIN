@@ -1,5 +1,6 @@
+import { Projectapi } from '../../services';
+
 import { AnyAction, createSlice } from '@reduxjs/toolkit';
-import { Projectapi } from '../../base-URL/index';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { BaseResponse, ErrorResponse, IModel } from '../../models/common/common';
 

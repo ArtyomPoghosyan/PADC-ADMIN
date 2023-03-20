@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "base-URL": "./",
+
     "target": "es5",
     "lib": [
       "dom",
@@ -21,11 +21,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "paths": {
-      "@api/*": [
-        "src/base-URL/*"
-      ]
-    },
+
     "outDir": "../../dist",
     "rootDir": "."
   },

@@ -1,8 +1,9 @@
-import { Login } from '../../base-URL/index';
+
 
 import { AnyAction, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { BaseResponse, ErrorResponse, IModel } from '../../models/common/common';
 import { ILogin } from '../../models/auth';
+import { Login } from "../../services";
 
 
 

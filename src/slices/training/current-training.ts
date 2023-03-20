@@ -1,8 +1,9 @@
-import { CurrentTrainingApi } from '../../base-URL/index';
-import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
-import { IDataReducer } from '../../models/trainings';
+import { CurrentTrainingApi } from '../../services';
 
-const initialState:IDataReducer = { 
+import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
+import { ITrainingData } from '../../models/trainings';
+
+const initialState:ITrainingData = { 
     isLoading: false,
     isSuccess: false,
     trainingData: {
@@ -35,15 +36,15 @@ const currentTrianingSlice =createSlice({
     },
     extraReducers(builder) {
         builder
-        .addCase(CurrentTrainingThunk.pending,(state:IDataReducer) => {
+        .addCase(CurrentTrainingThunk.pending,(state:ITrainingData) => {
             state.isLoading= true
         })
-        .addCase(CurrentTrainingThunk.fulfilled,(state:IDataReducer,action:AnyAction)=> {
+        .addCase(CurrentTrainingThunk.fulfilled,(state:ITrainingData,action:AnyAction)=> {
             state.isLoading=false;
             state.isSuccess=true;
             state.trainingData.data= action.payload
         })
-        .addCase(CurrentTrainingThunk.rejected,(state:IDataReducer,action:AnyAction) => {
+        .addCase(CurrentTrainingThunk.rejected,(state:ITrainingData,action:AnyAction) => {
             state.isSuccess=false;
             state.trainingError=action?.error?.message
         })

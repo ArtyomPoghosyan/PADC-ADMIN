@@ -9,7 +9,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Response } from '../../shared/response';
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import vacancieStyle from "./vacancie-Style.module.css";
+import vacancieStyle from "./vacancie-style.module.css";
 
 import { IAddVacancieData } from '../../models/vacancies';
 import { IState } from '../../models/common';
@@ -18,7 +18,7 @@ import { Form, Button, Input, } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 
 import { useAppDispatch } from '../../hooks';
-import { AddVacancieThunk, defaultState } from '../../slices/vacancies/add-Vacancie-slice';
+import { AddVacancieThunk, defaultState } from '../../slices/vacancies/add-vacancie';
 import { SuccessResponse } from '../../shared/success-response';
 
 

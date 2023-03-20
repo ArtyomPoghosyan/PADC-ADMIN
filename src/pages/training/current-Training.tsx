@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import trainingStyle from "./training-Style.module.css"
+import trainingStyle from "./training-style.module.css"
 
 import { Form, Input, Select, DatePicker, Upload, UploadFile, UploadProps, } from 'antd';
 import { Response } from '../../shared/response';
@@ -19,8 +19,8 @@ import { useParams } from 'react-router-dom';
 import { IState } from '../../models/common';
 import { useAppDispatch } from '../../hooks';
 import { IAddTraining } from '../../models/trainings';
-import { EditCurrentTrainingThunk, trainingState } from '../../slices/training/edit-Training-Slice';
-import { CurrentTrainingThunk } from '../../slices/training/current-Training-Slice';
+import { EditCurrentTrainingThunk, trainingState } from '../../slices/training/edit-training';
+import { CurrentTrainingThunk } from '../../slices/training/current-training';
 import { ButtonLoading } from '../../shared/button-loading';
 import { SuccessResponse } from '../../shared/success-response';
 
