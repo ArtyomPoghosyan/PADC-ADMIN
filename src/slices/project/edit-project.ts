@@ -1,11 +1,11 @@
-import { editCurentProjectAPi } from '../../services';
+import { editCurentProject } from '../../services';
 
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
 
-type combineProjectState = IModel & BaseResponse<[], 'currentProjectData'> & ErrorResponse<null, 'currentProjectError'>;
+type CombineProjectState = IModel & BaseResponse<[], 'currentProjectData'> & ErrorResponse<null, 'currentProjectError'>;
 
-const initialState: combineProjectState = {
+const initialState: CombineProjectState = {
     isLoading: false,
     isSuccess: false,
     currentProjectData: [],
@@ -16,7 +16,7 @@ export const EditCurrentProjectThunk = createAsyncThunk(
     "editcurrentProject/axiosEditCurrentProject",
     async ({ id, data }: any) => {
         try {
-            const response = await editCurentProjectAPi(id, data);
+            const response = await editCurentProject(id, data);
             return Promise.resolve(response.data)
         } catch (error) {
             return Promise.reject(error)
@@ -39,12 +39,12 @@ const editCurrentProjectSlice = createSlice({
         .addCase(EditCurrentProjectThunk.pending,(state)=>{
             state.isLoading= true;
         })
-        .addCase(EditCurrentProjectThunk.fulfilled,(state:combineProjectState,action:AnyAction) => {
+        .addCase(EditCurrentProjectThunk.fulfilled,(state:CombineProjectState,action:AnyAction) => {
             state.isLoading= false;
             state.isSuccess= true;
             state.currentProjectData = action.payload
         })
-        .addCase(EditCurrentProjectThunk.rejected,(state:combineProjectState,action:AnyAction) => {
+        .addCase(EditCurrentProjectThunk.rejected,(state:CombineProjectState,action:AnyAction) => {
             state.isSuccess= false;
             state.currentProjectError= action?.error?.message;
         })

@@ -6,14 +6,14 @@ import { Api } from '../service';
 export const getAllTrainingRequest = ():Promise<AxiosResponse<ITrainingData[]>> => {
     return Api.get<ITrainingData[]>("/trainings")
 }
-export const CurrentTrainingApi = (id):Promise<AxiosResponse<ITrainingData[]>> => {
+export const CurrentTraining = (id):Promise<AxiosResponse<ITrainingData[]>> => {
     return Api.get<ITrainingData[]>(`/trainings/${id}`)
 }
 
-export const EditCurrentTrainingApi = (id: string | undefined, data: Object):Promise<AxiosResponse<ITrainingData[]>> => {
+export const EditCurrentTraining = (id: string | undefined, data: Object):Promise<AxiosResponse<ITrainingData[]>> => {
     return Api.put<ITrainingData[]>(`/trainings/${id}`, data)
 }
 
-export const addTrainingApi = (data):Promise<AxiosResponse<ITrainingData[]>> => {
+export const addTraining = (data):Promise<AxiosResponse<ITrainingData[]>> => {
     return Api.post<ITrainingData[]>("/trainings", data)
 }

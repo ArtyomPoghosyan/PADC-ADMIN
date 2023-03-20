@@ -1,15 +1,13 @@
+import { AnyAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-
-import { AnyAction, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { BaseResponse, ErrorResponse, IModel } from '../../models/common/common';
 import { ILogin } from '../../models/auth';
+
 import { Login } from "../../services";
 
+export type CombineLoginState = IModel & BaseResponse<[], 'loginData'> & ErrorResponse<null, 'loginError'>;
 
-
-export type combineLoginState = IModel & BaseResponse<[], 'loginData'> & ErrorResponse<null, 'loginError'>;
-
-const initialState: combineLoginState = {
+const initialState: CombineLoginState = {
     isLoading: false,
     isSuccess: false,
     loginData: [],
@@ -34,15 +32,15 @@ const loginSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
-            .addCase(LoginThunk.pending, (state: combineLoginState) => {
+            .addCase(LoginThunk.pending, (state: CombineLoginState) => {
                 state.isLoading = true;
             })
-            .addCase(LoginThunk.fulfilled, (state: combineLoginState, action: AnyAction) => {
+            .addCase(LoginThunk.fulfilled, (state: CombineLoginState, action: AnyAction) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.loginData = action.payload
             })
-            .addCase(LoginThunk.rejected, (state: combineLoginState, action: AnyAction) => {
+            .addCase(LoginThunk.rejected, (state: CombineLoginState, action: AnyAction) => {
                 state.isSuccess = false;
                 state.loginError = action?.error?.message
             })

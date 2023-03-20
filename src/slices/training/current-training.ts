@@ -1,4 +1,4 @@
-import { CurrentTrainingApi } from '../../services';
+import { CurrentTraining } from '../../services';
 
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { ITrainingData } from '../../models/trainings';
@@ -16,7 +16,7 @@ export const CurrentTrainingThunk = createAsyncThunk(
     "curentTraining/axiosCurentTrining",
     async (id:undefined | string)  => {
         try {
-            const response = await CurrentTrainingApi(id)
+            const response = await CurrentTraining(id)
             return Promise.resolve(response.data)
         } catch (error) {
             return Promise.reject(error)

@@ -1,4 +1,4 @@
-import { EditCurrentTrainingApi } from '../../services';
+import { EditCurrentTraining } from '../../services';
 
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 
@@ -18,7 +18,7 @@ export const EditCurrentTrainingThunk = createAsyncThunk(
     "editCurrentTraining/EditCurrentTrainingThunk",
     async ({id,data}:IEditData) => {
         try {
-            const response = await EditCurrentTrainingApi(id,data);
+            const response = await EditCurrentTraining(id,data);
             return Promise.resolve(response.data);
         } catch (error) {
             return Promise.reject(error)

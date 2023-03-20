@@ -9,10 +9,14 @@
     display: flex;
     width: 257px;
     height: 257px;
-    background-color: red;
+    background-color: #dbdbdb;
 }
 
 .user_form {
     display: flex;
     flex-direction: row;
+}
+.mediaFiles {
+    display: flex;
+    width: 90px;
 }

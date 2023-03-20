@@ -1,11 +1,11 @@
-import { currentProjectAPi } from '../../services';
+import { currentProject } from '../../services';
 
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
 
-type combineVacancieState = IModel & BaseResponse<[], 'currentProjectData'> & ErrorResponse<null, 'currentProjectError'>;
+type CombineProjectState = IModel & BaseResponse<[], 'currentProjectData'> & ErrorResponse<null, 'currentProjectError'>;
 
-const initialState: combineVacancieState = {
+const initialState: CombineProjectState = {
     isLoading: false,
     isSuccess: false,
     currentProjectData: [],
@@ -16,7 +16,7 @@ export const CurrentProjectThunk = createAsyncThunk(
     "currentProject/axiosCurrentProject",
     async (id:any) => {
         try {
-            const response = await currentProjectAPi(id);
+            const response = await currentProject(id);
             return Promise.resolve(response.data)
         } catch (error) {
             return Promise.reject(error)
@@ -36,15 +36,15 @@ const currentProjectSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(CurrentProjectThunk.pending, (state: combineVacancieState) => {
+            .addCase(CurrentProjectThunk.pending, (state: CombineProjectState) => {
                 state.isLoading = true
             })
-            .addCase(CurrentProjectThunk.fulfilled, (state: combineVacancieState, action: AnyAction) => {
+            .addCase(CurrentProjectThunk.fulfilled, (state: CombineProjectState, action: AnyAction) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.currentProjectData = action.payload
             })
-            .addCase(CurrentProjectThunk.rejected, (state: combineVacancieState, action: AnyAction) => {
+            .addCase(CurrentProjectThunk.rejected, (state: CombineProjectState, action: AnyAction) => {
                 state.isSuccess = false;
                 state.currentProjectError = action?.error?.message
             })

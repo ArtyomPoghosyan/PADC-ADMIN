@@ -3,11 +3,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { BaseResponse, ErrorResponse, IModel } from '../../models/common/common';
 
-import { GetAllUserApi } from '../../services';
+import { GetAllUser } from '../../services';
 
-export type combineUserState = IModel & BaseResponse<[], 'userData'> & ErrorResponse<null, 'userError'>;
+export type CombineUserState = IModel & BaseResponse<[], 'userData'> & ErrorResponse<null, 'userError'>;
 
-const initialState:combineUserState = {
+const initialState:CombineUserState = {
     isLoading: false,
     isSuccess: false,
     userData: [],
@@ -18,7 +18,7 @@ export const UserThunk = createAsyncThunk(
     'user/UserThunk',
     async () => {
         try {
-            const response = await GetAllUserApi()
+            const response = await GetAllUser()
             return Promise.resolve(response.data)
         } catch (error) {
             return Promise.reject(error)
@@ -38,15 +38,15 @@ const userSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(UserThunk.pending, (state: combineUserState) => {
+            .addCase(UserThunk.pending, (state: CombineUserState) => {
                 state.isLoading = true
             })
-            .addCase(UserThunk.fulfilled,(state:combineUserState,action:AnyAction)=> {
+            .addCase(UserThunk.fulfilled,(state:CombineUserState,action:AnyAction)=> {
                 state.isLoading= false;
                 state.isSuccess=true;
                 state.userData=action.payload
             })
-            .addCase(UserThunk.rejected,(state:combineUserState,action:AnyAction) => {
+            .addCase(UserThunk.rejected,(state:CombineUserState,action:AnyAction) => {
                 state.isSuccess= false;
                 state.userError=action?.error?.message
             })

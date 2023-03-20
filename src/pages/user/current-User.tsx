@@ -16,10 +16,11 @@ import { useAppDispatch } from "../../hooks";
 import { ButtonLoading } from "../../shared/button-loading";
 
 import { CurrentUserThunk } from "../../slices/user/current-user";
+import moment from "moment";
 
 export const CurrentUser: React.FC = () => {
 
-    const { isLoading, userData } = useSelector((state: IState) => state.currentUser);
+    const { userData } = useSelector((state: IState) => state.currentUser);
     const baseURL = process.env.REACT_APP_BASE_URL;
     const [image, setImage] = useState()
     const [form] = useForm();
@@ -35,11 +36,12 @@ export const CurrentUser: React.FC = () => {
     useEffect(() => {
         if (userData?.data) {
             const { firstName, lastName, email, role, mediaFiles, createdAt } = userData?.data;
-            console.log(mediaFiles)
             setImage(mediaFiles)
-            form.setFieldsValue({ firstName, lastName, email, role, mediaFiles, createdAt })
+            form.setFieldsValue({
+                firstName, lastName, email, role: role.name,
+                createdAt: moment(createdAt, 'YYYY-MM-DD').format('DD/MM/YYYY HH:MM')
+            })
         }
-        console.log(image)
     }, [userData])
 
     return (
@@ -55,7 +57,7 @@ export const CurrentUser: React.FC = () => {
 
                 <div className={userStyle.image_container}>
                     <Form.Item name="createdAt">
-                        <img style={{ display: "flex", maxWidth: "90px" }} src={baseURL + `/${image}`} alt="PADC" />
+                        <img className={userStyle.mediaFiles} src={baseURL + `/${image}`} alt="PADC" />
                     </Form.Item>
                 </div>
 
@@ -76,7 +78,7 @@ export const CurrentUser: React.FC = () => {
                         <Input placeholder='Name' />
                     </Form.Item>
 
-                    <Form.Item name="mediaFiles">
+                    <Form.Item name="createdAt">
                         <Input placeholder='Name' />
                     </Form.Item>
                 </div>

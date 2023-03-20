@@ -3,7 +3,7 @@ import { IuserData } from './../../models/users/users';
 import { IToken } from '../../models/common';
 import { Api } from '../service';
 
-export const GetAllUserApi = ():Promise<AxiosResponse<IuserData[]>> => {
+export const GetAllUser = ():Promise<AxiosResponse<IuserData[]>> => {
     return Api.get<IuserData[]>("/users")
 }
 

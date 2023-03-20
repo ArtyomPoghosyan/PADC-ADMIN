@@ -3,18 +3,18 @@ import { AxiosResponse } from 'axios';
 import { IToken } from '../../models/common';
 import { Api } from '../service';
 
-export const Projectapi = ():Promise<AxiosResponse<IProjectData[]>> => {
+export const Project = ():Promise<AxiosResponse<IProjectData[]>> => {
     return Api.get<IProjectData[]>("/projects/")
 }
 
-export const currentProjectAPi = (id):Promise<AxiosResponse<IProjectData[]>> => {
+export const currentProject = (id):Promise<AxiosResponse<IProjectData[]>> => {
     return Api.get<IProjectData[]>(`projects/${id}`)
 }
 
-export const editCurentProjectAPi = (id, data):Promise<AxiosResponse<IProjectData[]>> => {
+export const editCurentProject = (id, data):Promise<AxiosResponse<IProjectData[]>> => {
     return Api.put<IProjectData[]>(`/projects/${id}`, data)
 }
 
-export const addProjectApi = (data):Promise<AxiosResponse<IProjectData[]>> => {
+export const addProject = (data):Promise<AxiosResponse<IProjectData[]>> => {
     return Api.post<IProjectData[]>("/projects", data)
 }

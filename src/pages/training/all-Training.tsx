@@ -86,6 +86,7 @@ export const AllTrainings: React.FC = () => {
       ...item,
       index: index + 1,
       description: <p dangerouslySetInnerHTML={{ __html: item?.description }}></p>,
+      type:item?.type.charAt(0).toUpperCase()+ item?.type.slice(1) ,
       date: moment(item.date, 'YYYY-MM-DD').format('DD/MM/YYYY HH:MM')
 
     }

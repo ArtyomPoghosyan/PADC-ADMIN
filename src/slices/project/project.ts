@@ -1,4 +1,4 @@
-import { Projectapi } from '../../services';
+import { Project } from '../../services';
 
 import { AnyAction, createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -17,7 +17,7 @@ export const axiosProject = createAsyncThunk(
     "project/axiosProject",
     async () => {
         try {
-            const response = await Projectapi();
+            const response = await Project();
             return Promise.resolve(response.data)
         } catch (error) {
             return Promise.reject(error)

@@ -2,11 +2,11 @@ import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 
 import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
 
-import { CurrentVacancieApi } from '../../services';
+import { CurrentVacancie } from '../../services';
 
-type combineVacancieState = IModel & BaseResponse<[], 'currentVacancieData'> & ErrorResponse<null, 'currentVacancieError'>;
+type CombineVacancieState = IModel & BaseResponse<[], 'currentVacancieData'> & ErrorResponse<null, 'currentVacancieError'>;
 
-const initialState: combineVacancieState = {
+const initialState: CombineVacancieState = {
     isLoading: false,
     isSuccess: false,
     currentVacancieData: [],
@@ -17,7 +17,7 @@ export const CurrentVacancieThunk = createAsyncThunk(
     "currentVacancie/CurrentVacancieThunk",
     async (id: undefined | string ) => {
         try {
-            const response = await CurrentVacancieApi(id);
+            const response = await CurrentVacancie(id);
             return Promise.resolve(response.data)
         } catch (error) {
             return Promise.reject(error)
@@ -37,15 +37,15 @@ const CurrentVacancieSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(CurrentVacancieThunk.pending, (state: combineVacancieState) => {
+            .addCase(CurrentVacancieThunk.pending, (state: CombineVacancieState) => {
                 state.isLoading = true;
             })
-            .addCase(CurrentVacancieThunk.fulfilled, (state: combineVacancieState, action: AnyAction) => {
+            .addCase(CurrentVacancieThunk.fulfilled, (state: CombineVacancieState, action: AnyAction) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.currentVacancieData = action.payload
             })
-            .addCase(CurrentVacancieThunk.rejected, (state: combineVacancieState, action: AnyAction) => {
+            .addCase(CurrentVacancieThunk.rejected, (state: CombineVacancieState, action: AnyAction) => {
                 state.isSuccess = false;
                 state.currentVacancieError = action?.error?.message
             })
