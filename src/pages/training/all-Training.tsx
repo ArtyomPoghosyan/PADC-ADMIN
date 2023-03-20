@@ -15,11 +15,15 @@ export const AllTrainings: React.FC = () => {
   const { isLoading, trainingData, } = useSelector((state: IState) => state.training)
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
-  
+
   useEffect(() => {
     dispatch(TrainingThunk())
 
   }, [])
+
+  const dateFormat = (date: string): string => {
+    return (moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY HH:MM'))
+  }
 
   const renderTable = () => {
     return (
@@ -54,10 +58,17 @@ export const AllTrainings: React.FC = () => {
           ellipsis: true,
         },
         {
+          title: 'Updated at',
+          dataIndex: "updatedAt",
+          key: 'address 3',
+          width: 30,
+          ellipsis: true,
+        },
+        {
           title: 'Type',
           dataIndex: "type",
           key: 'address 2',
-          width: 20,
+          width: 15,
           ellipsis: true,
         },
         {
@@ -66,7 +77,7 @@ export const AllTrainings: React.FC = () => {
           key: 'address 3',
           width: 30,
           ellipsis: true,
-        },
+        }
       ]
     )
   }
@@ -86,8 +97,9 @@ export const AllTrainings: React.FC = () => {
       ...item,
       index: index + 1,
       description: <p dangerouslySetInnerHTML={{ __html: item?.description }}></p>,
-      type:item?.type.charAt(0).toUpperCase()+ item?.type.slice(1) ,
-      date: moment(item.date, 'YYYY-MM-DD').format('DD/MM/YYYY HH:MM')
+      type: item?.type.charAt(0).toUpperCase() + item?.type.slice(1),
+      date: dateFormat(item.date),
+      updatedAt: dateFormat(item.createdAt)
 
     }
   })

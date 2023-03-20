@@ -15,6 +15,10 @@ export const AllUsers: React.FC = () => {
         dispatch(UserThunk())
     }, [])
 
+    const dateFormat = (date: string):string => {
+        return (moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY HH:MM'))
+    }
+
     const renderTable = () => {
         return (
             [
@@ -60,6 +64,13 @@ export const AllUsers: React.FC = () => {
                     width: 100,
                     ellipsis: true,
                 },
+                {
+                    title: 'Updated at',
+                    dataIndex: "updatedAt",
+                    key: 'address 3',
+                    width: 100,
+                    ellipsis: true,
+                },
             ]
         )
     }
@@ -73,7 +84,8 @@ export const AllUsers: React.FC = () => {
         return ({
             ...item,
             index: index+1,
-            createdAt: moment(item.createdAt, 'YYYY-MM-DD').format('DD/MM/YYYY HH:MM')
+            createdAt: dateFormat(item.createdAt),
+            updatedAt: dateFormat(item.createdAt)
         }
         )
     })

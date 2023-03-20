@@ -20,6 +20,10 @@ export const AllVacancies: React.FC = () => {
         dispatch(VacancieThunk())
     }, [])
 
+    const dateFormat = (date: string):string => {
+        return (moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY HH:MM'))
+    }
+
     const renderTable = () => {
         return (
             [
@@ -53,6 +57,13 @@ export const AllVacancies: React.FC = () => {
                     width: 35,
                     ellipsis: true,
                 },
+                {
+                    title: 'Updated at',
+                    dataIndex: "updatedAt",
+                    key: 'address 2',
+                    width: 35,
+                    ellipsis: true,
+                },
             ]
         )
     }
@@ -66,7 +77,8 @@ export const AllVacancies: React.FC = () => {
             ...item,
             index: index + 1,
             description: <p dangerouslySetInnerHTML={{ __html: item?.description }}></p>,
-            createdAt: moment(item.createdAt, 'YYYY-MM-DD').format('DD/MM/YYYY HH:MM')
+            createdAt: dateFormat(item.createdAt),
+            updatedAt: dateFormat(item.updatedAt)
         }
     })
     return (

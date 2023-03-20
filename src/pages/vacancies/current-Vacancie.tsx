@@ -57,10 +57,12 @@ export const CurrentVacancie: React.FC = () => {
 
     useEffect(() => {
         if (currentVacancieData?.data) {
-            const { shortDescription, description } = currentVacancieData.data;
+            const { title, shortDescription, description } = currentVacancieData.data;
             setEditorState(EditorState.createWithContent(ContentState.createFromText(description)))
             setValue(shortDescription);
             setText(description);
+            console.log(title)
+            form.setFieldsValue({ title })
         }
     }, [currentVacancieData])
 
@@ -76,10 +78,14 @@ export const CurrentVacancie: React.FC = () => {
                     layout="horizontal"
                     onFinish={onFinish} autoComplete="off">
 
-                    {( isSuccessEdit) ? <SuccessResponse navigate={"vacancies"} isLoading={isLoadingEdit}
-                        isSuccess={isSuccessEdit} defaultState={vacancieState} /> : null}
+                    {(isSuccessEdit) ? <SuccessResponse navigate={"vacancies"} isLoading={isLoadingEdit}
+                        isSuccess={isSuccessEdit} defaultState={vacancieState} /> : null};
+                        
+                    <p>Title</p>
+                    <Form.Item name="title">
+                        <Input placeholder="title" />
+                    </Form.Item>
 
-                    <h2>{currentVacancieData?.data?.title}</h2>
                     <Form.Item name="shortDescription">
                         <div style={{ margin: '24px 0' }} />
                         <p>Shor description</p>
