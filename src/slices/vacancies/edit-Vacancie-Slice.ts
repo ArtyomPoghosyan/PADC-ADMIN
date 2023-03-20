@@ -29,7 +29,7 @@ const editcurrentVacancieSlice = createSlice({
     name: "editCurrentVacnacie",
     initialState,
     reducers: {
-        defaultState(state) {
+        vacancieState(state) {
             state.isLoading = false;
             state.isSuccess = false;
             state.editVacancieError = null;
@@ -53,4 +53,4 @@ const editcurrentVacancieSlice = createSlice({
 })
 
 export default editcurrentVacancieSlice.reducer;
-export const defaultState = editcurrentVacancieSlice.actions.defaultState
+export const vacancieState = editcurrentVacancieSlice.actions.vacancieState

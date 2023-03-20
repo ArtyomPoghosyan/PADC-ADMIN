@@ -28,7 +28,7 @@ const editCurrentTrainingSlice = createSlice({
     name: "editCurrentTraining",
     initialState,
     reducers: {
-        defaultState(state) {
+        trainingState(state) {
             state.isLoading=false;
             state.isSuccess=false;
             state.trainingError= null;
@@ -53,4 +53,4 @@ const editCurrentTrainingSlice = createSlice({
 })
 
 export default editCurrentTrainingSlice.reducer;
-export const defaultState = editCurrentTrainingSlice.actions.defaultState;
+export const trainingState = editCurrentTrainingSlice.actions.trainingState;

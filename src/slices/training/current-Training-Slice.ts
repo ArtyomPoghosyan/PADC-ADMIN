@@ -51,4 +51,4 @@ const currentTrianingSlice =createSlice({
 })
 
 export default currentTrianingSlice.reducer;
-export const defaultState = currentTrianingSlice.actions.defaultState
+export const trainingState = currentTrianingSlice.actions.defaultState

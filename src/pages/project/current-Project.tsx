@@ -2,32 +2,31 @@ import React, { useEffect, useState } from 'react';
 import projectStyle from "./project-Style.module.css"
 
 import { Form, Input } from 'antd';
+import { useForm } from 'antd/es/form/Form';
+
 import { Response } from '../../shared/response';
+import { ButtonLoading } from '../../shared/button-loading';
 
 import { EditorState, ContentState } from 'draft-js';
 
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-import { useForm } from 'antd/es/form/Form';
-
-
 import { useSelector } from 'react-redux';
-
 import { useParams } from 'react-router-dom';
+
 import { IState } from '../../models/common';
 import { useAppDispatch } from '../../hooks';
-import { defaultState, EditCurrentProjectThunk } from '../../slices/project/edit-Project-Slice';
+
+import { EditCurrentProjectThunk, ProjectState } from '../../slices/project/edit-Project-Slice';
 import { CurrentProjectThunk } from '../../slices/project/current-Projet-Slice';
-import { ButtonLoading } from '../../shared/button-loading';
-
-
+import { SuccessResponse } from '../../shared/success-response';
 
 export const CurrentProject: React.FC = () => {
 
     const { isLoading, currentProjectData } = useSelector((state: IState) => state.currentProject);
     const { isLoading: isLoadingEdit, isSuccess: isSuccessEdit, currentProjectError: currentProjectErrorEdit } = useSelector((state: IState) => state.editCurrentProject);
-    
+
     const dispatch = useAppDispatch();
     const [form] = useForm();
     const { id } = useParams();
@@ -35,9 +34,9 @@ export const CurrentProject: React.FC = () => {
     const [editorText, setEditorText] = useState("");
 
     const RawDraftContentState = (arg) => {
-        let desc = ""
-        arg.blocks.map(item => desc += item.text)
-        setEditorText(desc)
+        let descriotion: string = "";
+        arg.blocks.map(item => descriotion += item.text);
+        setEditorText(descriotion);
     }
 
     const onEditorStateChange = (editorState) => {
@@ -64,16 +63,19 @@ export const CurrentProject: React.FC = () => {
 
     return (
         <div className={projectStyle.form_container}>
-            {(isLoadingEdit || isSuccessEdit || currentProjectErrorEdit) ?
-                <Response data={{ isLoading: isLoadingEdit, isSuccess: isSuccessEdit, error: currentProjectErrorEdit }}
-                    defaultState={defaultState} /> :
-                   
+            {currentProjectErrorEdit ?
+                <Response data={{ error: currentProjectErrorEdit }}
+                    defaultState={ProjectState} /> :
+
                 <Form
                     form={form}
                     labelCol={{ span: 4 }}
                     wrapperCol={{ span: 14 }}
                     layout="horizontal"
                     onFinish={onFinish} autoComplete="off">
+
+                    {( isSuccessEdit) ? <SuccessResponse navigate={"projects"} isLoading={isLoadingEdit} isSuccess={isSuccessEdit}
+                        defaultState={ProjectState} /> : null}
 
                     <p>Title</p>
                     <Form.Item name="title">

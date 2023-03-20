@@ -14,14 +14,17 @@ import { Form } from 'antd';
 import { useForm } from "antd/es/form/Form";
 
 import vacancieStyle from "./vacancie-Style.module.css";
-import { useAppDispatch } from "../../hooks";
-import { EditCurrentVacancieThunk } from "../../slices/vacancies/edit-Vacancie-Slice";
-import { CurrentVacancieThunk, defaultState } from "../../slices/vacancies/current-Vacancie-Slice";
-import { ButtonLoading } from "../../shared/button-loading";
 import { IState } from "../../models/common";
 
+import { useAppDispatch } from "../../hooks";
+
+import { EditCurrentVacancieThunk, vacancieState } from "../../slices/vacancies/edit-Vacancie-Slice";
+import { CurrentVacancieThunk } from "../../slices/vacancies/current-Vacancie-Slice";
+import { ButtonLoading } from "../../shared/button-loading";
+import { SuccessResponse } from "../../shared/success-response";
+
 export const CurrentVacancie: React.FC = () => {
-    const { isLoading, isSuccess, currentVacancieData, currentVacancieError } = useSelector((state: IState) => state.currentVacancie);
+    const { currentVacancieData } = useSelector((state: IState) => state.currentVacancie);
     const { isLoading: isLoadingEdit, isSuccess: isSuccessEdit, currentVacancieError: currentVacancieErrorEdit } = useSelector((state: IState) => state.editcurrentVacnacie);
 
     const [value, setValue] = useState("");
@@ -34,10 +37,9 @@ export const CurrentVacancie: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const RawDraftContentState = (arg) => {
-        let desc = ""
-        arg.blocks.map(item => desc += item.text)
-        setEditorText(desc)
-
+        let description: string = ""
+        arg.blocks.map(item => description += item.text)
+        setEditorText(description)
     }
 
     const onEditorStateChange = (editorState) => {
@@ -45,7 +47,7 @@ export const CurrentVacancie: React.FC = () => {
     }
 
     const onFinish = () => {
-        const data = { shortDescription: value, description: editorText?editorText:text }
+        const data = { shortDescription: value, description: editorText ? editorText : text }
         dispatch(EditCurrentVacancieThunk({ id, data }))
     }
 
@@ -64,14 +66,19 @@ export const CurrentVacancie: React.FC = () => {
 
     return (
         <div className={vacancieStyle.form_container}>
-            {(isLoadingEdit || isSuccessEdit || currentVacancieErrorEdit) ?
-                <Response data={{ isLoading: isLoadingEdit, isSuccess: isSuccessEdit, error: currentVacancieErrorEdit }} defaultState={defaultState} /> :
+            {currentVacancieErrorEdit ?
+                <Response data={{ error: currentVacancieErrorEdit }}
+                    defaultState={vacancieState} /> :
                 <Form
                     form={form}
                     labelCol={{ span: 4 }}
                     wrapperCol={{ span: 14 }}
                     layout="horizontal"
                     onFinish={onFinish} autoComplete="off">
+
+                    {( isSuccessEdit) ? <SuccessResponse navigate={"vacancies"} isLoading={isLoadingEdit}
+                        isSuccess={isSuccessEdit} defaultState={vacancieState} /> : null}
+
                     <h2>{currentVacancieData?.data?.title}</h2>
                     <Form.Item name="shortDescription">
                         <div style={{ margin: '24px 0' }} />
@@ -95,7 +102,6 @@ export const CurrentVacancie: React.FC = () => {
                             onEditorStateChange={onEditorStateChange}
                             onContentStateChange={RawDraftContentState}
                         />
-
                     </Form.Item>
 
                     <Form.Item >

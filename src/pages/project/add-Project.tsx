@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, } from 'antd';
+import { Form, Input, Button, Spin, } from 'antd';
 import { EditorState } from 'draft-js';
 
 import { Editor } from "react-draft-wysiwyg";
@@ -13,9 +13,10 @@ import { useAppDispatch } from '../../hooks';
 import { IState } from '../../models/common';
 import { IAddProject } from '../../models/projects';
 import { AddProjectThunk, defaultstate } from '../../slices/project/add-Project-Slice';
+import { SuccessResponse } from '../../shared/success-response';
 
 export const AddProject: React.FC = () => {
-    let { isLoading,isSuccess,addProjectDataError } = useSelector((state: IState) => state.addProject);
+    let { isLoading, isSuccess, addProjectDataError } = useSelector((state: IState) => state.addProject);
     const dispatch = useAppDispatch();
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
@@ -34,13 +35,17 @@ export const AddProject: React.FC = () => {
 
     return (
         <div className={projectStyle.form_container}>
-            {(isLoading || isSuccess || addProjectDataError) ?
-                <Response data={{ isLoading: isLoading, isSuccess: isSuccess, error: addProjectDataError }} defaultState={defaultstate} /> :
+            {addProjectDataError ?
+                <Response data={{ isLoading: isLoading, isSuccess: isSuccess, error: addProjectDataError }}
+                    defaultState={defaultstate} /> :
                 <Form
                     labelCol={{ span: 4 }}
                     wrapperCol={{ span: 14 }}
                     layout="horizontal"
                     onFinish={onFinish} autoComplete="off">
+
+                    {isSuccess ? <SuccessResponse navigate={"projects"} isLoading={isLoading} isSuccess={isSuccess}
+                        defaultState={defaultstate} /> : null}
 
                     <p>Name</p>
                     <Form.Item name="title">

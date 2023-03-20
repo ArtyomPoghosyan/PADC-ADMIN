@@ -27,7 +27,7 @@ const editCurrentProjectSlice = createSlice({
     name: "editcurrentProject",
     initialState,
     reducers: {
-        defaultState(state) {
+        ProjectState(state) {
             state.isLoading = false;
             state.isSuccess = false;
             state.currentProjectError = null
@@ -51,5 +51,5 @@ const editCurrentProjectSlice = createSlice({
 })
 
 export default editCurrentProjectSlice.reducer;
-export const defaultState = editCurrentProjectSlice.actions.defaultState;
+export const ProjectState = editCurrentProjectSlice.actions.ProjectState;
 

@@ -19,9 +19,10 @@ import { useParams } from 'react-router-dom';
 import { IState } from '../../models/common';
 import { useAppDispatch } from '../../hooks';
 import { IAddTraining } from '../../models/trainings';
-import { EditCurrentTrainingThunk } from '../../slices/training/edit-Training-Slice';
-import { CurrentTrainingThunk, defaultState } from '../../slices/training/current-Training-Slice';
+import { EditCurrentTrainingThunk, trainingState } from '../../slices/training/edit-Training-Slice';
+import { CurrentTrainingThunk } from '../../slices/training/current-Training-Slice';
 import { ButtonLoading } from '../../shared/button-loading';
+import { SuccessResponse } from '../../shared/success-response';
 
 export const CurrentTraining: React.FC = () => {
 
@@ -48,9 +49,9 @@ export const CurrentTraining: React.FC = () => {
     };
 
     const RawDraftContentState = (arg) => {
-        let desc = ""
-        arg.blocks.map(item => desc += item.text)
-        setEditorText(desc)
+        let description: string = ""
+        arg.blocks.map(item => description += item.text)
+        setEditorText(description)
     }
 
     const onEditorStateChange = (editorState) => {
@@ -89,21 +90,28 @@ export const CurrentTraining: React.FC = () => {
         if (trainingData?.data?.data) {
             const { name, description, date, type } = trainingData?.data?.data;
             setEditorState(EditorState.createWithContent(ContentState.createFromText(description)))
-            form.setFieldsValue({ name, description, type, date: dayjs(moment(date, 'YYYY-MM-DD HH:mm').format(monthFormat), monthFormat) })
+            form.setFieldsValue({
+                name, description, type,
+                date: dayjs(moment(date, 'YYYY-MM-DD HH:mm').format(monthFormat), monthFormat)
+            })
         }
     }, [trainingData])
 
     return (
         <div className={trainingStyle.form_container}>
-            {(isLoadingEdit || trainingErrorEdit) ?
-                <Response data={{ isLoading: isLoadingEdit, isSuccess: isSuccessEdit, error: trainingError }}
-                    defaultState={defaultState} /> :
+            {trainingErrorEdit ?
+                <Response data={{ error: trainingError }}
+                    defaultState={trainingState} /> :
                 <Form
                     form={form}
                     labelCol={{ span: 4 }}
                     wrapperCol={{ span: 14 }}
                     layout="horizontal"
                     onFinish={onFinish} autoComplete="off">
+
+                    {isSuccess ? <SuccessResponse navigate={"trainings"} 
+                        isSuccess={isSuccessEdit} defaultState={trainingState} /> : null}
+
                     <p>Name</p>
                     <Form.Item name="name">
                         <Input placeholder='Name' />
