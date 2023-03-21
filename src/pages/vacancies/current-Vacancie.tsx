@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { Editor } from "react-draft-wysiwyg";
-import { EditorState, ContentState } from 'draft-js';
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import { Response } from '../../shared/response';
@@ -37,17 +37,18 @@ export const CurrentVacancie: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const RawDraftContentState = (arg) => {
-        let description: string = ""
-        arg.blocks.map(item => description += item.text)
+        let description: string = "";
+        arg.blocks.map(item => description += item.text);
         setEditorText(description)
     }
 
     const onEditorStateChange = (editorState) => {
         setEditorState(editorState);
+
     }
 
-    const onFinish = () => {
-        const data = { shortDescription: value, description: editorText ? editorText : text }
+    const onFinish = (values) => {
+        const data = { title: values.title, shortDescription: value, description: editorText ? editorText : text }
         dispatch(EditCurrentVacancieThunk({ id, data }))
     }
 
@@ -61,7 +62,6 @@ export const CurrentVacancie: React.FC = () => {
             setEditorState(EditorState.createWithContent(ContentState.createFromText(description)))
             setValue(shortDescription);
             setText(description);
-            console.log(title)
             form.setFieldsValue({ title })
         }
     }, [currentVacancieData])
@@ -80,7 +80,7 @@ export const CurrentVacancie: React.FC = () => {
 
                     {(isSuccessEdit) ? <SuccessResponse navigate={"vacancies"} isLoading={isLoadingEdit}
                         isSuccess={isSuccessEdit} defaultState={vacancieState} /> : null};
-                        
+
                     <p>Title</p>
                     <Form.Item name="title">
                         <Input placeholder="title" />

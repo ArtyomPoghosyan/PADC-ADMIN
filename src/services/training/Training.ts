@@ -1,6 +1,5 @@
 import { ITrainingData } from './../../models/trainings/trainings';
 import { AxiosResponse } from 'axios';
-import { IToken } from '../../models/common';
 import { Api } from '../service';
 
 export const getAllTrainingRequest = ():Promise<AxiosResponse<ITrainingData[]>> => {

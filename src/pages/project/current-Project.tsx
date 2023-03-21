@@ -34,9 +34,9 @@ export const CurrentProject: React.FC = () => {
     const [editorText, setEditorText] = useState("");
 
     const RawDraftContentState = (arg) => {
-        let descriotion: string = "";
-        arg.blocks.map(item => descriotion += item.text);
-        setEditorText(descriotion);
+        let description: string = "";
+        arg.blocks.map(item => description += item.text);
+        setEditorText(description);
     }
 
     const onEditorStateChange = (editorState) => {

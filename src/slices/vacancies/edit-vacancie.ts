@@ -1,10 +1,8 @@
-
 import { createSlice, AnyAction } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { EditVacancie } from '@services/vacancie';
 
 import { BaseResponse, ErrorResponse, IEditData, IModel } from '../../models/common';
-
-import { EditVacancie } from '../../services';
 
 type CombineVacancieState = IModel & BaseResponse<[], 'editVacancieData'> & ErrorResponse<null, 'editVacancieError'>;
 
@@ -18,6 +16,7 @@ const initialState: CombineVacancieState = {
 export const EditCurrentVacancieThunk = createAsyncThunk(
     "ediTCurrentVacancie/ CurrentVacancieThunk",
     async ({ id, data }: IEditData) => {
+        console.log(data)
         try {
             const response = await EditVacancie(id, data);
             return Promise.resolve(response.data);

@@ -76,7 +76,8 @@ export const AllVacancies: React.FC = () => {
         return {
             ...item,
             index: index + 1,
-            description: <p dangerouslySetInnerHTML={{ __html: item?.description }}></p>,
+            
+            // description: <p dangerouslySetInnerHTML={{ __html: item?.description }}></p>,
             createdAt: dateFormat(item.createdAt),
             updatedAt: dateFormat(item.updatedAt)
         }

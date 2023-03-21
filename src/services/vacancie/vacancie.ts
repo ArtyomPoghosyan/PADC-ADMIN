@@ -1,6 +1,5 @@
 import { IVacancie } from './../../models/vacancies/vacancies';
 import { AxiosResponse } from 'axios';
-import { IToken } from '../../models/common';
 import { Api } from '../service';
 
 export const Vacancie = ():Promise<AxiosResponse<IVacancie[]>> => {

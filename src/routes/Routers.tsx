@@ -1,17 +1,11 @@
-import { Route, Routes } from "react-router-dom";
-// import { DashBoard } from "src/pages/dash-Board";
-// import { CurrentProject } from "src/pages/project/current-Project";
-// import { AddTraining } from "src/pages/training/add-Training";
-// import { CurrentUser } from "src/pages/user/current-User";
-// import { AddVacancie } from "src/pages/vacancies/add-Vacancies";
-// import { CurrentVacancie } from "src/pages/vacancies/current-Vacancie";
+import { Navigate, Route, Routes } from "react-router-dom";
+
 import { Login } from "../pages/auth/login";
 import { Registration } from "../pages/auth/registration";
 import { DashBoard } from "../pages/dashboard";
 import { MainPage } from "../pages/main";
 import { AddProject, AllProjects, CurrentProject } from "../pages/project";
 import { AddTraining, AllTrainings, CurrentTraining } from "../pages/training";
-
 import { AllUsers, CurrentUser } from "../pages/user";
 import { AddVacancie, CurrentVacancie } from "../pages/vacancies";
 import { AllVacancies } from "../pages/vacancies/all-vacancies";
@@ -20,8 +14,8 @@ export const Routers: React.FC = () => {
     return (
         <div>
             <Routes>
-
-                <Route path="/" element={<Login />} />
+                <Route path="/" element={<Navigate to="/auth/login" />} />
+                <Route path="/auth/login" element={<Login />} />
                 <Route path="registration" element={<Registration />} />
                 <Route path="/" element={<MainPage />}>
                     <Route path="dashboard" element={<DashBoard />} />

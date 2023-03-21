@@ -1,11 +1,13 @@
-const path = require("path");
-    module.exports = {
-      webpack: {
-    
-        alias: {
-           "@Shared": path.join(path.resolve(__dirname, "./src/Modules/Shared")),
-           "@Modules": path.join(path.resolve(__dirname, "./src/Modules")),
-           "@": path.join(path.resolve(__dirname, "./")),
-         },
-      },
-    };
+const CracoAlias = require("craco-alias")
+module.exports = {
+    plugins:[
+        {
+            plugin:CracoAlias,
+            options:{
+                source:"tsconfig",
+                baseUrl:"./src",
+                tsConfigPath:"./tsconfig.paths.json"
+            }
+        }
+    ]
+}

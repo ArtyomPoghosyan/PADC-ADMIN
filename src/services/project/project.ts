@@ -1,6 +1,5 @@
 import { IProjectData } from './../../models/projects/projects';
 import { AxiosResponse } from 'axios';
-import { IToken } from '../../models/common';
 import { Api } from '../service';
 
 export const Project = ():Promise<AxiosResponse<IProjectData[]>> => {

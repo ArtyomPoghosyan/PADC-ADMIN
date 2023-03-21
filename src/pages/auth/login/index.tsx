@@ -23,8 +23,8 @@ export const Login: React.FC = () => {
     const { isLoading, isSuccess, loginData, loginError } = useAppSelector((state: any) => state.login);
     const dispatch = useAppDispatch();
     const navigation = useNavigate();
-    
-    const attentionText= "Attention !! This website is only for internal usage for users certified by PADC LLC."
+
+    const attentionText = "Attention !! This website is only for internal usage for users certified by PADC LLC."
     const onFinish = (values: ILogin) => {
         dispatch(LoginThunk(values));
     };
@@ -54,25 +54,26 @@ export const Login: React.FC = () => {
                     initialValues={{ remember: true }}
                     onFinish={onFinish}
                 >
-                    <Form.Item
+                    <Form.Item style={{  width: "500px", flexWrap: "nowrap" }}
                         name="email"
                         rules={[{ required: true, message: 'Please input your Email!' }]}
                     >
-                        <Input prefix={<UserOutlined className="site-form-item-icon" />} style={{width:"500px"}} placeholder="Email" />
+                        <Input prefix={<UserOutlined className="site-form-item-icon" />} style={{ width: "500px" }} placeholder="Email" />
                     </Form.Item>
                     <Form.Item
+                        style={{  width: "528px", flexWrap: "nowrap" }}
                         name="password"
                         rules={[{ required: true, message: 'Please input your Password!' }]}>
                         <Input
                             prefix={<LockOutlined className="site-form-item-icon" />}
                             type="password"
                             placeholder="Password"
-                            style={{width:"500px"}}
+                            style={{ width: "500px" }}
                         />
                     </Form.Item>
-                    <Form.Item  className={LoginStyle.remember_me}>
-                        <Form.Item className={LoginStyle.remember_me_container} name="remember" valuePropName="checked" >
-                            <Checkbox>Remember me</Checkbox>
+                    <Form.Item className={LoginStyle.remember_me}>
+                        <Form.Item className={LoginStyle.remember_me_container} name="remember" valuePropName="checked">
+                            <Checkbox style={{width:"58%"}}>Remember me</Checkbox>
                         </Form.Item>
                     </Form.Item>
 

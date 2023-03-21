@@ -30,7 +30,6 @@ li {
     padding: 0;
     background: white;
     position: relative;
-    margin-left: 15px;
     display: flex;
     align-items: center
 }
@@ -39,9 +38,7 @@ li {
     display: flex;
     width: 100%;
     justify-content: center;
-    /* border-right: 2px solid #888; */
     background-color: #ffffff !important;
-    /* box-shadow: 5px 0 5px -2px #888; */
 }
 
 .logo {

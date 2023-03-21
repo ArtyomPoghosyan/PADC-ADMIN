@@ -13,8 +13,6 @@ import userStyle from "./user-style.module.css";
 import { IState } from "../../models/common";
 import { useAppDispatch } from "../../hooks";
 
-import { ButtonLoading } from "../../shared/button-loading";
-
 import { CurrentUserThunk } from "../../slices/user/current-user";
 import moment from "moment";
 

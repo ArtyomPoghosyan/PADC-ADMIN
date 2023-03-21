@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import trainingStyle from "./training-style.module.css"
-import { Form, Input, Button, Select, DatePicker, Upload, UploadFile, UploadProps, Spin, } from 'antd';
+import { Form, Input, Button, Select, DatePicker, Upload, UploadFile, UploadProps } from 'antd';
 import { EditorState } from 'draft-js';
 
 import { Editor } from "react-draft-wysiwyg";
