@@ -7,21 +7,20 @@ import { Editor } from "react-draft-wysiwyg";
 import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-import { Response } from '../../shared/response';
+import { Response } from '@shared/response';
 
 import { Input } from "antd"
 import { Form } from 'antd';
 import { useForm } from "antd/es/form/Form";
 
 import vacancieStyle from "./vacancie-style.module.css";
-import { IState } from "../../models/common";
 
 import { useAppDispatch } from "../../hooks";
-
-import { EditCurrentVacancieThunk, vacancieState } from "../../slices/vacancies/edit-vacancie";
-import { CurrentVacancieThunk } from "../../slices/vacancies/current-vacancie";
-import { ButtonLoading } from "../../shared/button-loading";
-import { SuccessResponse } from "../../shared/success-response";
+import { IState } from "@models/common";
+import { EditCurrentVacancieThunk, vacancieState } from "@slices/vacancies/edit-vacancie";
+import { CurrentVacancieThunk } from "@slices/vacancies/current-vacancie";
+import { SuccessResponse } from "@shared/success-response";
+import { ButtonLoading } from "@shared/button-loading";
 
 export const CurrentVacancie: React.FC = () => {
     const { currentVacancieData } = useSelector((state: IState) => state.currentVacancie);

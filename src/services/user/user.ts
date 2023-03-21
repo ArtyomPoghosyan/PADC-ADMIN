@@ -1,7 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { IuserData } from './../../models/users/users';
-import { IToken } from '../../models/common';
-import { Api } from '../service';
+import { Api } from '@services/service';
+import { IuserData } from '@models/users/users';
 
 export const GetAllUser = ():Promise<AxiosResponse<IuserData[]>> => {
     return Api.get<IuserData[]>("/users")

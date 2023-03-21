@@ -2,7 +2,8 @@ import { Spin } from "antd";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks";
-import successIcon from "../shared/images.ts/success.png"
+
+import successIcon from "@assests/images/success.png";
 
 export const SuccessResponse: React.FC<any> = (props) => {
 

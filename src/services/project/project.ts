@@ -1,6 +1,8 @@
-import { IProjectData } from './../../models/projects/projects';
+// import { IProjectData } from './../../models/projects/projects';
+import { IProjectData } from '@models/projects';
+import { Api } from '@services/service';
 import { AxiosResponse } from 'axios';
-import { Api } from '../service';
+// import { Api } from '../service';
 
 export const Project = ():Promise<AxiosResponse<IProjectData[]>> => {
     return Api.get<IProjectData[]>("/projects/")

@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
 
-import { ITableProps } from "../models/common/common";
-import { ItrainingData } from "../models/trainings";
-import { IVacancie } from "../models/vacancies";
+// import { ITableProps } from "../models/common/common";
+// import { ItrainingData } from "../models/trainings";
+// import { IVacancie } from "../models/vacancies";
 
 import { Table } from "antd";
+import { ITableProps } from "@models/common";
+import { IVacancie } from "@models/vacancies";
+import { ItrainingData } from "@models/trainings";
 
 export const TableComponent = (props: ITableProps) => {
     const { loading, columns, dataSource, pageSize, } = props;

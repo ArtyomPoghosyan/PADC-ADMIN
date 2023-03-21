@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux"
-import { ItrainingData } from "../../models/trainings/trainings";
+// import { ItrainingData } from "../../models/trainings/trainings";
 import trainingStyle from "../training/training-style.module.css";
 import { Button, Space } from 'antd';
-import { TableComponent } from "../../shared/table";
+// import { TableComponent } from "../../shared/table";
 import { useAppDispatch } from "../../hooks";
-import { TrainingThunk } from "../../slices/training/training";
-import { IState } from "../../models/common/common";
+// import { TrainingThunk } from "../../slices/training/training";
+// import { IState } from "../../models/common/common";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { IState } from "@models/common";
+import { TrainingThunk } from "@slices/training/training";
+import { ItrainingData } from "@models/trainings";
+import { TableComponent } from "@shared/table";
 
 export const AllTrainings: React.FC = () => {
 

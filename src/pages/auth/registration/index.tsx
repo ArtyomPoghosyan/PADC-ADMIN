@@ -1,7 +1,7 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import LoginStyle from "../login/login-Style.module.css";
-import logo from "../../../shared/images.ts/logo.png";
+// import LoginStyle from "../login/login-Style.module.css";
+// import logo from "../../../shared/images.ts/logo.png";
 
 export const Registration: React.FC = () => {
 
@@ -15,7 +15,7 @@ export const Registration: React.FC = () => {
 
     return (
         <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", height: "700px" }}>
-            <img className={LoginStyle.logo} src={logo} />
+            {/* <img className={LoginStyle.logo} src={logo} /> */}
             <Form
                 name="basic"
                 labelCol={{ span: 8 }}

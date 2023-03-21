@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import trainingStyle from "./training-style.module.css"
 
 import { Form, Input, Select, DatePicker, Upload, UploadFile, UploadProps, } from 'antd';
-import { Response } from '../../shared/response';
+import { Response } from '@shared/response';
 
 import { EditorState, ContentState } from 'draft-js';
 import dayjs from 'dayjs';
@@ -16,13 +16,19 @@ import { useForm } from 'antd/es/form/Form';
 
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { IState } from '../../models/common';
+// import { IState } from '../../models/common';
 import { useAppDispatch } from '../../hooks';
-import { IAddTraining } from '../../models/trainings';
-import { EditCurrentTrainingThunk, trainingState } from '../../slices/training/edit-training';
-import { CurrentTrainingThunk } from '../../slices/training/current-training';
-import { ButtonLoading } from '../../shared/button-loading';
-import { SuccessResponse } from '../../shared/success-response';
+import { IState } from '@models/common';
+import { IAddTraining } from '@models/trainings';
+import { EditCurrentTrainingThunk } from '@slices/training/edit-training';
+import { CurrentTrainingThunk, trainingState } from '@slices/training/current-training';
+import { SuccessResponse } from '@shared/success-response';
+import { ButtonLoading } from '@shared/button-loading';
+// import { IAddTraining } from '../../models/trainings';
+// import { EditCurrentTrainingThunk, trainingState } from '../../slices/training/edit-training';
+// import { CurrentTrainingThunk } from '../../slices/training/current-training';
+// import { ButtonLoading } from '../../shared/button-loading';
+// import { SuccessResponse } from '../../shared/success-response';
 
 export const CurrentTraining: React.FC = () => {
 

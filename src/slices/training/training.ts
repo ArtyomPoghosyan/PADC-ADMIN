@@ -1,10 +1,13 @@
+import { Iaction } from '@models/common';
+import { ITrainingData } from '@models/trainings';
 import { AnyAction, createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getAllTrainingRequest } from '@services/training';
 
-import { getAllTrainingRequest } from '../../services';
+// import { getAllTrainingRequest } from '../../services';
 
-import { ITrainingData } from '../../models/trainings/trainings';
-import { Iaction } from '../../models/common/common';
+// import { ITrainingData } from '../../models/trainings/trainings';
+// import { Iaction } from '../../models/common/common';
 
 const initialState: ITrainingData = {
     isLoading: false,

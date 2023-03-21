@@ -1,6 +1,6 @@
-import { IVacancie } from './../../models/vacancies/vacancies';
 import { AxiosResponse } from 'axios';
-import { Api } from '../service';
+import { Api } from '@services/service';
+import { IVacancie } from '@models/vacancies';
 
 export const Vacancie = ():Promise<AxiosResponse<IVacancie[]>> => {
     return Api.get<IVacancie[]>("/vacancies")

@@ -1,22 +1,19 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { LoginThunk } from '../../../slices/login/login';
 
 import { useNavigate } from 'react-router-dom';
 
 
 import LoginStyle from "./login-Style.module.css";
-import logo from "../../../shared/images.ts/padc-logo.svg"
-
+import logo from "@assests/images/padc-logo.svg"
 import Cookies from 'universal-cookie';
 
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { Alert } from 'antd';
 import { Spin } from 'antd';
-import { ILogin } from '../../../models/auth';
-
-
+import { ILogin } from '@models/auth';
+import { LoginThunk } from '@slices/login/login';
 
 export const Login: React.FC = () => {
     const cookies = new Cookies();

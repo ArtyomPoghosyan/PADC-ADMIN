@@ -1,7 +1,9 @@
-import { currentProject } from '../../services';
+// import { currentProject } from '../../services';
 
+import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
-import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
+import { currentProject } from '@services/project';
+// import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
 
 type CombineProjectState = IModel & BaseResponse<[], 'currentProjectData'> & ErrorResponse<null, 'currentProjectError'>;
 

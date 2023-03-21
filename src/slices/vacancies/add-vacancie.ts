@@ -1,9 +1,12 @@
+import { BaseResponse, ErrorResponse, IModel } from '@models/common';
+import { IAddVacancieData } from '@models/vacancies';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
+import { AddVacancie } from '@services/vacancie';
 
-import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
-import { IAddVacancieData } from '../../models/vacancies';
+// import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
+// import { IAddVacancieData } from '../../models/vacancies';
 
-import { AddVacancie } from '../../services';
+// import { AddVacancie } from '../../services';
 
 
 type CombineVacancieState = IModel & BaseResponse<[], 'currentVacancieData'> & ErrorResponse<null, 'currentVacancieError'>;

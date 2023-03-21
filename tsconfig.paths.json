@@ -3,9 +3,13 @@
       "baseUrl": "./src",
       "paths": {
         "@modules/*": ["./modules/*"],
-        "@shared/*": ["./modules/shared/*"],
         "@services/*":["./services/*"],
-        
+        "@models/*":["./models/*"],
+        "@slices/*":["./slices/*"],
+        "@helpers/*":["./helpers/*"],
+        "@assests/*":["./assets/*"],
+        "@shared/*":["./shared/*"],
+        "@hooks/*":["./hooks/*"]
       }
     }
   }

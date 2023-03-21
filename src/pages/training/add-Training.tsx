@@ -5,18 +5,22 @@ import { EditorState } from 'draft-js';
 
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { Response } from '../../shared/response';
+import { Response } from '@shared/response';
 
 import moment from 'moment';
 
 import { useAppDispatch } from '../../hooks';
 
 import { useSelector } from 'react-redux';
-import { IState } from '../../models/common';
-import { IAddTraining } from '../../models/trainings';
+import { IState } from '@models/common';
+import { IAddTraining } from '@models/trainings';
+import { AddTrainingThunk, defaultState } from '@slices/training/add-training';
+import { SuccessResponse } from '@shared/success-response';
+// import { IState } from '../../models/common';
+// import { IAddTraining } from '../../models/trainings';
 
-import { AddTrainingThunk, defaultState } from '../../slices/training/add-training';
-import { SuccessResponse } from '../../shared/success-response';
+// import { AddTrainingThunk, defaultState } from '../../slices/training/add-training';
+// import { SuccessResponse } from '../../shared/success-response';
 
 export const AddTraining: React.FC = () => {
     let { isLoading, isSuccess, addTrainingError } = useSelector((state: IState) => state.addTraining);

@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Spin, } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { EditorState } from 'draft-js';
 
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { Response } from '../../shared/response';
+import { Response } from '@shared/response';
 
 import { useSelector } from 'react-redux';
 
 import projectStyle from "./project-style.module.css";
+
+import { IState } from '@models/common';
 import { useAppDispatch } from '../../hooks';
-import { IState } from '../../models/common';
-import { IAddProject } from '../../models/projects';
-import { AddProjectThunk, defaultstate } from '../../slices/project/add-project';
-import { SuccessResponse } from '../../shared/success-response';
+import { IAddProject } from '@models/projects';
+
+import { AddProjectThunk, defaultstate } from '@slices/project/add-project';
+import { SuccessResponse } from '@shared/success-response';
 
 export const AddProject: React.FC = () => {
     let { isLoading, isSuccess, addProjectDataError } = useSelector((state: IState) => state.addProject);

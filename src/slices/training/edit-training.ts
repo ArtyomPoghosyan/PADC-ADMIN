@@ -1,9 +1,12 @@
-import { EditCurrentTraining } from '../../services';
+// import { EditCurrentTraining } from '../../services';
 
+import { IEditData } from '@models/common';
+import { ITrainingData } from '@models/trainings';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
+import { EditCurrentTraining } from '@services/training';
 
-import { ITrainingData } from '../../models/trainings';
-import { IEditData } from '../../models/common';
+// import { ITrainingData } from '../../models/trainings';
+// import { IEditData } from '../../models/common';
  
 const initialState: ITrainingData = {
     isLoading: false,

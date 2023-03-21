@@ -4,8 +4,8 @@ import projectStyle from "./project-style.module.css"
 import { Form, Input } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 
-import { Response } from '../../shared/response';
-import { ButtonLoading } from '../../shared/button-loading';
+import { Response } from '@shared/response';
+// import { ButtonLoading } from '../../shared/button-loading';
 
 import { EditorState, ContentState } from 'draft-js';
 
@@ -15,12 +15,17 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { IState } from '../../models/common';
+// import { IState } from '../../models/common';
 import { useAppDispatch } from '../../hooks';
+import { IState } from '@models/common';
+import { EditCurrentProjectThunk, ProjectState } from '@slices/project/edit-project';
+import { CurrentProjectThunk } from '@slices/project/current-projet';
+import { SuccessResponse } from '@shared/success-response';
+import { ButtonLoading } from '@shared/button-loading';
 
-import { EditCurrentProjectThunk, ProjectState } from '../../slices/project/edit-project';
-import { CurrentProjectThunk } from '../../slices/project/current-projet';
-import { SuccessResponse } from '../../shared/success-response';
+// import { EditCurrentProjectThunk, ProjectState } from '../../slices/project/edit-project';
+// import { CurrentProjectThunk } from '../../slices/project/current-projet';
+// import { SuccessResponse } from '../../shared/success-response';
 
 export const CurrentProject: React.FC = () => {
 

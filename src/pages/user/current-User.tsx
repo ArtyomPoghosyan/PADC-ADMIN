@@ -10,11 +10,13 @@ import { Form } from 'antd';
 import { useForm } from "antd/es/form/Form";
 
 import userStyle from "./user-style.module.css";
-import { IState } from "../../models/common";
+// import { IState } from "../../models/common";
 import { useAppDispatch } from "../../hooks";
 
-import { CurrentUserThunk } from "../../slices/user/current-user";
+// import { CurrentUserThunk } from "../../slices/user/current-user";
 import moment from "moment";
+import { IState } from "@models/common";
+import { CurrentUserThunk } from "@slices/user/current-user";
 
 export const CurrentUser: React.FC = () => {
 

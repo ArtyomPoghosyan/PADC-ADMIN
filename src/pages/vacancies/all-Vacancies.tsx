@@ -1,15 +1,19 @@
+import { IState } from "@models/common";
+import { IVacancie } from "@models/vacancies";
+import { TableComponent } from "@shared/table";
+import { VacancieThunk } from "@slices/vacancies/vacancie";
 import { Button } from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { VacancieThunk } from "../../slices/vacancies/vacancie";
+// import { VacancieThunk } from "../../slices/vacancies/vacancie";
 import { useAppDispatch } from "../../hooks";
-import { IState } from "../../models/common/common";
-import { TableComponent } from "../../shared/table";
+// import { IState } from "../../models/common/common";
+// import { TableComponent } from "../../shared/table";
 import vacancieStyle from "./vacancie-style.module.css";
-import { IVacancie } from "../../models/vacancies";
+// import { IVacancie } from "../../models/vacancies";
 
 export const AllVacancies: React.FC = () => {
     const { isLoading, vacancieData, } = useSelector((state: IState) => state.vacancie)
@@ -76,7 +80,7 @@ export const AllVacancies: React.FC = () => {
         return {
             ...item,
             index: index + 1,
-            
+
             // description: <p dangerouslySetInnerHTML={{ __html: item?.description }}></p>,
             createdAt: dateFormat(item.createdAt),
             updatedAt: dateFormat(item.updatedAt)

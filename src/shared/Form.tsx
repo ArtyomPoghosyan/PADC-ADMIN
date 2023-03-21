@@ -6,8 +6,8 @@ import { Form, Input, Button, Select, DatePicker, Upload, UploadFile, UploadProp
 import moment from 'moment';
 
 import { useForm } from 'antd/es/form/Form';
-import { ITrainingEdit, ITrainingEditDate } from '../models/common/common';
 import { RcFile } from 'antd/es/upload';
+import { ITrainingEdit, ITrainingEditDate } from '@models/common';
 
 export const FormComponent: React.FC = () => {
 

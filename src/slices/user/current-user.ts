@@ -1,6 +1,8 @@
+import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { createSlice, createAsyncThunk, AnyAction } from '@reduxjs/toolkit';
-import { BaseResponse, ErrorResponse, IModel } from "../../models/common";
-import { getCurrentUser } from "../../services";
+import { getCurrentUser } from '@services/user';
+// import { BaseResponse, ErrorResponse, IModel } from "../../models/common";
+// import { getCurrentUser } from "../../services";
 
 export type CombineUserState = IModel & BaseResponse<[], 'userData'> & ErrorResponse<null, 'userError'>;
 

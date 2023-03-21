@@ -1,11 +1,14 @@
-import { HTTPHelper } from '../../helpers/http.helper';
+// import { HTTPHelper } from '../../helpers/http.helper';
 
-import { addTraining } from '../../services';
+// import { addTraining } from '../../services';
 
+import { HTTPHelper } from '@helpers/http.helper';
+import { IAddTraining } from '@models/trainings';
 import { AnyAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { addTraining } from '@services/training';
 
 import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
-import { IAddTraining } from '../../models/trainings';
+// import { IAddTraining } from '../../models/trainings';
 
 type CombineTrainingState = IModel & BaseResponse<[], 'addTrainingData'> & ErrorResponse<null, 'addTrainingError'>;
 

@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import React from 'react';
-import { TableComponent } from "../../shared/table";
+// import { TableComponent } from "../../shared/table";
 import { useAppDispatch } from "../../hooks";
-import { UserThunk } from "../../slices/user/user";
-import { IState } from "../../models/common/common";
+// import { UserThunk } from "../../slices/user/user";
+// import { IState } from "../../models/common/common";
 import moment from "moment";
+import { IState } from "@models/common";
+import { UserThunk } from "@slices/user/user";
+import { TableComponent } from "@shared/table";
 
 export const AllUsers: React.FC = () => {
     const { isLoading, userData, } = useSelector((state: IState) => state.user)

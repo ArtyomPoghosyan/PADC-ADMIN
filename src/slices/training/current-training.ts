@@ -1,7 +1,9 @@
-import { CurrentTraining } from '../../services';
+// import { CurrentTraining } from '../../services';
 
+import { ITrainingData } from '@models/trainings';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
-import { ITrainingData } from '../../models/trainings';
+import { CurrentTraining } from '@services/training';
+// import { ITrainingData } from '../../models/trainings';
 
 const initialState:ITrainingData = { 
     isLoading: false,

@@ -6,20 +6,24 @@ import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-import { Response } from '../../shared/response';
+import { Response } from '@shared/response';
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import vacancieStyle from "./vacancie-style.module.css";
 
-import { IAddVacancieData } from '../../models/vacancies';
-import { IState } from '../../models/common';
+// import { IAddVacancieData } from '../../models/vacancies';
+// import { IState } from '../../models/common';
 
 import { Form, Button, Input, } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 
 import { useAppDispatch } from '../../hooks';
-import { AddVacancieThunk, defaultState } from '../../slices/vacancies/add-vacancie';
-import { SuccessResponse } from '../../shared/success-response';
+import { IState } from '@models/common';
+import { IAddVacancieData } from '@models/vacancies';
+import { AddVacancieThunk, defaultState } from '@slices/vacancies/add-vacancie';
+import { SuccessResponse } from '@shared/success-response';
+// import { AddVacancieThunk, defaultState } from '../../slices/vacancies/add-vacancie';
+// import { SuccessResponse } from '../../shared/success-response';
 
 
 export const AddVacancie: React.FC = () => {
