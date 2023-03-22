@@ -9,7 +9,7 @@
         "@helpers/*":["./helpers/*"],
         "@assests/*":["./assets/*"],
         "@shared/*":["./shared/*"],
-        "@hooks/*":["./hooks/*"]
+        "@pages/*":["./pages/*"]
       }
     }
   }

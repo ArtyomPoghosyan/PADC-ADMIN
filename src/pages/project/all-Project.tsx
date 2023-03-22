@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
+
 import { Button } from 'antd';
+
 import { useSelector } from 'react-redux';
-// import { TableComponent } from '../../shared/table';
+
 import { useAppDispatch } from '../../hooks';
-// import { axiosProject } from '../../slices/project/project';
-// import { IState } from '../../models/common/common';
 
 import { useNavigate } from 'react-router-dom';
 import projectStyle from "./project-style.module.css";
-// import { IProjectData } from '../../models/projects';
+
 import { TableComponent } from '@shared/table';
+
 import { IState } from '@models/common';
-import { axiosProject } from '@slices/project/project';
 import { IProjectData } from '@models/projects';
+
+import { axiosProject } from '@slices/project/project';
 
 export const AllProjects: React.FC = () => {
   const { isLoading, projectData } = useSelector((state: IState) => state.project)

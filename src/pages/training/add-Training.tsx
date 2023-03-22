@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import trainingStyle from "./training-style.module.css"
 import { Form, Input, Button, Select, DatePicker, Upload, UploadFile, UploadProps } from 'antd';
-import { EditorState } from 'draft-js';
 
+import { EditorState,convertToRaw } from 'draft-js';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Response } from '@shared/response';
@@ -16,11 +16,8 @@ import { IState } from '@models/common';
 import { IAddTraining } from '@models/trainings';
 import { AddTrainingThunk, defaultState } from '@slices/training/add-training';
 import { SuccessResponse } from '@shared/success-response';
-// import { IState } from '../../models/common';
-// import { IAddTraining } from '../../models/trainings';
 
-// import { AddTrainingThunk, defaultState } from '../../slices/training/add-training';
-// import { SuccessResponse } from '../../shared/success-response';
+import draftToHtml from 'draftjs-to-html';
 
 export const AddTraining: React.FC = () => {
     let { isLoading, isSuccess, addTrainingError } = useSelector((state: IState) => state.addTraining);
@@ -44,7 +41,8 @@ export const AddTraining: React.FC = () => {
         let { name, description, type } = values;
         const convertDate = moment($d, dayFormat).format(dayFormat);
         description?.blocks?.forEach(item => descriptionBlock += item.text);
-        let data: IAddTraining = { name, description: descriptionBlock, type, date: convertDate, image: fileList[0] };
+        let data: IAddTraining = { name, description: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+             type, date: convertDate, image: fileList[0] };
         dispatch(AddTrainingThunk(data));
     }
 

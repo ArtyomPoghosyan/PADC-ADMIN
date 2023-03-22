@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import React from 'react';
-// import { TableComponent } from "../../shared/table";
+
 import { useAppDispatch } from "../../hooks";
-// import { UserThunk } from "../../slices/user/user";
-// import { IState } from "../../models/common/common";
+
 import moment from "moment";
+
 import { IState } from "@models/common";
 import { UserThunk } from "@slices/user/user";
 import { TableComponent } from "@shared/table";
@@ -13,13 +13,15 @@ import { TableComponent } from "@shared/table";
 export const AllUsers: React.FC = () => {
     const { isLoading, userData, } = useSelector((state: IState) => state.user)
     const dispatch = useAppDispatch();
+    const dayFormat:string = 'YYYY-MM-DD';
+    const dayHourFormat:string='YYYY-MM-DD HH:mm';
 
     useEffect(() => {
         dispatch(UserThunk())
     }, [])
 
     const dateFormat = (date: string):string => {
-        return (moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY HH:MM'))
+        return (moment(date, dayFormat).format(dayHourFormat))
     }
 
     const renderTable = () => {

@@ -5,27 +5,26 @@ import { Form, Input } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 
 import { Response } from '@shared/response';
-// import { ButtonLoading } from '../../shared/button-loading';
 
-import { EditorState, ContentState } from 'draft-js';
-
+import { EditorState, ContentState,convertToRaw } from 'draft-js';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-// import { IState } from '../../models/common';
 import { useAppDispatch } from '../../hooks';
+
 import { IState } from '@models/common';
+
 import { EditCurrentProjectThunk, ProjectState } from '@slices/project/edit-project';
 import { CurrentProjectThunk } from '@slices/project/current-projet';
+
 import { SuccessResponse } from '@shared/success-response';
 import { ButtonLoading } from '@shared/button-loading';
 
-// import { EditCurrentProjectThunk, ProjectState } from '../../slices/project/edit-project';
-// import { CurrentProjectThunk } from '../../slices/project/current-projet';
-// import { SuccessResponse } from '../../shared/success-response';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 
 export const CurrentProject: React.FC = () => {
 
@@ -41,7 +40,7 @@ export const CurrentProject: React.FC = () => {
     const RawDraftContentState = (arg) => {
         let description: string = "";
         arg.blocks.map(item => description += item.text);
-        setEditorText(description);
+        // setEditorText(description);
     }
 
     const onEditorStateChange = (editorState) => {
@@ -50,7 +49,7 @@ export const CurrentProject: React.FC = () => {
 
     const onFinish = (values) => {
         const { title, description } = values;
-        const data = { title, description: editorText ? editorText : description }
+        const data = { title, description: draftToHtml(convertToRaw(editorState.getCurrentContent()))}
         dispatch(EditCurrentProjectThunk({ id, data }))
     }
 
@@ -61,8 +60,13 @@ export const CurrentProject: React.FC = () => {
     useEffect(() => {
         if (currentProjectData?.data) {
             const { title, description } = currentProjectData?.data;
-            setEditorState(EditorState.createWithContent(ContentState.createFromText(description)))
-            form.setFieldsValue({ title, description })
+            const contentBlock = htmlToDraft(description);
+            if (contentBlock) {
+                const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+                const editorState = EditorState.createWithContent(contentState);
+                setEditorState(editorState)
+            }
+            form.setFieldsValue({ title, editorState })
         }
     }, [currentProjectData])
 

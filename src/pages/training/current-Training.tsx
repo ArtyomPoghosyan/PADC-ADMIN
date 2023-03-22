@@ -4,7 +4,7 @@ import trainingStyle from "./training-style.module.css"
 import { Form, Input, Select, DatePicker, Upload, UploadFile, UploadProps, } from 'antd';
 import { Response } from '@shared/response';
 
-import { EditorState, ContentState } from 'draft-js';
+import { EditorState, ContentState,convertToRaw } from 'draft-js';
 import dayjs from 'dayjs';
 
 import { Editor } from "react-draft-wysiwyg";
@@ -16,19 +16,18 @@ import { useForm } from 'antd/es/form/Form';
 
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-// import { IState } from '../../models/common';
+
 import { useAppDispatch } from '../../hooks';
+
 import { IState } from '@models/common';
 import { IAddTraining } from '@models/trainings';
 import { EditCurrentTrainingThunk } from '@slices/training/edit-training';
 import { CurrentTrainingThunk, trainingState } from '@slices/training/current-training';
 import { SuccessResponse } from '@shared/success-response';
 import { ButtonLoading } from '@shared/button-loading';
-// import { IAddTraining } from '../../models/trainings';
-// import { EditCurrentTrainingThunk, trainingState } from '../../slices/training/edit-training';
-// import { CurrentTrainingThunk } from '../../slices/training/current-training';
-// import { ButtonLoading } from '../../shared/button-loading';
-// import { SuccessResponse } from '../../shared/success-response';
+
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 
 export const CurrentTraining: React.FC = () => {
 
@@ -42,8 +41,8 @@ export const CurrentTraining: React.FC = () => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const monthFormat = "MM-DD-YYYY";
     const dayFormat = 'YYYY-MM-DD';
+    const dayHourFormat='YYYY-MM-DD HH:mm';
     const [loadings, setLoadings] = useState<boolean[]>([]);
-    const [editorText, setEditorText] = useState("")
 
     const props: UploadProps = {
         beforeUpload: (file) => {
@@ -53,12 +52,6 @@ export const CurrentTraining: React.FC = () => {
         },
         fileList
     };
-
-    const RawDraftContentState = (arg) => {
-        let description: string = ""
-        arg.blocks.map(item => description += item.text)
-        setEditorText(description)
-    }
 
     const onEditorStateChange = (editorState) => {
         setEditorState(editorState);
@@ -72,11 +65,10 @@ export const CurrentTraining: React.FC = () => {
             return newLoadings;
         });
         const { date: { $d } } = values;
-        const { name, description, type, image } = values;
+        const { name, type, image } = values;
         const convertDate = moment($d, dayFormat).format(dayFormat);
-        console.log(description)
         const data: IAddTraining = {
-            name, description: editorText ? editorText : description,
+            name, description:  draftToHtml(convertToRaw(editorState.getCurrentContent())),
             date: convertDate, image, type
         }
         dispatch(EditCurrentTrainingThunk({ id, data }))
@@ -86,8 +78,6 @@ export const CurrentTraining: React.FC = () => {
         setFileList(newFileList);
     };
 
-
-
     useEffect(() => {
         dispatch(CurrentTrainingThunk(id))
     }, [])
@@ -95,10 +85,15 @@ export const CurrentTraining: React.FC = () => {
     useEffect(() => {
         if (trainingData?.data?.data) {
             const { name, description, date, type } = trainingData?.data?.data;
-            setEditorState(EditorState.createWithContent(ContentState.createFromText(description)))
+            const contentBlock = htmlToDraft(description);
+            if (contentBlock) {
+                const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+                const editorState = EditorState.createWithContent(contentState);
+                setEditorState(editorState)
+            };
             form.setFieldsValue({
-                name, description, type,
-                date: dayjs(moment(date, 'YYYY-MM-DD HH:mm').format(monthFormat), monthFormat)
+                name, type,
+                date: dayjs(moment(date,dayHourFormat).format(monthFormat), monthFormat)
             })
         }
     }, [trainingData])
@@ -131,8 +126,7 @@ export const CurrentTraining: React.FC = () => {
                             toolbarClassName="toolbarClassName"
                             wrapperClassName="wrapperClassName"
                             editorClassName="editorClassName"
-                            onEditorStateChange={onEditorStateChange}
-                            onContentStateChange={RawDraftContentState} />
+                            onEditorStateChange={onEditorStateChange} />
 
                     </Form.Item>
                     <p>Date</p>

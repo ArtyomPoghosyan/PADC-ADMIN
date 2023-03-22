@@ -1,14 +1,13 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import { Login } from "../pages/auth/login";
-import { Registration } from "../pages/auth/registration";
-import { DashBoard } from "../pages/dashboard";
-import { MainPage } from "../pages/main";
-import { AddProject, AllProjects, CurrentProject } from "../pages/project";
-import { AddTraining, AllTrainings, CurrentTraining } from "../pages/training";
-import { AllUsers, CurrentUser } from "../pages/user";
-import { AddVacancie, CurrentVacancie } from "../pages/vacancies";
-import { AllVacancies } from "../pages/vacancies/all-vacancies";
+import { Login } from "@pages/auth/login";
+import { Registration } from "@pages/auth/registration";
+import { DashBoard } from "@pages/dashboard";
+import { MainPage } from "@pages/main";
+import { AddProject, AllProjects, CurrentProject } from "@pages/project";
+import { AddTraining, AllTrainings, CurrentTraining } from "@pages/training";
+import { AllUsers, CurrentUser } from "@pages/user";
+import { AddVacancie, AllVacancies, CurrentVacancie } from "@pages/vacancies";
 
 export const Routers: React.FC = () => {
     return (

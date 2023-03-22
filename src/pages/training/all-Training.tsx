@@ -19,14 +19,16 @@ export const AllTrainings: React.FC = () => {
   const { isLoading, trainingData, } = useSelector((state: IState) => state.training)
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
-
+  const dayFormat = 'YYYY-MM-DD';
+  const dayHourFormat='DD/MM/YYYY HH:MM';
+  
   useEffect(() => {
     dispatch(TrainingThunk())
 
   }, [])
 
   const dateFormat = (date: string): string => {
-    return (moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY HH:MM'))
+    return (moment(date, dayFormat).format(dayHourFormat))
   }
 
   const renderTable = () => {

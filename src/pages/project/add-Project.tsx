@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Form, Input, Button } from 'antd';
-import { EditorState } from 'draft-js';
 
+import { Form, Input, Button } from 'antd';
+
+import { EditorState,convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
 import { Response } from '@shared/response';
 
 import { useSelector } from 'react-redux';
@@ -11,8 +14,9 @@ import { useSelector } from 'react-redux';
 import projectStyle from "./project-style.module.css";
 
 import { IState } from '@models/common';
-import { useAppDispatch } from '../../hooks';
 import { IAddProject } from '@models/projects';
+
+import { useAppDispatch } from '../../hooks';
 
 import { AddProjectThunk, defaultstate } from '@slices/project/add-project';
 import { SuccessResponse } from '@shared/success-response';
@@ -30,9 +34,8 @@ export const AddProject: React.FC = () => {
         let descriptionBlock: string = "";
         let { title, description } = values;
         description?.blocks?.forEach(item => descriptionBlock += item.text);
-        let data: IAddProject = { title, description: descriptionBlock, };
+        let data: IAddProject = { title, description: draftToHtml(convertToRaw(editorState.getCurrentContent())) };
         dispatch(AddProjectThunk(data));
-
     }
 
     return (

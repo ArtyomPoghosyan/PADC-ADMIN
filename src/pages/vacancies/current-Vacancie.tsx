@@ -16,11 +16,17 @@ import { useForm } from "antd/es/form/Form";
 import vacancieStyle from "./vacancie-style.module.css";
 
 import { useAppDispatch } from "../../hooks";
+
 import { IState } from "@models/common";
+
 import { EditCurrentVacancieThunk, vacancieState } from "@slices/vacancies/edit-vacancie";
 import { CurrentVacancieThunk } from "@slices/vacancies/current-vacancie";
+
 import { SuccessResponse } from "@shared/success-response";
 import { ButtonLoading } from "@shared/button-loading";
+
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 
 export const CurrentVacancie: React.FC = () => {
     const { currentVacancieData } = useSelector((state: IState) => state.currentVacancie);
@@ -32,14 +38,7 @@ export const CurrentVacancie: React.FC = () => {
     const { id } = useParams();
     const { TextArea } = Input;
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    const [editorText, setEditorText] = useState("")
     const dispatch = useAppDispatch();
-
-    const RawDraftContentState = (arg) => {
-        let description: string = "";
-        arg.blocks.map(item => description += item.text);
-        setEditorText(description)
-    }
 
     const onEditorStateChange = (editorState) => {
         setEditorState(editorState);
@@ -47,7 +46,10 @@ export const CurrentVacancie: React.FC = () => {
     }
 
     const onFinish = (values) => {
-        const data = { title: values.title, shortDescription: value, description: editorText ? editorText : text }
+        const data = {
+            title: values.title, shortDescription: value,
+            description: draftToHtml(convertToRaw(editorState.getCurrentContent()))
+        }
         dispatch(EditCurrentVacancieThunk({ id, data }))
     }
 
@@ -58,7 +60,12 @@ export const CurrentVacancie: React.FC = () => {
     useEffect(() => {
         if (currentVacancieData?.data) {
             const { title, shortDescription, description } = currentVacancieData.data;
-            setEditorState(EditorState.createWithContent(ContentState.createFromText(description)))
+            const contentBlock = htmlToDraft(description);
+            if (contentBlock) {
+                const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+                const editorState = EditorState.createWithContent(contentState);
+                setEditorState(editorState)
+            }
             setValue(shortDescription);
             setText(description);
             form.setFieldsValue({ title })
@@ -105,7 +112,6 @@ export const CurrentVacancie: React.FC = () => {
                             wrapperClassName="wrapperClassName"
                             editorClassName="editorClassName"
                             onEditorStateChange={onEditorStateChange}
-                            onContentStateChange={RawDraftContentState}
                         />
                     </Form.Item>
 

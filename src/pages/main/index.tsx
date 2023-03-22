@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { Outlet, useNavigate } from 'react-router-dom';
-// import { IMainIndex } from '../../models/common/common';
 
 import {
     MenuFoldOutlined, MenuUnfoldOutlined, TeamOutlined, ExpandOutlined,
@@ -10,7 +9,6 @@ import {
 
 import { Layout, Menu, theme } from 'antd';
 
-// import logo from "../../shared/images.ts/padc-logo.svg";
 import logo from "@assests/images/padc-logo.svg";
 
 import mainStyle from "./main-style.module.css";
