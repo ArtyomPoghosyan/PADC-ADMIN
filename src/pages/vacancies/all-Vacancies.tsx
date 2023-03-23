@@ -1,7 +1,8 @@
-import { IState } from "@models/common";
+import { IRecord, IState } from "@models/common";
 import { IVacancie } from "@models/vacancies";
 
 import { TableComponent } from "@shared/table";
+import { deleteVacancieThunk } from "@slices/vacancies/delete-vacancie";
 
 import { VacancieThunk } from "@slices/vacancies/vacancie";
 
@@ -27,6 +28,13 @@ export const AllVacancies: React.FC = () => {
     useEffect(() => {
         dispatch(VacancieThunk())
     }, [])
+
+    const deleteItem =(event, record: IRecord) => {
+        event.stopPropagation();
+        const {id} = record;
+        dispatch(deleteVacancieThunk(id))
+
+    }
 
     const dateFormat = (date: string):string => {
         return (moment(date, dayFormat).format(dayHourFormat))
@@ -70,6 +78,18 @@ export const AllVacancies: React.FC = () => {
                     dataIndex: "updatedAt",
                     key: 'address 2',
                     width: 35,
+                    ellipsis: true,
+                },
+                {
+                    title: '',
+                    dataIndex: "button",
+                    key: 'address 2',
+                    width: 35,
+                    render: (index: number, record: IRecord) => (
+                        <Button danger onClick={(event) => { deleteItem(event, record) }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
+                          Delete
+                        </Button>
+                      ),
                     ellipsis: true,
                 },
             ]

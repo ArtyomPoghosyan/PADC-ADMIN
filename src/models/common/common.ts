@@ -1,3 +1,4 @@
+import { deleteProject } from '@services/project';
 import { AnyAction } from 'redux';
 
 export interface Iaction {
@@ -31,7 +32,11 @@ export interface IState {
     currentProject:AnyAction,
     editCurrentProject:AnyAction,
     addProject:AnyAction,
-    currentUser:AnyAction
+    currentUser:AnyAction,
+    deleteTraining:AnyAction,
+    deleteProject:AnyAction,
+    deleteVacancie:AnyAction
+
 }
 
 
@@ -113,6 +118,15 @@ export interface IEditData{
     request: any,
     status: number
 
+}
+
+export interface IRecord {
+    description:{},
+    id:string,
+    index:number,
+    mediaFiles:{},
+    role:undefined | string,
+    title:string
 }
 
 

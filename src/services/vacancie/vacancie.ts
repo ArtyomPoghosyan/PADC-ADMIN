@@ -17,3 +17,7 @@ export const CurrentVacancie = (id):Promise<AxiosResponse<IVacancie[]>> => {
 export const AddVacancie = (data):Promise<AxiosResponse<IVacancie[]>> => {
     return Api.post<IVacancie[]>("/vacancies", data)
 }
+
+export const deleteVacancie = (id):Promise<AxiosResponse<IVacancie[]>> => {
+    return Api.delete<IVacancie[]>(`/vacancies/${id}`)
+}

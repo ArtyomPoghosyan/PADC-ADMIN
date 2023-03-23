@@ -9,10 +9,11 @@ import { useAppDispatch } from "../../hooks";
 // import { IState } from "../../models/common/common";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import { IState } from "@models/common";
+import { IRecord, IState } from "@models/common";
 import { TrainingThunk } from "@slices/training/training";
 import { ItrainingData } from "@models/trainings";
 import { TableComponent } from "@shared/table";
+import { deleteTrainingThunk } from "@slices/training/delete-training";
 
 export const AllTrainings: React.FC = () => {
 
@@ -20,12 +21,17 @@ export const AllTrainings: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
   const dayFormat = 'YYYY-MM-DD';
-  const dayHourFormat='DD/MM/YYYY HH:MM';
-  
+  const dayHourFormat = 'DD/MM/YYYY HH:MM';
+
   useEffect(() => {
     dispatch(TrainingThunk())
-
   }, [])
+
+  const deletes = (event, record: IRecord) => {
+    event.stopPropagation();
+    const { id } = record;
+    dispatch(deleteTrainingThunk(id))
+  }
 
   const dateFormat = (date: string): string => {
     return (moment(date, dayFormat).format(dayHourFormat))
@@ -82,6 +88,18 @@ export const AllTrainings: React.FC = () => {
           dataIndex: "mediaFiles",
           key: 'address 3',
           width: 30,
+          ellipsis: true,
+        },
+        {
+          title: '',
+          dataIndex: "button",
+          key: 'address 3',
+          width: 30,
+          render: (index: number, record: IRecord) => (
+            <Button danger onClick={(event) => { deletes(event, record) }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
+              Delete
+            </Button>
+          ),
           ellipsis: true,
         }
       ]

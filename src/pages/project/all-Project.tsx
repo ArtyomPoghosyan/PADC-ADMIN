@@ -11,15 +11,23 @@ import projectStyle from "./project-style.module.css";
 
 import { TableComponent } from '@shared/table';
 
-import { IState } from '@models/common';
+import { IRecord, IState } from '@models/common';
 import { IProjectData } from '@models/projects';
 
 import { axiosProject } from '@slices/project/project';
+import { deleteProjectThunk } from '@slices/project/delete-project';
 
 export const AllProjects: React.FC = () => {
+
   const { isLoading, projectData } = useSelector((state: IState) => state.project)
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
+
+  const deletes = (event, record: IRecord) => {
+    event.stopPropagation()
+    const { id } = record;
+    dispatch(deleteProjectThunk(id))
+  }
 
   useEffect(() => {
     dispatch(axiosProject())
@@ -49,6 +57,18 @@ export const AllProjects: React.FC = () => {
           width: 300,
           ellipsis: true,
         },
+        {
+          title: "",
+          dataIndex: "button",
+          key: 'address 1',
+          width: 40,
+          ellipsis: true,
+          render: (index: number, record: IRecord) => (
+            <Button danger onClick={(event) => { deletes(event, record) }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
+              Delete
+            </Button>
+          ),
+        },
       ]
     )
   }
@@ -62,7 +82,8 @@ export const AllProjects: React.FC = () => {
     return {
       ...item,
       description: <p dangerouslySetInnerHTML={{ __html: item?.description }}></p>,
-      index: index + 1
+      index: index + 1,
+
     }
   })
 
