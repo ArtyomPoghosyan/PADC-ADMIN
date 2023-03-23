@@ -43,6 +43,8 @@ export const MainPage: React.FC = () => {
                 return navigate("/projects")
             case NavigationEnum.FIVTH:
                 return navigate("/vacancies")
+            case NavigationEnum.SIX:
+                return navigate("/contact-request")
         }
     }
 

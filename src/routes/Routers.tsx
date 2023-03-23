@@ -8,6 +8,8 @@ import { AddProject, AllProjects, CurrentProject } from "@pages/project";
 import { AddTraining, AllTrainings, CurrentTraining } from "@pages/training";
 import { AllUsers, CurrentUser } from "@pages/user";
 import { AddVacancie, AllVacancies, CurrentVacancie } from "@pages/vacancies";
+import { ContactRequest } from "@pages/contact-request/contact-request";
+
 
 export const Routers: React.FC = () => {
     return (
@@ -29,6 +31,7 @@ export const Routers: React.FC = () => {
                     <Route path="vacancies" element={<AllVacancies />} />
                     <Route path="vacancies/:id" element={<CurrentVacancie />} />
                     <Route path="vacancies/add" element={<AddVacancie />} />
+                    <Route path="contact-request" element={<ContactRequest />} />
 
                 </Route>
             </Routes>

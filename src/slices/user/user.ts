@@ -3,10 +3,6 @@ import { AnyAction, createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { GetAllUser } from '@services/user';
 
-// import { BaseResponse, ErrorResponse, IModel } from '../../models/common/common';
-
-// import { GetAllUser } from '../../services';
-
 export type CombineUserState = IModel & BaseResponse<[], 'userData'> & ErrorResponse<null, 'userError'>;
 
 const initialState:CombineUserState = {

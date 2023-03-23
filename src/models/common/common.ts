@@ -35,7 +35,8 @@ export interface IState {
     currentUser:AnyAction,
     deleteTraining:AnyAction,
     deleteProject:AnyAction,
-    deleteVacancie:AnyAction
+    deleteVacancie:AnyAction,
+    contactRequest:AnyAction
 
 }
 
