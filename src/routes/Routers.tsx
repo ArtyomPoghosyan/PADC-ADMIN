@@ -9,6 +9,8 @@ import { AddTraining, AllTrainings, CurrentTraining } from "@pages/training";
 import { AllUsers, CurrentUser } from "@pages/user";
 import { AddVacancie, AllVacancies, CurrentVacancie } from "@pages/vacancies";
 import { ContactRequest } from "@pages/contact-request/contact-request";
+import { CurrentContact } from "@pages/contact-request";
+
 
 
 export const Routers: React.FC = () => {
@@ -31,7 +33,8 @@ export const Routers: React.FC = () => {
                     <Route path="vacancies" element={<AllVacancies />} />
                     <Route path="vacancies/:id" element={<CurrentVacancie />} />
                     <Route path="vacancies/add" element={<AddVacancie />} />
-                    <Route path="contact-request" element={<ContactRequest />} />
+                    <Route path="contact" element={<ContactRequest />} />
+                    <Route path="contact/:id" element={<CurrentContact/>} />
 
                 </Route>
             </Routes>

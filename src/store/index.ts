@@ -18,6 +18,7 @@ import deleteProject from "@slices/project/delete-project";
 import deleteTraining from "@slices/training/delete-training";
 import deleteVacancie from "@slices/vacancies/delete-vacancie";
 import contactRequest from "@slices/contact-request/contact-request";
+import currentContact from '@slices/contact-request/current-contact';
 
 export const Store = configureStore({
     reducer: {
@@ -39,7 +40,8 @@ export const Store = configureStore({
         editCurrentProject:editCurrentProject,
         addProject:addProject,
         currentUser:CurrentUser,
-        contactRequest:contactRequest
+        contactRequest:contactRequest,
+        currentContact:currentContact
 
     },
 });

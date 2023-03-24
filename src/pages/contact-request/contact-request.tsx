@@ -89,7 +89,7 @@ export const ContactRequest: React.FC = () => {
     })
     return (
         <div>
-            <TableComponent loading={isLoading} columns={renderTable} dataSource={user} pageSize={10} navigationPath={"user"} />
+            <TableComponent loading={isLoading} columns={renderTable} dataSource={user} pageSize={10} navigationPath={"contact"} />
         </div>
     )
 }

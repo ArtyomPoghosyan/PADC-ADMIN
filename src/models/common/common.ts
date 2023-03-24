@@ -1,4 +1,3 @@
-import { deleteProject } from '@services/project';
 import { AnyAction } from 'redux';
 
 export interface Iaction {
@@ -36,7 +35,8 @@ export interface IState {
     deleteTraining:AnyAction,
     deleteProject:AnyAction,
     deleteVacancie:AnyAction,
-    contactRequest:AnyAction
+    contactRequest:AnyAction,
+    currentContact:AnyAction
 
 }
 

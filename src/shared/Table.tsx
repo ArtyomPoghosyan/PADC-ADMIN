@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { Table } from "antd";
+
 import { ITableProps } from "@models/common";
 import { IVacancie } from "@models/vacancies";
 import { ItrainingData } from "@models/trainings";
