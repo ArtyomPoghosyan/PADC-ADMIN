@@ -40,7 +40,6 @@ export const CurrentProject: React.FC = () => {
     const RawDraftContentState = (arg) => {
         let description: string = "";
         arg.blocks.map(item => description += item.text);
-        // setEditorText(description);
     }
 
     const onEditorStateChange = (editorState) => {

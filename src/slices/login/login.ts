@@ -3,11 +3,6 @@ import { BaseResponse, ErrorResponse, IModel } from "@models/common";
 import { AnyAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Login } from "@services/auth";
 
-// import { BaseResponse, ErrorResponse, IModel } from '../../models/common/common';
-// import { ILogin } from '../../models/auth';
-
-// import { Login } from "../../services";
-
 export type CombineLoginState = IModel & BaseResponse<[], 'loginData'> & ErrorResponse<null, 'loginError'>;
 
 const initialState: CombineLoginState = {

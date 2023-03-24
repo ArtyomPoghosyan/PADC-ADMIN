@@ -32,7 +32,7 @@ export const CurrentContact: React.FC = () => {
         dispatch(currentContactThunk(id))
     }, [])
 
-
+    console.log(contactData)
     useEffect(() => {
         if (contactData?.data) {
             const { name, email, phone, address, comment, mediaFiles } = contactData?.data;
