@@ -2,6 +2,7 @@ import { ILogin } from "@models/auth";
 import { BaseResponse, ErrorResponse, IModel } from "@models/common";
 import { AnyAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Login } from "@services/auth";
+import axios from "axios";
 
 export type CombineLoginState = IModel & BaseResponse<[], 'loginData'> & ErrorResponse<null, 'loginError'>;
 
@@ -18,8 +19,9 @@ export const LoginThunk = createAsyncThunk(
         try {
             const response = await Login(values)
             return Promise.resolve(response.data)
-        } catch (error) {
-            return Promise.reject(error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error))
+                return Promise.reject(error?.response?.data?.error?.message[0])
         }
     }
 )

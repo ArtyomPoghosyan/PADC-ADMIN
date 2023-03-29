@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { Input } from "antd"
+import { Button, Input } from "antd"
 import { Form } from 'antd';
 import { useForm } from "antd/es/form/Form";
 
@@ -11,16 +11,21 @@ import contactStyle from "./contact-request-style.module.css";
 
 import { useAppDispatch } from "../../hooks";
 
-
 import { IState } from "@models/common";
 import TextArea from "antd/es/input/TextArea";
 import { currentContactThunk } from "@slices/contact-request/current-contact";
+
+import { Document, Page, pdfjs } from 'react-pdf';
 
 export const CurrentContact: React.FC = () => {
 
     const { contactData } = useSelector((state: IState) => state.currentContact);
     const baseURL = process.env.REACT_APP_BASE_URL;
-    const [image, setImage] = useState();
+
+    const [numPages, setNumPages] = useState<number>(0);
+    const [pageNumber, setPageNumber] = useState<number>(1);
+
+    const [pdfFile, setPdfFile] = useState("")
     const [value, setValue] = useState("");
     const [form] = useForm();
     const { id } = useParams();
@@ -28,17 +33,34 @@ export const CurrentContact: React.FC = () => {
 
     const onFinish = () => { }
 
+    const onDocumentLoadSuccess = ({ numPages }) => {
+        setNumPages(numPages);
+    };
+
+    const goToPrevPage = () => {
+        setPageNumber(pageNumber - 1 <= 1 ? 1 : pageNumber - 1);
+    }
+
+    const goToNextPage = () => {
+        setPageNumber(pageNumber + 1 > numPages ? numPages : pageNumber + 1);
+    }
+
+    useEffect(() => {
+        pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+    }, []);
+
     useEffect(() => {
         dispatch(currentContactThunk(id))
     }, [])
 
-    console.log(contactData)
     useEffect(() => {
         if (contactData?.data) {
             const { name, email, phone, address, comment, mediaFiles } = contactData?.data;
-            setImage(mediaFiles.path)
+            setPdfFile(mediaFiles.path)
+
+            console.log(`${baseURL}/${mediaFiles.path}`)
             form.setFieldsValue({
-                name, email, phone, address, comment
+                name, email, phone, address, comment, mediaFiles: `${baseURL}/${mediaFiles.path}`
             })
         }
     }, [contactData])
@@ -54,12 +76,6 @@ export const CurrentContact: React.FC = () => {
                 onFinish={onFinish}
                 autoComplete="off"
                 className={contactStyle.user_form}>
-
-                <div className={contactStyle.image_container}>
-                    <Form.Item name="createdAt">
-                        <img className={contactStyle.mediaFiles} src={baseURL + `/${image}`} alt="PADC" />
-                    </Form.Item>
-                </div>
 
                 <div>
                     <Form.Item name="name">
@@ -84,6 +100,21 @@ export const CurrentContact: React.FC = () => {
                             onChange={(e) => setValue(e.target.value)}
                             placeholder="Input short description"
                             autoSize={{ minRows: 3, maxRows: 8 }} />
+                    </Form.Item>
+
+                    <Form.Item name="mediaFiles">
+                        <Document className={contactStyle.pdf_container} file={`${baseURL}/${pdfFile}`} onLoadSuccess={onDocumentLoadSuccess}>
+                            <Page pageNumber={pageNumber} />
+                        </Document>
+                        <div className={numPages == 1 ? contactStyle.button_container_hidden : contactStyle.button_container}>
+                            <Button type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}
+                                onClick={goToPrevPage}>Prev</Button>
+                            <Button type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}
+                                onClick={goToNextPage}>Next</Button>
+                        </div>
+                        <p>
+                            Page {pageNumber} of {numPages}
+                        </p>
                     </Form.Item>
                 </div>
             </Form>

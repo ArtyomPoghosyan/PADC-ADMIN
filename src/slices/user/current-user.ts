@@ -1,6 +1,7 @@
 import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { createSlice, createAsyncThunk, AnyAction } from '@reduxjs/toolkit';
 import { getCurrentUser } from '@services/user';
+import axios from 'axios';
 // import { BaseResponse, ErrorResponse, IModel } from "../../models/common";
 // import { getCurrentUser } from "../../services";
 
@@ -19,8 +20,9 @@ export const CurrentUserThunk = createAsyncThunk(
         try {
             const repsonse = await getCurrentUser(id);
             return Promise.resolve(repsonse.data)
-        } catch (error) {
-            return Promise.reject(error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error))
+                return Promise.reject(error?.response?.data?.error?.message[0])
         }
     }
 )
@@ -46,7 +48,7 @@ const currentUserSlice = createSlice({
             })
             .addCase(CurrentUserThunk.rejected, (state: CombineUserState, action: AnyAction) => {
                 state.isSuccess = false;
-                    state.userError = action?.error?.message
+                state.userError = action?.error?.message
             })
     },
 })

@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
-import {  deleteTraining } from '@services/training';
+import { deleteTraining } from '@services/training';
 import { ITrainingData } from '@models/trainings';
 import { TrainingThunk } from './training';
+import axios from 'axios';
 
 const initialState: ITrainingData = {
     isLoading: false,
@@ -14,13 +15,14 @@ const initialState: ITrainingData = {
 
 export const deleteTrainingThunk = createAsyncThunk(
     "deleteTraining/deleteTrainingThunk",
-    async (id: undefined | string, { fulfillWithValue, rejectWithValue, dispatch }) => {
+    async (id: undefined | number, { fulfillWithValue, rejectWithValue, dispatch }) => {
         try {
             const response = await deleteTraining(id);
             dispatch(TrainingThunk())
             return fulfillWithValue(response.data)
-        } catch (error) {
-            return rejectWithValue(error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error))
+                return Promise.reject(error?.response?.data?.error?.message[0])
         }
     }
 )
@@ -45,9 +47,9 @@ const deleteTrainingSlice = createSlice({
                 state.isSuccess = true;
                 state.trainingData.data = action.payload
             })
-            .addCase(deleteTrainingThunk.rejected,(state:ITrainingData,action:AnyAction) => {
-                state.isSuccess= false;
-                state.trainingError= action?.error?.message
+            .addCase(deleteTrainingThunk.rejected, (state: ITrainingData, action: AnyAction) => {
+                state.isSuccess = false;
+                state.trainingError = action?.error?.message
             })
     },
 })

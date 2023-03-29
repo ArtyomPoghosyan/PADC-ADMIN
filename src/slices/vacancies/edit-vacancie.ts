@@ -1,6 +1,7 @@
 import { createSlice, AnyAction } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { EditVacancie } from '@services/vacancie';
+import axios from 'axios';
 
 import { BaseResponse, ErrorResponse, IEditData, IModel } from '../../models/common';
 
@@ -20,8 +21,9 @@ export const EditCurrentVacancieThunk = createAsyncThunk(
         try {
             const response = await EditVacancie(id, data);
             return Promise.resolve(response.data);
-        } catch (error) {
-            return Promise.reject(error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error))
+                return Promise.reject(error?.response?.data?.error?.message[0])
         }
     }
 )

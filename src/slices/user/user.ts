@@ -2,10 +2,11 @@ import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { AnyAction, createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { GetAllUser } from '@services/user';
+import axios from 'axios';
 
 export type CombineUserState = IModel & BaseResponse<[], 'userData'> & ErrorResponse<null, 'userError'>;
 
-const initialState:CombineUserState = {
+const initialState: CombineUserState = {
     isLoading: false,
     isSuccess: false,
     userData: [],
@@ -18,8 +19,9 @@ export const UserThunk = createAsyncThunk(
         try {
             const response = await GetAllUser()
             return Promise.resolve(response.data)
-        } catch (error) {
-            return Promise.reject(error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error))
+                return Promise.reject(error?.response?.data?.error?.message[0])
         }
     }
 )
@@ -29,9 +31,9 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         defaultState(state) {
-            state.isLoading=false;
-            state.isSuccess=false;
-            state.userError= null;
+            state.isLoading = false;
+            state.isSuccess = false;
+            state.userError = null;
         }
     },
     extraReducers(builder) {
@@ -39,14 +41,14 @@ const userSlice = createSlice({
             .addCase(UserThunk.pending, (state: CombineUserState) => {
                 state.isLoading = true
             })
-            .addCase(UserThunk.fulfilled,(state:CombineUserState,action:AnyAction)=> {
-                state.isLoading= false;
-                state.isSuccess=true;
-                state.userData=action.payload
+            .addCase(UserThunk.fulfilled, (state: CombineUserState, action: AnyAction) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.userData = action.payload
             })
-            .addCase(UserThunk.rejected,(state:CombineUserState,action:AnyAction) => {
-                state.isSuccess= false;
-                state.userError=action?.error?.message
+            .addCase(UserThunk.rejected, (state: CombineUserState, action: AnyAction) => {
+                state.isSuccess = false;
+                state.userError = action?.error?.message
             })
     },
 })

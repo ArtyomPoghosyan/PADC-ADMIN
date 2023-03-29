@@ -13,3 +13,15 @@ export interface IAddVacancieData {
     shortDescription: string,
     description: string
 }
+
+export interface IDeteleVacancie {
+    createdAt: string,
+    description: string,
+    id: undefined | number,
+    index: number,
+    mediaFiles: {},
+    role: undefined | string,
+    shortDescription: string,
+    title: string,
+    updatedAt: string
+}

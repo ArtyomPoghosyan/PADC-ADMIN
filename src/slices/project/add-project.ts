@@ -6,6 +6,7 @@ import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { IAddProject } from '@models/projects';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { addProject } from '@services/project';
+import axios from 'axios';
 // import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
 
 type CombineProjectState = IModel & BaseResponse<[], 'addProjectData'> & ErrorResponse<null, 'addProjectDataError'>;
@@ -23,8 +24,9 @@ export const AddProjectThunk = createAsyncThunk(
         try {
             const response = await addProject(data);
             return Promise.resolve(response.data)
-        } catch (error) {
-            return Promise.reject(error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error))
+                return Promise.reject(error?.response?.data?.error?.message[0])
         }
     }
 )

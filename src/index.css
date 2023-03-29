@@ -103,10 +103,6 @@ header svg {
   margin-left: 0 !important;
 }
 
-/* #normal_login_password_help{
-  display: flex;
+.react-pdf__Page__annotations {
+  height: 0 !important;
 }
-
-#normal_login_email_help{
-  display: flex;
-} */

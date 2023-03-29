@@ -1,3 +1,5 @@
+import { htmlToDraft } from 'html-to-draftjs';
+import { descriptors } from 'chart.js/dist/core/core.defaults';
 export interface IProjectData {
     id: number,
     description: string,
@@ -11,10 +13,23 @@ export interface IAddProject {
 }
 
 export interface IRecord {
-    description:{},
-    id:string,
-    index:number,
-    mediaFiles:{},
-    role:undefined | string,
-    title:string
+    description: {},
+    id: string,
+    index: number,
+    mediaFiles: {},
+    role: undefined | string,
+    title: string
+}
+
+export interface IProject {
+    id: undefined | string,
+    data: {
+        title: string,
+        description: undefined | htmlToDraft | HTMLAreaElement
+    }
+}
+
+export interface IProjectDatas {
+    title: string,
+    description: undefined | htmlToDraft | HTMLAreaElement
 }

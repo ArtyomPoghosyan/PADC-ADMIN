@@ -1,3 +1,4 @@
+import { IAddTraining } from '@models/trainings';
 import { AnyAction } from 'redux';
 
 export interface Iaction {

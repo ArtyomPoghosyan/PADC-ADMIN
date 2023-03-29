@@ -17,6 +17,8 @@ export const ContactRequest: React.FC = () => {
         dispatch(contactRequestThunk())
     }, [])
 
+    console.log(contactData)
+
     const renderTable = () => {
         return (
             [
@@ -83,7 +85,6 @@ export const ContactRequest: React.FC = () => {
         return ({
             ...item,
             index: index+1,
-            
         }
         )
     })

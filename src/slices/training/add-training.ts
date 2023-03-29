@@ -6,6 +6,7 @@ import { HTTPHelper } from '@helpers/http.helper';
 import { IAddTraining } from '@models/trainings';
 import { AnyAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { addTraining } from '@services/training';
+import axios from 'axios';
 
 import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
 // import { IAddTraining } from '../../models/trainings';
@@ -26,9 +27,9 @@ export const AddTrainingThunk = createAsyncThunk(
             const formData = HTTPHelper.generateFormData(data);
             const response = await addTraining(formData);
             return Promise.resolve(response.data)
-
-        } catch (error) {
-            return Promise.reject(error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error))
+                return Promise.reject(error?.response?.data?.error?.message[0])
         }
     }
 )
@@ -38,9 +39,9 @@ const addTrainingSlice = createSlice({
     initialState,
     reducers: {
         defaultState(state) {
-            state.isLoading=false;
-            state.isSuccess=false;
-            state.addTrainingError= null;
+            state.isLoading = false;
+            state.isSuccess = false;
+            state.addTrainingError = null;
         }
     },
     extraReducers(builder) {

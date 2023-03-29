@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { BaseResponse, ErrorResponse, IModel } from "@models/common";
 
 import { currentcontact } from '@services/contact-request';
+import axios from 'axios';
 
 export type CombineContactState = IModel & BaseResponse<[], 'contactData'> & ErrorResponse<null, 'contactError'>;
 
@@ -19,8 +20,9 @@ export const currentContactThunk = createAsyncThunk(
         try {
             const response = await currentcontact(id);
             return Promise.resolve(response.data)
-        } catch (error) {
-            return Promise.reject(error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error))
+                return Promise.reject(error?.response?.data?.error?.message[0])
         }
     }
 )

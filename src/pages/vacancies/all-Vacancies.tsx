@@ -1,5 +1,5 @@
 import { IRecord, IState } from "@models/common";
-import { IVacancie } from "@models/vacancies";
+import { IDeteleVacancie, IVacancie } from "@models/vacancies";
 
 import { TableComponent } from "@shared/table";
 import { deleteVacancieThunk } from "@slices/vacancies/delete-vacancie";
@@ -16,27 +16,40 @@ import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "../../hooks";
 
+import { Modal } from 'antd';
+
 import vacancieStyle from "./vacancie-style.module.css";
 
 export const AllVacancies: React.FC = () => {
-    const { isLoading, vacancieData, } = useSelector((state: IState) => state.vacancie)
+
+    const { isLoading, vacancieData, } = useSelector((state: IState) => state.vacancie);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const dispatch = useAppDispatch();
     const navigation = useNavigate();
     const dayFormat = 'YYYY-MM-DD';
-    const dayHourFormat='DD/MM/YYYY HH:MM';
+    const dayHourFormat = 'DD/MM/YYYY HH:MM';
+    const [itemId, setItems] = useState<undefined | number>()
 
     useEffect(() => {
         dispatch(VacancieThunk())
     }, [])
 
-    const deleteItem =(event, record: IRecord) => {
+    const showModal = (event, record) => {
         event.stopPropagation();
-        const {id} = record;
-        dispatch(deleteVacancieThunk(id))
+        setIsModalOpen(true);
+        setItems(record?.id)
+    };
 
-    }
+    const handleOk = () => {
+        dispatch(deleteVacancieThunk(itemId))
+        setIsModalOpen(false);
+    };
 
-    const dateFormat = (date: string):string => {
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+    const dateFormat = (date: string): string => {
         return (moment(date, dayFormat).format(dayHourFormat))
     }
 
@@ -86,10 +99,10 @@ export const AllVacancies: React.FC = () => {
                     key: 'address 2',
                     width: 35,
                     render: (index: number, record: IRecord) => (
-                        <Button danger onClick={(event) => { deleteItem(event, record) }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
-                          Delete
+                        <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
+                            Delete
                         </Button>
-                      ),
+                    ),
                     ellipsis: true,
                 },
             ]
@@ -110,6 +123,11 @@ export const AllVacancies: React.FC = () => {
     })
     return (
         <div className={vacancieStyle.training_page_container}>
+
+            <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <p>Do you want to delete this Vacancie?</p>
+            </Modal>
+
             <div className={vacancieStyle.button_container}>
                 <Button onClick={() => { navigation("add") }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
                     Add Vacancie

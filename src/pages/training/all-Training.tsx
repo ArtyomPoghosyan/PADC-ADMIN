@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux"
 // import { ItrainingData } from "../../models/trainings/trainings";
 import trainingStyle from "../training/training-style.module.css";
-import { Button, Space } from 'antd';
+import { Button, Modal, Space } from 'antd';
 // import { TableComponent } from "../../shared/table";
 import { useAppDispatch } from "../../hooks";
 // import { TrainingThunk } from "../../slices/training/training";
@@ -22,16 +22,27 @@ export const AllTrainings: React.FC = () => {
   const navigation = useNavigate();
   const dayFormat = 'YYYY-MM-DD';
   const dayHourFormat = 'DD/MM/YYYY HH:MM';
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [itemId, setItems] = useState<undefined | number>();
 
   useEffect(() => {
     dispatch(TrainingThunk())
   }, [])
 
-  const deletes = (event, record: IRecord) => {
+  const showModal = (event, record) => {
     event.stopPropagation();
-    const { id } = record;
-    dispatch(deleteTrainingThunk(id))
-  }
+    setIsModalOpen(true);
+    setItems(record?.id)
+};
+
+const handleOk = () => {
+    dispatch(deleteTrainingThunk(itemId))
+    setIsModalOpen(false);
+};
+
+const handleCancel = () => {
+    setIsModalOpen(false);
+};
 
   const dateFormat = (date: string): string => {
     return (moment(date, dayFormat).format(dayHourFormat))
@@ -96,7 +107,7 @@ export const AllTrainings: React.FC = () => {
           key: 'address 3',
           width: 30,
           render: (index: number, record: IRecord) => (
-            <Button danger onClick={(event) => { deletes(event, record) }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
+            <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
               Delete
             </Button>
           ),
@@ -129,6 +140,11 @@ export const AllTrainings: React.FC = () => {
   })
   return (
     <div className={trainingStyle.training_page_container}>
+
+      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <p>Do you want to delete this Vacancie?</p>
+      </Modal>
+
       <div className={trainingStyle.button_container}>
         <Button onClick={() => { navigation("add") }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
           Add Training

@@ -20,3 +20,19 @@
     display: flex;
     width: 90px;
 }
+
+.button_container{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 5px;
+}
+
+.button_container_hidden{
+    visibility:hidden;
+}
+
+.pdf_container{
+    border:1px solid #c3baba;
+    min-height: 500px;
+}
+

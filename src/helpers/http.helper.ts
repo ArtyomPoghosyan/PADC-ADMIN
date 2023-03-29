@@ -4,9 +4,11 @@ export class HTTPHelper {
 
     static generateFormData<T>(body: T): FormData {
         const formData = new FormData();
-
+        console.log(body)
         if (body) {
             for (const key in body) {
+                console.log(key)
+                console.log(body[key])
                 if (body[key] instanceof File) {
                     formData.append(key, body[key] as File);
                     continue;

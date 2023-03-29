@@ -1,6 +1,7 @@
 import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { deleteVacancie } from '@services/vacancie';
+import axios from 'axios';
 
 import { VacancieThunk } from './vacancie';
 
@@ -14,13 +15,14 @@ const initialState: CombineVacancieState = {
 
 export const deleteVacancieThunk = createAsyncThunk(
     "deleteVacancie/deleteVacancieThunk",
-    async (id: undefined | string, { fulfillWithValue, rejectWithValue, dispatch }) => {
+    async (id: undefined | number, { fulfillWithValue, rejectWithValue, dispatch }) => {
         try {
             const response = await deleteVacancie(id);
             dispatch(VacancieThunk())
             return fulfillWithValue(response)
-        } catch (error) {
-            return rejectWithValue(error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error))
+                return Promise.reject(error?.response?.data?.error?.message[0])
         }
     }
 )
@@ -53,4 +55,3 @@ const deleteVacancieSlice = createSlice({
 })
 
 export default deleteVacancieSlice.reducer;
-// export const deleteVacancie = deleteVacancieSlice.actions.deleteVacancie

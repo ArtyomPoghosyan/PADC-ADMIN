@@ -16,6 +16,7 @@ export const EditCurrentTraining = (id: string | undefined, data: Object): Promi
 }
 
 export const addTraining = (data): Promise<AxiosResponse<ITrainingData[]>> => {
+    console.log(data)
     return Api.post<ITrainingData[]>("/trainings", data)
 }
 

@@ -3,6 +3,7 @@ import { ITrainingData } from '@models/trainings';
 import { AnyAction, createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getAllTrainingRequest } from '@services/training';
+import axios from 'axios';
 
 const initialState: ITrainingData = {
     isLoading: false,
@@ -19,8 +20,9 @@ export const TrainingThunk = createAsyncThunk(
         try {
             const response = await getAllTrainingRequest();
             return Promise.resolve(response.data)
-        } catch (error) {
-            return Promise.reject(error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error))
+                return Promise.reject(error?.response?.data?.error?.message[0])
         }
     }
 )
@@ -29,7 +31,7 @@ const trainingSlice = createSlice({
     name: "training",
     initialState,
     reducers: {},
-    extraReducers(builder:any) {
+    extraReducers(builder: any) {
         builder
             .addCase(TrainingThunk.pending, (state: ITrainingData) => {
                 state.isLoading = true

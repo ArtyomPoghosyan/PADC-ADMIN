@@ -1,8 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 
 import { useNavigate } from 'react-router-dom';
-
 
 import LoginStyle from "./login-Style.module.css";
 import logo from "@assests/images/padc-logo.svg"
@@ -14,15 +13,24 @@ import { Alert } from 'antd';
 import { Spin } from 'antd';
 import { ILogin } from '@models/auth';
 import { LoginThunk } from '@slices/login/login';
+import { useForm } from 'antd/es/form/Form';
+import { t } from 'i18next';
 
 export const Login: React.FC = () => {
     const cookies = new Cookies();
     const { isLoading, isSuccess, loginData, loginError } = useAppSelector((state: any) => state.login);
+    const [form] = useForm()
     const dispatch = useAppDispatch();
     const navigation = useNavigate();
+    const [backError,setBackError] = useState([])
 
-    const attentionText = "Attention !! This website is only for internal usage for users certified by PADC LLC."
+    const attentionText = "Attention !! This website is only for internal usage for users certified by PADC LLC.";
+
     const onFinish = (values: ILogin) => {
+        console.log(values)
+        if (values?.remember) {
+            cookies.set("rememberMe", JSON.stringify({ email: values.email, password: values.password }));
+        }
         dispatch(LoginThunk(values));
     };
 
@@ -33,6 +41,14 @@ export const Login: React.FC = () => {
         }
     }, [isSuccess])
 
+    useEffect(() => {
+        if (cookies.get("rememberMe")) {
+            const { email, password } = cookies.get("rememberMe")
+            form.setFieldsValue({ email, password })
+        }
+    }, [])
+
+    console.log(loginError)
     return (
         <>
             <Alert className={LoginStyle.alert_message} message={attentionText} type="info" showIcon />
@@ -45,20 +61,21 @@ export const Login: React.FC = () => {
                     {loginError ? <p className={LoginStyle.cridential_error}>{loginError}</p> : <p></p>}
                 </div>
                 <Form
+                    form={form}
                     style={{ width: "850px", marginTop: "10px" }}
                     name="normal_login"
                     className="login-form"
                     initialValues={{ remember: true }}
                     onFinish={onFinish}
                 >
-                    <Form.Item style={{  width: "500px", flexWrap: "nowrap" }}
+                    <Form.Item style={{ width: "500px", flexWrap: "nowrap" }}
                         name="email"
                         rules={[{ required: true, message: 'Please input your Email!' }]}
                     >
                         <Input prefix={<UserOutlined className="site-form-item-icon" />} style={{ width: "500px" }} placeholder="Email" />
                     </Form.Item>
                     <Form.Item
-                        style={{  width: "528px", flexWrap: "nowrap" }}
+                        style={{ width: "528px", flexWrap: "nowrap" }}
                         name="password"
                         rules={[{ required: true, message: 'Please input your Password!' }]}>
                         <Input
@@ -69,8 +86,8 @@ export const Login: React.FC = () => {
                         />
                     </Form.Item>
                     <Form.Item className={LoginStyle.remember_me}>
-                        <Form.Item className={LoginStyle.remember_me_container} name="remember" valuePropName="checked">
-                            <Checkbox style={{width:"58%"}}>Remember me</Checkbox>
+                        <Form.Item className={LoginStyle.remember_me_container} name="remember" valuePropName="!checked">
+                            <Checkbox style={{ width: "58%" }}>Remember me</Checkbox>
                         </Form.Item>
                     </Form.Item>
 

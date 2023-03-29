@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { BaseResponse, ErrorResponse, IModel } from "@models/common";
 import { deleteProject } from '@services/project';
 import { axiosProject } from './project';
+import axios from 'axios';
 
 type CombineProjectState = IModel & BaseResponse<[], 'ProjectData'> & ErrorResponse<null, 'ProjectError'>;
 
@@ -14,14 +15,15 @@ const initialState: CombineProjectState = {
 
 export const deleteProjectThunk = createAsyncThunk(
     "deleteProject/deleteProjectThunk",
-    async (id: undefined | string, {fulfillWithValue,dispatch}) => {
+    async (id: undefined | number, { fulfillWithValue, dispatch }) => {
         try {
             const response = await deleteProject(id);
             dispatch(axiosProject())
-            return fulfillWithValue(response.data) 
-            
-        } catch (error) {
-            return Promise.reject(error)
+            return fulfillWithValue(response.data)
+
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error))
+                return Promise.reject(error?.response?.data?.error?.message[0])
         }
     }
 )

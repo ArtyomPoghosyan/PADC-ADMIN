@@ -2,12 +2,7 @@ import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { IAddVacancieData } from '@models/vacancies';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { AddVacancie } from '@services/vacancie';
-
-// import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
-// import { IAddVacancieData } from '../../models/vacancies';
-
-// import { AddVacancie } from '../../services';
-
+import axios from 'axios';
 
 type CombineVacancieState = IModel & BaseResponse<[], 'currentVacancieData'> & ErrorResponse<null, 'currentVacancieError'>;
 
@@ -24,8 +19,9 @@ export const AddVacancieThunk = createAsyncThunk(
         try {
             const response = await AddVacancie(data);
             return Promise.resolve(response.data)
-        } catch (error) {
-            return Promise.reject(error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error))
+                return Promise.reject(error?.response?.data?.error?.message[0])
         }
     }
 )
@@ -35,9 +31,9 @@ const addVacancieSlice = createSlice({
     initialState,
     reducers: {
         defaultState(state) {
-            state.isLoading=false;
-            state.isSuccess=false;
-            state.currentVacancieError= null;
+            state.isLoading = false;
+            state.isSuccess = false;
+            state.currentVacancieError = null;
         }
     },
     extraReducers(builder) {

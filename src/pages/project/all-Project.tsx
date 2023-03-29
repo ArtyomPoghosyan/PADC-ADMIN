@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
 
 import { useSelector } from 'react-redux';
 
@@ -22,12 +22,23 @@ export const AllProjects: React.FC = () => {
   const { isLoading, projectData } = useSelector((state: IState) => state.project)
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [itemId, setItems] = useState<undefined | number>();
 
-  const deletes = (event, record: IRecord) => {
-    event.stopPropagation()
-    const { id } = record;
-    dispatch(deleteProjectThunk(id))
-  }
+  const showModal = (event, record) => {
+    event.stopPropagation();
+    setIsModalOpen(true);
+    setItems(record?.id)
+};
+
+const handleOk = () => {
+    dispatch(deleteProjectThunk(itemId))
+    setIsModalOpen(false);
+};
+
+const handleCancel = () => {
+    setIsModalOpen(false);
+};
 
   useEffect(() => {
     dispatch(axiosProject())
@@ -64,7 +75,7 @@ export const AllProjects: React.FC = () => {
           width: 40,
           ellipsis: true,
           render: (index: number, record: IRecord) => (
-            <Button danger onClick={(event) => { deletes(event, record) }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
+            <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
               Delete
             </Button>
           ),
@@ -89,6 +100,11 @@ export const AllProjects: React.FC = () => {
 
   return (
     <div className={projectStyle.training_page_container}>
+
+      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <p>Do you want to delete this Vacancie?</p>
+      </Modal>
+      
       <div className={projectStyle.button_container}>
         <Button onClick={() => { navigation("add") }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
           Add Project

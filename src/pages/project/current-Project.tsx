@@ -25,6 +25,7 @@ import { ButtonLoading } from '@shared/button-loading';
 
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
+import { IProject, IProjectDatas } from '@models/projects';
 
 export const CurrentProject: React.FC = () => {
 
@@ -48,7 +49,8 @@ export const CurrentProject: React.FC = () => {
 
     const onFinish = (values) => {
         const { title, description } = values;
-        const data = { title, description: draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+        const data:IProjectDatas = { title, description: draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+        console.log( typeof description)
         dispatch(EditCurrentProjectThunk({ id, data }))
     }
 

@@ -1,6 +1,7 @@
 import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { currentProject } from '@services/project';
+import axios from 'axios';
 
 type CombineProjectState = IModel & BaseResponse<[], 'currentProjectData'> & ErrorResponse<null, 'currentProjectError'>;
 
@@ -13,12 +14,13 @@ const initialState: CombineProjectState = {
 
 export const CurrentProjectThunk = createAsyncThunk(
     "currentProject/axiosCurrentProject",
-    async (id:undefined | string) => {
+    async (id: undefined | string) => {
         try {
             const response = await currentProject(id);
             return Promise.resolve(response.data)
-        } catch (error) {
-            return Promise.reject(error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error))
+                return Promise.reject(error?.response?.data?.error?.message[0])
         }
     }
 )

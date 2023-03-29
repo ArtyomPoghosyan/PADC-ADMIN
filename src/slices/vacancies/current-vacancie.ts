@@ -1,6 +1,7 @@
 import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { CurrentVacancie } from '@services/vacancie';
+import axios from 'axios';
 
 type CombineVacancieState = IModel & BaseResponse<[], 'currentVacancieData'> & ErrorResponse<null, 'currentVacancieError'>;
 
@@ -13,12 +14,13 @@ const initialState: CombineVacancieState = {
 
 export const CurrentVacancieThunk = createAsyncThunk(
     "currentVacancie/CurrentVacancieThunk",
-    async (id: undefined | string ) => {
+    async (id: undefined | string) => {
         try {
             const response = await CurrentVacancie(id);
             return Promise.resolve(response.data)
-        } catch (error) {
-            return Promise.reject(error)
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error))
+                return Promise.reject(error?.response?.data?.error?.message[0])
         }
     }
 )
