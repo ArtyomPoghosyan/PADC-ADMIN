@@ -25,7 +25,7 @@ import { ButtonLoading } from '@shared/button-loading';
 
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
-import { IProject, IProjectDatas } from '@models/projects';
+import {IProjectDatas } from '@models/projects';
 
 export const CurrentProject: React.FC = () => {
 

@@ -101,7 +101,7 @@ const handleCancel = () => {
   return (
     <div className={projectStyle.training_page_container}>
 
-      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="Delete Project" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <p>Do you want to delete this Vacancie?</p>
       </Modal>
       

@@ -1,5 +1,5 @@
 import { IRecord, IState } from "@models/common";
-import { IDeteleVacancie, IVacancie } from "@models/vacancies";
+import { IVacancie } from "@models/vacancies";
 
 import { TableComponent } from "@shared/table";
 import { deleteVacancieThunk } from "@slices/vacancies/delete-vacancie";
@@ -124,7 +124,7 @@ export const AllVacancies: React.FC = () => {
     return (
         <div className={vacancieStyle.training_page_container}>
 
-            <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <Modal title="Delete vacancie" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <p>Do you want to delete this Vacancie?</p>
             </Modal>
 

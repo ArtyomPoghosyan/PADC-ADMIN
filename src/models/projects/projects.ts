@@ -1,5 +1,5 @@
 import { htmlToDraft } from 'html-to-draftjs';
-import { descriptors } from 'chart.js/dist/core/core.defaults';
+
 export interface IProjectData {
     id: number,
     description: string,

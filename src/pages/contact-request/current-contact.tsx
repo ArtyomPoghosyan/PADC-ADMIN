@@ -21,16 +21,13 @@ export const CurrentContact: React.FC = () => {
 
     const { contactData } = useSelector((state: IState) => state.currentContact);
     const baseURL = process.env.REACT_APP_BASE_URL;
-
     const [numPages, setNumPages] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
-
     const [pdfFile, setPdfFile] = useState("")
     const [value, setValue] = useState("");
     const [form] = useForm();
     const { id } = useParams();
     const dispatch = useAppDispatch();
-
     const onFinish = () => { }
 
     const onDocumentLoadSuccess = ({ numPages }) => {
@@ -57,8 +54,6 @@ export const CurrentContact: React.FC = () => {
         if (contactData?.data) {
             const { name, email, phone, address, comment, mediaFiles } = contactData?.data;
             setPdfFile(mediaFiles.path)
-
-            console.log(`${baseURL}/${mediaFiles.path}`)
             form.setFieldsValue({
                 name, email, phone, address, comment, mediaFiles: `${baseURL}/${mediaFiles.path}`
             })

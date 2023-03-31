@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux"
-// import { ItrainingData } from "../../models/trainings/trainings";
+
 import trainingStyle from "../training/training-style.module.css";
 import { Button, Modal, Space } from 'antd';
-// import { TableComponent } from "../../shared/table";
+
 import { useAppDispatch } from "../../hooks";
-// import { TrainingThunk } from "../../slices/training/training";
-// import { IState } from "../../models/common/common";
+
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { IRecord, IState } from "@models/common";
@@ -141,7 +140,7 @@ const handleCancel = () => {
   return (
     <div className={trainingStyle.training_page_container}>
 
-      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="Delete Training" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <p>Do you want to delete this Vacancie?</p>
       </Modal>
 
