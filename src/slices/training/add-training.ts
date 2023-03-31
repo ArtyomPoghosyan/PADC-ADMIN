@@ -18,6 +18,7 @@ const initialState: CombineTrainingState = {
 export const AddTrainingThunk = createAsyncThunk(
     "addTraingin/AddTrainingThunk",
     async (data: IAddTraining) => {
+        console.log(data)
         try {
             const formData = HTTPHelper.generateFormData(data);
             const response = await addTraining(formData);

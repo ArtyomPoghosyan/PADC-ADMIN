@@ -8,6 +8,7 @@ import { IState } from "@models/common";
 
 import { TableComponent } from "@shared/table";
 import { contactRequestThunk } from "@slices/contact-request/contact-request";
+import { Button } from "antd";
 
 export const ContactRequest: React.FC = () => {
     const { isLoading,contactData } = useSelector((state: IState) => state.contactRequest)
@@ -16,6 +17,12 @@ export const ContactRequest: React.FC = () => {
     useEffect(() => {
         dispatch(contactRequestThunk())
     }, [])
+
+    const downloadPDF =(event,record) => {
+        event.stopPropagation() 
+        window.open(record?.mediaFiles?.props?.src)
+        
+    }
 
     console.log(contactData)
 
@@ -70,6 +77,11 @@ export const ContactRequest: React.FC = () => {
                     dataIndex: "mediaFiles",
                     key: 'address 3',
                     width: 100,
+                    render: (index: number, record) => (
+                        <Button onClick={(event) => { downloadPDF(event, record)  }} type="primary" htmlType="submit" style={{ width: "120px", marginBottom: "15px" }}>
+                          Download PDF
+                        </Button>
+                      ),
                     ellipsis: true,
                 },
             ]
@@ -85,6 +97,7 @@ export const ContactRequest: React.FC = () => {
         return ({
             ...item,
             index: index+1,
+            
         }
         )
     })

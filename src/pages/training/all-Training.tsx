@@ -6,7 +6,8 @@ import { Button, Modal, Space } from 'antd';
 
 import { useAppDispatch } from "../../hooks";
 
-import moment from "moment";
+import moment from 'moment';
+import 'moment-timezone';
 import { useNavigate } from "react-router-dom";
 import { IRecord, IState } from "@models/common";
 import { TrainingThunk } from "@slices/training/training";
@@ -32,19 +33,35 @@ export const AllTrainings: React.FC = () => {
     event.stopPropagation();
     setIsModalOpen(true);
     setItems(record?.id)
-};
+  };
 
-const handleOk = () => {
+  const handleOk = () => {
     dispatch(deleteTrainingThunk(itemId))
     setIsModalOpen(false);
-};
+  };
 
-const handleCancel = () => {
+  const handleCancel = () => {
     setIsModalOpen(false);
-};
+  };
 
-  const dateFormat = (date: string): string => {
-    return (moment(date, dayFormat).format(dayHourFormat))
+  const dateFormat = (date: any): any => {
+    // console.log(date)
+    // return (moment(date, dayFormat).format(dayHourFormat))
+    // const utcTime = moment.utc(date);
+    // console.log(utcTime)
+    // console.log(moment.tz.guess(date))
+    // const armenianTime = utcTime.tz(moment.tz.guess(date));
+    // return armenianTime.format('YYYY-MM-DD HH:mm');
+
+
+    const dateTz = moment(date).tz(moment.tz.guess(date)).format(dayHourFormat)
+    console.log(dateTz,date)
+
+
+
+    // let u = dateTz.tz(moment.tz.guess()).format(dayHourFormat);
+    // console.log(u)
+    return dateTz
   }
 
   const renderTable = () => {
@@ -80,8 +97,8 @@ const handleCancel = () => {
           ellipsis: true,
         },
         {
-          title: 'Updated at',
-          dataIndex: "updatedAt",
+          title: 'Created At',
+          dataIndex: "createdAt",
           key: 'address 3',
           width: 30,
           ellipsis: true,
@@ -132,8 +149,8 @@ const handleCancel = () => {
       index: index + 1,
       description: <p dangerouslySetInnerHTML={{ __html: item?.description }}></p>,
       type: item?.type.charAt(0).toUpperCase() + item?.type.slice(1),
-      date: dateFormat(item.date),
-      updatedAt: dateFormat(item.createdAt)
+      date: item?.date,
+      createdAt: dateFormat(item?.createdAt)
 
     }
   })

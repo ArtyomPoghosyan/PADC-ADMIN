@@ -73,30 +73,31 @@ export const CurrentContact: React.FC = () => {
                 className={contactStyle.user_form}>
 
                 <div>
+                    <p>Full Name</p>
                     <Form.Item name="name">
                         <Input placeholder='Name' />
                     </Form.Item>
-
+                    <p>Email</p>
                     <Form.Item name="email">
                         <Input placeholder='Name' />
                     </Form.Item>
-
+                    <p>Tel.</p>
                     <Form.Item name="phone">
                         <Input placeholder='Name' />
                     </Form.Item>
-
+                    <p>Address</p>
                     <Form.Item name="address">
                         <Input placeholder='Name' />
                     </Form.Item>
-
+                    <p>Comment</p>
                     <Form.Item name="comment">
                         <TextArea
                             value={value}
                             onChange={(e) => setValue(e.target.value)}
-                            placeholder="Input short description"
+                            placeholder="Input Short Description"
                             autoSize={{ minRows: 3, maxRows: 8 }} />
                     </Form.Item>
-
+                    <p>Resume</p>
                     <Form.Item name="mediaFiles">
                         <Document className={contactStyle.pdf_container} file={`${baseURL}/${pdfFile}`} onLoadSuccess={onDocumentLoadSuccess}>
                             <Page pageNumber={pageNumber} />

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import trainingStyle from "./training-style.module.css"
 import { Form, Input, Button, Select, DatePicker, Upload, UploadFile, UploadProps } from 'antd';
 
-import { EditorState,convertToRaw } from 'draft-js';
+import { EditorState, convertToRaw } from 'draft-js';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Response } from '@shared/response';
@@ -17,19 +17,21 @@ import { IAddTraining } from '@models/trainings';
 import { AddTrainingThunk, defaultState } from '@slices/training/add-training';
 import { SuccessResponse } from '@shared/success-response';
 
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+
 import draftToHtml from 'draftjs-to-html';
+import { RcFile } from 'antd/es/upload';
 
 export const AddTraining: React.FC = () => {
     let { isLoading, isSuccess, addTrainingError } = useSelector((state: IState) => state.addTraining);
     const dispatch = useAppDispatch();
-    const [fileList, setFileList] = useState<UploadFile<any>[]>([]);
+    const [file, setFile] = useState<UploadFile | null>();
+
+    const [localImage, setLocalImage] = useState<string>('');
+
+
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const dayFormat = 'YYYY-MM-DD';
-    const props = {
-        beforeUpload: () => {
-            return true;
-        },
-    };
 
     const onEditorStateChange = (editorState) => {
         setEditorState(editorState);
@@ -41,14 +43,34 @@ export const AddTraining: React.FC = () => {
         let { name, description, type } = values;
         const convertDate = moment($d, dayFormat).format(dayFormat);
         description?.blocks?.forEach(item => descriptionBlock += item.text);
-        let data: IAddTraining = { name, description: draftToHtml(convertToRaw(editorState.getCurrentContent())),
-             type, date: convertDate, image: fileList[0] };
+        let data: IAddTraining = {
+            name, description: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+            type, date: convertDate, image: file as UploadFile
+        };
         dispatch(AddTrainingThunk(data));
     }
 
-    const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-        setFileList(newFileList);
+    const onChange: UploadProps['beforeUpload'] = (file, fileList) => {
+        setFile(file);
+        getBase64(file as RcFile, (url) => {
+            setLocalImage(url);
+        });
+        return false;
     };
+
+    const uploadButton = (
+        <div>
+            {<PlusOutlined />}
+            <div style={{ marginTop: 8 }}>Upload</div>
+        </div>
+    );
+
+    const getBase64 = (img: RcFile, callback: (url: string) => void) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => callback(reader.result as string));
+        reader.readAsDataURL(img);
+    };
+
 
     return (
         <div className={trainingStyle.form_container}>
@@ -83,12 +105,12 @@ export const AddTraining: React.FC = () => {
 
                     <p>Image</p>
                     <Form.Item name="image"  >
-                        <Upload {...props}
-                            multiple
+                        <Upload
                             listType="picture-card"
-                            fileList={fileList}
-                            onChange={onChange}>
-                            {fileList.length < 2 && '+ Upload'}
+                            fileList={file ? [file as UploadFile] : []}
+                            beforeUpload={onChange}
+                            showUploadList={false}>
+                            {localImage ? <img src={localImage} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
                         </Upload>
                     </Form.Item>
                     <p>Selector</p>

@@ -60,12 +60,12 @@ export const AddVacancie: React.FC = () => {
                             <Input placeholder='Name' />
                         </Form.Item>
 
-                        <p>Shor description</p>
+                        <p>Short Description</p>
                         <Form.Item name="shortDescription">
                             <TextArea
                                 value={value}
                                 onChange={(e) => setValue(e.target.value)}
-                                placeholder="Input short description"
+                                placeholder="Input Short Description"
                                 autoSize={{ minRows: 3, maxRows: 8 }} />
                         </Form.Item>
                         <p>Description</p>

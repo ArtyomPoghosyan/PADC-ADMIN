@@ -73,21 +73,21 @@ export const AllVacancies: React.FC = () => {
                 },
 
                 {
-                    title: 'Short description',
+                    title: 'Short Description',
                     dataIndex: "shortDescription",
                     key: 'name',
                     width: 180,
                     ellipsis: true,
                 },
                 {
-                    title: 'Created at',
+                    title: 'Created At',
                     dataIndex: "createdAt",
                     key: 'address 2',
                     width: 35,
                     ellipsis: true,
                 },
                 {
-                    title: 'Updated at',
+                    title: 'Updated At',
                     dataIndex: "updatedAt",
                     key: 'address 2',
                     width: 35,

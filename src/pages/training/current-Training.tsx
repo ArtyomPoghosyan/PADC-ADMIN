@@ -4,7 +4,7 @@ import trainingStyle from "./training-style.module.css"
 import { Form, Input, Select, DatePicker, Upload, UploadFile, UploadProps, } from 'antd';
 import { Response } from '@shared/response';
 
-import { EditorState, ContentState,convertToRaw } from 'draft-js';
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import dayjs from 'dayjs';
 
 import { Editor } from "react-draft-wysiwyg";
@@ -21,7 +21,7 @@ import { useAppDispatch } from '../../hooks';
 
 import { IState } from '@models/common';
 import { IAddTraining } from '@models/trainings';
-import { EditCurrentTrainingThunk } from '@slices/training/edit-training';
+import { EditCurrentTrainingThunk, trainingEditState } from '@slices/training/edit-training';
 import { CurrentTrainingThunk, trainingState } from '@slices/training/current-training';
 import { SuccessResponse } from '@shared/success-response';
 import { ButtonLoading } from '@shared/button-loading';
@@ -31,7 +31,7 @@ import htmlToDraft from 'html-to-draftjs';
 
 export const CurrentTraining: React.FC = () => {
 
-    const { isLoading, isSuccess, trainingData, trainingError } = useSelector((state: IState) => state.currentTraining);
+    const { isLoading, trainingData, trainingError } = useSelector((state: IState) => state.currentTraining);
     const { isLoading: isLoadingEdit, isSuccess: isSuccessEdit, trainingError: trainingErrorEdit } = useSelector((state: IState) => state.editCurrentTraining);
     const dispatch = useAppDispatch();
     const [dateFormat] = useState("");
@@ -41,7 +41,7 @@ export const CurrentTraining: React.FC = () => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const monthFormat = "MM-DD-YYYY";
     const dayFormat = 'YYYY-MM-DD';
-    const dayHourFormat='YYYY-MM-DD HH:mm';
+    const dayHourFormat = 'YYYY-MM-DD HH:mm';
     const [loadings, setLoadings] = useState<boolean[]>([]);
 
     const props: UploadProps = {
@@ -68,7 +68,7 @@ export const CurrentTraining: React.FC = () => {
         const { name, type, image } = values;
         const convertDate = moment($d, dayFormat).format(dayFormat);
         const data: IAddTraining = {
-            name, description:  draftToHtml(convertToRaw(editorState.getCurrentContent())),
+            name, description: draftToHtml(convertToRaw(editorState.getCurrentContent())),
             date: convertDate, image, type
         }
         dispatch(EditCurrentTrainingThunk({ id, data }))
@@ -93,7 +93,7 @@ export const CurrentTraining: React.FC = () => {
             };
             form.setFieldsValue({
                 name, type,
-                date: dayjs(moment(date,dayHourFormat).format(monthFormat), monthFormat)
+                date: dayjs(moment(date, dayHourFormat).format(monthFormat), monthFormat)
             })
         }
     }, [trainingData])
@@ -102,7 +102,7 @@ export const CurrentTraining: React.FC = () => {
         <div className={trainingStyle.form_container}>
             {trainingErrorEdit ?
                 <Response data={{ error: trainingError }}
-                    defaultState={trainingState} /> :
+                    defaultState={trainingEditState} /> :
                 <Form
                     form={form}
                     labelCol={{ span: 4 }}
@@ -110,8 +110,8 @@ export const CurrentTraining: React.FC = () => {
                     layout="horizontal"
                     onFinish={onFinish} autoComplete="off">
 
-                    {isSuccess ? <SuccessResponse navigate={"trainings"} 
-                        isSuccess={isSuccessEdit} defaultState={trainingState} /> : null}
+                    {(isSuccessEdit) ? <SuccessResponse navigate={"trainings"} isLoading={isLoadingEdit} isSuccess={isSuccessEdit}
+                        defaultState={trainingEditState} /> : null}
 
                     <p>Name</p>
                     <Form.Item name="name">

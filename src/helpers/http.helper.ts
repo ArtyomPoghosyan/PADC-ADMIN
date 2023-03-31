@@ -7,8 +7,6 @@ export class HTTPHelper {
         console.log(body)
         if (body) {
             for (const key in body) {
-                console.log(key)
-                console.log(body[key])
                 if (body[key] instanceof File) {
                     formData.append(key, body[key] as File);
                     continue;

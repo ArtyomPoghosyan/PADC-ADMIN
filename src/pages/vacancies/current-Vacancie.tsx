@@ -85,7 +85,7 @@ export const CurrentVacancie: React.FC = () => {
                     onFinish={onFinish} autoComplete="off">
 
                     {(isSuccessEdit) ? <SuccessResponse navigate={"vacancies"} isLoading={isLoadingEdit}
-                        isSuccess={isSuccessEdit} defaultState={vacancieState} /> : null};
+                        isSuccess={isSuccessEdit} defaultState={vacancieState} /> : null}
 
                     <p>Title</p>
                     <Form.Item name="title">
@@ -94,11 +94,11 @@ export const CurrentVacancie: React.FC = () => {
 
                     <Form.Item name="shortDescription">
                         <div style={{ margin: '24px 0' }} />
-                        <p>Shor description</p>
+                        <p>Short Description</p>
                         <TextArea
                             value={value}
                             onChange={(e) => setValue(e.target.value)}
-                            placeholder="Input short description"
+                            placeholder="Input Short Description"
                             autoSize={{ minRows: 3, maxRows: 8 }} />
                     </Form.Item>
 

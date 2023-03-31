@@ -70,7 +70,7 @@ export const AllUsers: React.FC = () => {
                     ellipsis: true,
                 },
                 {
-                    title: 'Updated at',
+                    title: 'Updated At',
                     dataIndex: "updatedAt",
                     key: 'address 3',
                     width: 100,
