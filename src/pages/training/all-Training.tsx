@@ -21,7 +21,7 @@ export const AllTrainings: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
   const dayFormat = 'YYYY-MM-DD';
-  const dayHourFormat = 'DD/MM/YYYY HH:MM';
+  const dayHourFormat = 'DD/MM/YYYY HH:mm';
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [itemId, setItems] = useState<undefined | number>();
 
@@ -44,7 +44,7 @@ export const AllTrainings: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const dateFormat = (date: any): any => {
+  const dateFormat = (date: string): string => {
     // console.log(date)
     // return (moment(date, dayFormat).format(dayHourFormat))
     // const utcTime = moment.utc(date);
@@ -53,11 +53,9 @@ export const AllTrainings: React.FC = () => {
     // const armenianTime = utcTime.tz(moment.tz.guess(date));
     // return armenianTime.format('YYYY-MM-DD HH:mm');
 
-
-    const dateTz = moment(date).tz(moment.tz.guess(date)).format(dayHourFormat)
-    console.log(dateTz,date)
-
-
+    console.log('date',date);
+    const dateTz = moment(date).format(dayHourFormat);
+    console.log("dateTzz",dateTz);
 
     // let u = dateTz.tz(moment.tz.guess()).format(dayHourFormat);
     // console.log(u)
@@ -123,11 +121,11 @@ export const AllTrainings: React.FC = () => {
           key: 'address 3',
           width: 30,
           render: (index: number, record: IRecord) => (
-            <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
+            <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{width: "110px", marginBottom: "15px" }}>
               Delete
             </Button>
           ),
-          ellipsis: true,
+         
         }
       ]
     )
@@ -137,7 +135,7 @@ export const AllTrainings: React.FC = () => {
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
-  const tainings = trainingData?.data?.data?.map((item: ItrainingData, index) => {
+  const trainings = trainingData?.data?.data?.map((item: ItrainingData, index) => {
 
 
     if (item?.description?.length > 500) {
@@ -158,7 +156,7 @@ export const AllTrainings: React.FC = () => {
     <div className={trainingStyle.training_page_container}>
 
       <Modal title="Delete Training" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <p>Do you want to delete this Vacancie?</p>
+        <p>Do you want to delete this training?</p>
       </Modal>
 
       <div className={trainingStyle.button_container}>
@@ -166,7 +164,7 @@ export const AllTrainings: React.FC = () => {
           Add Training
         </Button>
       </div>
-      <TableComponent loading={isLoading} columns={renderTable} dataSource={tainings} pageSize={10} navigationPath={"trainings"} />
+      <TableComponent loading={isLoading} columns={renderTable} dataSource={trainings} pageSize={10} navigationPath={"trainings"} />
     </div>
   )
 }

@@ -3,13 +3,11 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks";
 
-import successIcon from "@assests/images/success.png";
-
 export const SuccessResponse: React.FC<any> = (props) => {
 
-    const {navigate,isLoading, isSuccess, defaultState } = props;
+    const { navigate, isLoading, isSuccess, defaultState } = props;
     const dispatch = useAppDispatch()
-    const navigation= useNavigate()
+    const navigation = useNavigate()
     useEffect(() => {
         if (isSuccess)
             setTimeout(() => {
@@ -21,16 +19,23 @@ export const SuccessResponse: React.FC<any> = (props) => {
 
     if (isSuccess) {
         return (
-            <div style={{position:"absolute",left:"50%",top:"40%",zIndex:"99"}}>
-                <p style={{width:"100px",height:"100px"}}><img src={successIcon} /></p>
+            <div style={{ position: "absolute", left: "50%", top: "30%", zIndex: "9999" }}>
+                <div className="SucessContainer">
+                    <div className="w3-modal-icon w3-modal-success animate">
+                        <span className="w3-modal-line w3-modal-tip animateSuccessTip"></span>
+                        <span className="w3-modal-line w3-modal-long animateSuccessLong"></span>
+                        <div className="w3-modal-placeholder"></div>
+                        <div className="w3-modal-fix"></div>
+                    </div>
+                </div>
             </div>
         )
     }
 
-    if(isLoading){
+    if (isLoading) {
         return (
-            <div style={{position:"absolute",left:"50%",top:"40%",zIndex:"99"}}>
-                <p style={{width:"200px",height:"200px"}}><Spin/></p>
+            <div style={{ position: "absolute", left: "50%", top: "40%", zIndex: "99" }}>
+                <p style={{ width: "200px", height: "200px" }}><Spin /></p>
             </div>
         )
     }

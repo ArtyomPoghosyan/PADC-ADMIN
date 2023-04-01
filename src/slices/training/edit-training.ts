@@ -1,3 +1,4 @@
+import { HTTPHelper } from '@helpers/http.helper';
 import { IEditData } from '@models/common';
 import { ITrainingData } from '@models/trainings';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
@@ -17,7 +18,8 @@ export const EditCurrentTrainingThunk = createAsyncThunk(
     "editCurrentTraining/EditCurrentTrainingThunk",
     async ({ id, data }: IEditData) => {
         try {
-            const response = await EditCurrentTraining(id, data);
+            const formData = HTTPHelper.generateFormData(data);
+            const response = await EditCurrentTraining(id, formData);
             return Promise.resolve(response.data);
         } catch (error: unknown) {
             if (axios.isAxiosError(error))

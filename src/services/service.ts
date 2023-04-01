@@ -25,7 +25,11 @@ Api.interceptors.response.use(
   (response: AxiosResponse<any, any>) => {
     return response;
   },
-  async (error: Error) => {
+  async (error) => {
+      console.log(error?.response?.data.error?.message?.[0] == "Access token is empty or invalid")
+      if(error?.response?.data.error?.message?.[0] == "Access token is empty or invalid"){
+        cookies.remove("accessToken")
+      }
     return Promise.reject(error);
   },
 );

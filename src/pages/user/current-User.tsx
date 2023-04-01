@@ -26,8 +26,8 @@ export const CurrentUser: React.FC = () => {
     const [form] = useForm();
     const { id } = useParams();
     const dispatch = useAppDispatch();
-    const dayFormat:string = 'YYYY-MM-DD';
-    const dayHourFormat:string='YYYY-MM-DD HH:mm';
+    const dayFormat: string = 'YYYY-MM-DD';
+    const dayHourFormat: string = 'YYYY-MM-DD HH:mm';
     const onFinish = () => { }
 
     useEffect(() => {
@@ -63,22 +63,26 @@ export const CurrentUser: React.FC = () => {
                 </div>
 
                 <div>
+                    <p>Name</p>
                     <Form.Item name="firstName">
                         <Input placeholder='Name' />
                     </Form.Item>
 
+                    <p>Last name</p>
                     <Form.Item name="lastName">
                         <Input placeholder='Name' />
                     </Form.Item>
 
+                    <p>Email</p>
                     <Form.Item name="email">
                         <Input placeholder='Name' />
                     </Form.Item>
 
+                    <p>Role</p>
                     <Form.Item name="role">
                         <Input placeholder='Name' />
                     </Form.Item>
-
+                    <p>Created</p>
                     <Form.Item name="createdAt">
                         <Input placeholder='Name' />
                     </Form.Item>

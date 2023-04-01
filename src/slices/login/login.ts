@@ -18,10 +18,11 @@ export const LoginThunk = createAsyncThunk(
     async (values: ILogin) => {
         try {
             const response = await Login(values)
-            return Promise.resolve(response.data)
+            return Promise.resolve(response?.data)
         } catch (error: unknown) {
-            if (axios.isAxiosError(error))
+            if (axios.isAxiosError(error)) {
                 return Promise.reject(error?.response?.data?.error?.message[0])
+            }
         }
     }
 )
@@ -38,7 +39,7 @@ const loginSlice = createSlice({
             .addCase(LoginThunk.fulfilled, (state: CombineLoginState, action: AnyAction) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.loginData = action.payload
+                state.loginData = action?.payload
             })
             .addCase(LoginThunk.rejected, (state: CombineLoginState, action: AnyAction) => {
                 state.isSuccess = false;

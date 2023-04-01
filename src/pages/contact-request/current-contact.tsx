@@ -16,6 +16,8 @@ import TextArea from "antd/es/input/TextArea";
 import { currentContactThunk } from "@slices/contact-request/current-contact";
 
 import { Document, Page, pdfjs } from 'react-pdf';
+// import * as FileSaver from 'file-saver';
+import { saveAs } from 'file-saver';
 
 export const CurrentContact: React.FC = () => {
 
@@ -60,6 +62,13 @@ export const CurrentContact: React.FC = () => {
         }
     }, [contactData])
 
+    const downloadPDF =(url:undefined | string,pdfFile:string) => {
+        console.log(typeof url , typeof pdfFile)
+        const file = `${url}/${pdfFile}`
+        const FileSaver = require('file-saver');
+        FileSaver.saveAs(file, `${pdfFile}.docx`);
+    }
+
     return (
 
         <div className={contactStyle.form_container}>
@@ -98,6 +107,7 @@ export const CurrentContact: React.FC = () => {
                             autoSize={{ minRows: 3, maxRows: 8 }} />
                     </Form.Item>
                     <p>Resume</p>
+                    {pdfFile.slice(-3) == "pdf"?
                     <Form.Item name="mediaFiles">
                         <Document className={contactStyle.pdf_container} file={`${baseURL}/${pdfFile}`} onLoadSuccess={onDocumentLoadSuccess}>
                             <Page pageNumber={pageNumber} />
@@ -111,7 +121,11 @@ export const CurrentContact: React.FC = () => {
                         <p>
                             Page {pageNumber} of {numPages}
                         </p>
-                    </Form.Item>
+                    </Form.Item>:
+                    <Button onClick={() => { downloadPDF(baseURL,pdfFile)  }} type="primary" htmlType="submit" style={{ width: "120px", marginBottom: "15px" }}>
+                    Download 
+                  </Button>
+                    }
                 </div>
             </Form>
         </div>

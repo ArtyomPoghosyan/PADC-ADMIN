@@ -79,7 +79,7 @@ export const LineBar: React.FC = () => {
 export const DoughnutBar:React.FC =() => {
     return (
         <div style={{width:"25%",display:"flex",alignItems:"center",boxShadow: "-2px 2px 16px -3px grey",borderRadius: "30px"}}>
-            <Doughnut data={data} />;
+            <Doughnut data={data} />
         </div>
     )
 }

@@ -100,7 +100,12 @@ export const AddTraining: React.FC = () => {
                     </Form.Item>
                     <p>Date</p>
                     <Form.Item name="date" className={trainingStyle.date_container}>
-                        <DatePicker className={trainingStyle.date_picker} />
+                        <DatePicker
+                            disabledDate={(current) => {
+                                return moment().add(-1, 'days') >= current ||
+                                    moment().add(11, 'month') <= current;
+                            }}
+                            className={trainingStyle.date_picker} />
                     </Form.Item>
 
                     <p>Image</p>

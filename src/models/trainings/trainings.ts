@@ -31,7 +31,7 @@ export interface IAddTraining {
     description: string | {},
     type: string,
     date: string,
-    image?: File | string | {}
+    image?: undefined|  null | File | string | {}
 
 }
 

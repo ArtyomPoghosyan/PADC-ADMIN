@@ -19,6 +19,8 @@ import { useParams } from 'react-router-dom';
 
 import { useAppDispatch } from '../../hooks';
 
+import { PlusOutlined } from '@ant-design/icons';
+
 import { IState } from '@models/common';
 import { IAddTraining } from '@models/trainings';
 import { EditCurrentTrainingThunk, trainingEditState } from '@slices/training/edit-training';
@@ -28,9 +30,11 @@ import { ButtonLoading } from '@shared/button-loading';
 
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
+import { RcFile } from 'antd/es/upload';
 
 export const CurrentTraining: React.FC = () => {
 
+    const baseURL = process.env.REACT_APP_BASE_URL;
     const { isLoading, trainingData, trainingError } = useSelector((state: IState) => state.currentTraining);
     const { isLoading: isLoadingEdit, isSuccess: isSuccessEdit, trainingError: trainingErrorEdit } = useSelector((state: IState) => state.editCurrentTraining);
     const dispatch = useAppDispatch();
@@ -44,14 +48,8 @@ export const CurrentTraining: React.FC = () => {
     const dayHourFormat = 'YYYY-MM-DD HH:mm';
     const [loadings, setLoadings] = useState<boolean[]>([]);
 
-    const props: UploadProps = {
-        beforeUpload: (file) => {
-            const formData = new FormData();
-            setFileList([...fileList, file]);
-            return false;
-        },
-        fileList
-    };
+    const [localImage, setLocalImage] = useState<string>('');
+    const [file, setFile] = useState<UploadFile | null>();
 
     const onEditorStateChange = (editorState) => {
         setEditorState(editorState);
@@ -67,15 +65,41 @@ export const CurrentTraining: React.FC = () => {
         const { date: { $d } } = values;
         const { name, type, image } = values;
         const convertDate = moment($d, dayFormat).format(dayFormat);
-        const data: IAddTraining = {
-            name, description: draftToHtml(convertToRaw(editorState.getCurrentContent())),
-            date: convertDate, image, type
+        let data!: IAddTraining;
+        if (file) {
+            data = {
+                name, description: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+                date: convertDate, image: file as UploadFile, type
+            }
+        }
+        else if (!file) {
+            data = {
+                name, description: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+                date: convertDate, type
+            }
         }
         dispatch(EditCurrentTrainingThunk({ id, data }))
     }
 
-    const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-        setFileList(newFileList);
+    const onChange: UploadProps['beforeUpload'] = (file, fileList) => {
+        setFile(file);
+        getBase64(file as RcFile, (url) => {
+            setLocalImage(url);
+        });
+        return false;
+    };
+
+    const uploadButton = (
+        <div>
+            {<PlusOutlined />}
+            <div style={{ marginTop: 8 }}>Upload</div>
+        </div>
+    );
+
+    const getBase64 = (img: RcFile, callback: (url: string) => void) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => callback(reader.result as string));
+        reader.readAsDataURL(img);
     };
 
     useEffect(() => {
@@ -84,7 +108,8 @@ export const CurrentTraining: React.FC = () => {
 
     useEffect(() => {
         if (trainingData?.data?.data) {
-            const { name, description, date, type } = trainingData?.data?.data;
+            const { name, description, date, type, mediaFiles } = trainingData?.data?.data;
+            console.log(mediaFiles)
             const contentBlock = htmlToDraft(description);
             if (contentBlock) {
                 const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
@@ -94,9 +119,13 @@ export const CurrentTraining: React.FC = () => {
             form.setFieldsValue({
                 name, type,
                 date: dayjs(moment(date, dayHourFormat).format(monthFormat), monthFormat)
-            })
+            });
+            (mediaFiles?.path) ? (setLocalImage(`${baseURL}/${mediaFiles?.path}`)) : (setLocalImage(""))
+
         }
     }, [trainingData])
+
+    console.log(isLoading, "isLoading")
 
     return (
         <div className={trainingStyle.form_container}>
@@ -131,17 +160,22 @@ export const CurrentTraining: React.FC = () => {
                     </Form.Item>
                     <p>Date</p>
                     <Form.Item name="date" className={trainingStyle.date_container}>
-                        <DatePicker defaultValue={dayjs(dateFormat, monthFormat)} className={trainingStyle.date_picker} />
+                        <DatePicker
+                            disabledDate={(current) => {
+                                return moment().add(-1, 'days') >= current ||
+                                    moment().add(11, 'month') <= current;
+                            }}
+                            className={trainingStyle.date_picker} />
                     </Form.Item>
 
                     <Form.Item name="image"  >
                         <p>Image</p>
-                        <Upload {...props}
-                            multiple
+                        <Upload
                             listType="picture-card"
-                            fileList={fileList}
-                            onChange={onChange}>
-                            {fileList.length < 2 && '+ Upload'}
+                            fileList={file ? [file as UploadFile] : []}
+                            beforeUpload={onChange}
+                            showUploadList={false}>
+                            {localImage ? <img src={localImage} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
                         </Upload>
                     </Form.Item>
 
@@ -152,8 +186,9 @@ export const CurrentTraining: React.FC = () => {
                             <Select.Option value="pay">Pay</Select.Option>
                         </Select>
                     </Form.Item>
+
                     <Form.Item >
-                        <ButtonLoading type="primary" htmlType="submit" loading={isLoading} />
+                        <ButtonLoading type="primary" htmlType="submit" loading={isLoadingEdit} />
                     </Form.Item>
                 </Form>
             }

@@ -3,20 +3,57 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .image_container {
     display: flex;
     width: 257px;
-    height: 257px;
+    height: 316px;
     background-color: #dbdbdb;
+    margin-right: 10px;
 }
 
 .user_form {
     display: flex;
     flex-direction: row;
 }
+
 .mediaFiles {
     display: flex;
     width: 90px;
+}
+
+@media only screen and (max-width: 1500px) {
+    .ant-form-item-control-input {
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-height: 32px;
+        width: 500px;
+    }
+
+    .image_container {
+        display: flex !important;
+        width: 210px !important;
+        height: 316px;
+        background-color: #dbdbdb;
+        margin-right: 10px;
+    }
+
+}
+
+@media only screen and (max-width: 800px) {
+    .user_form {
+        display: flex;
+        flex-direction: column;
+    }
+    .image_container {
+        display: flex !important;
+        width: 300px !important;
+        height: 257px;
+        background-color: #dbdbdb;
+        margin-right: 10px;
+    }
+
 }

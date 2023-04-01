@@ -124,8 +124,8 @@ export const AllVacancies: React.FC = () => {
     return (
         <div className={vacancieStyle.training_page_container}>
 
-            <Modal title="Delete vacancie" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <p>Do you want to delete this Vacancie?</p>
+            <Modal title="Delete Vacancie" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <p>Do you want to delete this vacancie?</p>
             </Modal>
 
             <div className={vacancieStyle.button_container}>

@@ -63,7 +63,7 @@ export const AllUsers: React.FC = () => {
                     ellipsis: true,
                 },
                 {
-                    title: 'Created',
+                    title: 'Created At',
                     dataIndex: "createdAt",
                     key: 'address 3',
                     width: 100,

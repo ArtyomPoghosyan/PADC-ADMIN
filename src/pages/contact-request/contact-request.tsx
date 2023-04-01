@@ -37,7 +37,7 @@ export const ContactRequest: React.FC = () => {
                     width: 30,
                 },
                 {
-                    title: 'Name/Surname',
+                    title: 'Full Name',
                     dataIndex: "name",
                     key: 'age',
                     width: 100,
@@ -73,13 +73,13 @@ export const ContactRequest: React.FC = () => {
                     ellipsis: true,
                 },
                 {
-                    title: 'Image',
+                    title: 'File',
                     dataIndex: "mediaFiles",
                     key: 'address 3',
                     width: 100,
                     render: (index: number, record) => (
                         <Button onClick={(event) => { downloadPDF(event, record)  }} type="primary" htmlType="submit" style={{ width: "120px", marginBottom: "15px" }}>
-                          Download PDF
+                          Download 
                         </Button>
                       ),
                     ellipsis: true,

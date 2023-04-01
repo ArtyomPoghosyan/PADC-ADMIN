@@ -6,11 +6,6 @@
     height: 100vh !important
 }
 
-.logo {
-    width: 280px !important;
-    position: relative !important
-}
-
 .spin{
     height: "30px" !important
 }
@@ -22,6 +17,15 @@
 
 .login_container {
     height: 40px
+}
+
+.logo_container{
+    width: 100%;
+}
+
+.logo {
+    width: 280px !important;
+    position: relative !important
 }
 
 .ant-alert-message {
@@ -44,6 +48,33 @@
     display:flex ;
     width: 100%;
 }
+
+@media only screen and (max-width: 1500px) {
+    .form_container{
+        display: flex;
+        width: 41%;
+    }
+}
+@media only screen and (max-width: 1350px) {
+    .form_container{
+        display: flex;
+        width: 45%;
+    }
+}
+@media only screen and (max-width: 940px) {
+    .form_container{
+        display: flex;
+        width: 57%;
+    }
+}
+@media only screen and (max-width: 730px) {
+    .form_container{
+        display: flex;
+        width: 77%;
+    }
+}
+
+
 
 
 
