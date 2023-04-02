@@ -19,6 +19,7 @@ import { useAppDispatch } from "../../hooks";
 import { Modal } from 'antd';
 
 import vacancieStyle from "./vacancie-style.module.css";
+import { dateFormat } from "@helpers/dateFormat";
 
 export const AllVacancies: React.FC = () => {
 
@@ -26,8 +27,6 @@ export const AllVacancies: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const dispatch = useAppDispatch();
     const navigation = useNavigate();
-    const dayFormat = 'YYYY-MM-DD';
-    const dayHourFormat = 'DD/MM/YYYY HH:MM';
     const [itemId, setItems] = useState<undefined | number>()
 
     useEffect(() => {
@@ -48,10 +47,6 @@ export const AllVacancies: React.FC = () => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-
-    const dateFormat = (date: string): string => {
-        return (moment(date, dayFormat).format(dayHourFormat))
-    }
 
     const renderTable = () => {
         return (

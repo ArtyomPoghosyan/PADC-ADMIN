@@ -4,25 +4,18 @@ import React from 'react';
 
 import { useAppDispatch } from "../../hooks";
 
-import moment from "moment";
-
 import { IState } from "@models/common";
 import { UserThunk } from "@slices/user/user";
 import { TableComponent } from "@shared/table";
+import { dateFormat } from "@helpers/dateFormat";
 
 export const AllUsers: React.FC = () => {
     const { isLoading, userData, } = useSelector((state: IState) => state.user)
     const dispatch = useAppDispatch();
-    const dayFormat:string = 'YYYY-MM-DD';
-    const dayHourFormat:string='YYYY-MM-DD HH:mm';
 
     useEffect(() => {
         dispatch(UserThunk())
     }, [])
-
-    const dateFormat = (date: string):string => {
-        return (moment(date, dayFormat).format(dayHourFormat))
-    }
 
     const renderTable = () => {
         return (
@@ -88,9 +81,9 @@ export const AllUsers: React.FC = () => {
     const user = userData?.data?.map((item, index: number) => {
         return ({
             ...item,
-            index: index+1,
+            index: index + 1,
             createdAt: dateFormat(item.createdAt),
-            updatedAt: dateFormat(item.createdAt)
+            updatedAt: dateFormat(item.updatedAt)
         }
         )
     })

@@ -14,14 +14,14 @@ import { Spin } from 'antd';
 import { ILogin } from '@models/auth';
 import { LoginThunk } from '@slices/login/login';
 import { useForm } from 'antd/es/form/Form';
+import { IState } from '@models/common';
 
 export const Login: React.FC = () => {
     const cookies = new Cookies();
-    const { isLoading, isSuccess, loginData, loginError } = useAppSelector((state: any) => state.login);
+    const { isLoading, isSuccess, loginData, loginError } = useAppSelector((state:any) => state.login);
     const [form] = useForm()
     const dispatch = useAppDispatch();
     const navigation = useNavigate();
-    const [backError, setBackError] = useState([])
     const [componentDisabled, setComponentDisabled] = useState(false)
     const attentionText = "Attention !! This website is only for internal usage for users certified by PADC LLC.";
 

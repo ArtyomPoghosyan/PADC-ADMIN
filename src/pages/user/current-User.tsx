@@ -17,6 +17,7 @@ import moment from "moment";
 import { IState } from "@models/common";
 
 import { CurrentUserThunk } from "@slices/user/current-user";
+import { dateFormat } from "@helpers/dateFormat";
 
 export const CurrentUser: React.FC = () => {
 
@@ -26,8 +27,7 @@ export const CurrentUser: React.FC = () => {
     const [form] = useForm();
     const { id } = useParams();
     const dispatch = useAppDispatch();
-    const dayFormat: string = 'YYYY-MM-DD';
-    const dayHourFormat: string = 'YYYY-MM-DD HH:mm';
+
     const onFinish = () => { }
 
     useEffect(() => {
@@ -40,7 +40,7 @@ export const CurrentUser: React.FC = () => {
             setImage(mediaFiles)
             form.setFieldsValue({
                 firstName, lastName, email, role: role.name,
-                createdAt: moment(createdAt, dayFormat).format(dayHourFormat)
+                createdAt: dateFormat(createdAt)
             })
         }
     }, [userData])
@@ -87,7 +87,6 @@ export const CurrentUser: React.FC = () => {
                         <Input placeholder='Name' />
                     </Form.Item>
                 </div>
-
 
             </Form>
         </div>

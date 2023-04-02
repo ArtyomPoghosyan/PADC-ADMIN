@@ -14,6 +14,7 @@ import { TrainingThunk } from "@slices/training/training";
 import { ItrainingData } from "@models/trainings";
 import { TableComponent } from "@shared/table";
 import { deleteTrainingThunk } from "@slices/training/delete-training";
+import { dateFormat } from "@helpers/dateFormat";
 
 export const AllTrainings: React.FC = () => {
 
@@ -43,24 +44,6 @@ export const AllTrainings: React.FC = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
-  const dateFormat = (date: string): string => {
-    // console.log(date)
-    // return (moment(date, dayFormat).format(dayHourFormat))
-    // const utcTime = moment.utc(date);
-    // console.log(utcTime)
-    // console.log(moment.tz.guess(date))
-    // const armenianTime = utcTime.tz(moment.tz.guess(date));
-    // return armenianTime.format('YYYY-MM-DD HH:mm');
-
-    console.log('date',date);
-    const dateTz = moment(date).format(dayHourFormat);
-    console.log("dateTzz",dateTz);
-
-    // let u = dateTz.tz(moment.tz.guess()).format(dayHourFormat);
-    // console.log(u)
-    return dateTz
-  }
 
   const renderTable = () => {
     return (

@@ -16,8 +16,6 @@ import TextArea from "antd/es/input/TextArea";
 import { currentContactThunk } from "@slices/contact-request/current-contact";
 
 import { Document, Page, pdfjs } from 'react-pdf';
-// import * as FileSaver from 'file-saver';
-import { saveAs } from 'file-saver';
 
 export const CurrentContact: React.FC = () => {
 
