@@ -65,26 +65,26 @@ export const CurrentUser: React.FC = () => {
                 <div>
                     <p>Name</p>
                     <Form.Item name="firstName">
-                        <Input placeholder='Name' />
+                        <Input disabled placeholder='Name' />
                     </Form.Item>
 
                     <p>Last name</p>
                     <Form.Item name="lastName">
-                        <Input placeholder='Name' />
+                        <Input disabled placeholder='Name' />
                     </Form.Item>
 
                     <p>Email</p>
                     <Form.Item name="email">
-                        <Input placeholder='Name' />
+                        <Input disabled placeholder='Name' />
                     </Form.Item>
 
                     <p>Role</p>
                     <Form.Item name="role">
-                        <Input placeholder='Name' />
+                        <Input disabled placeholder='Name' />
                     </Form.Item>
                     <p>Created</p>
                     <Form.Item name="createdAt">
-                        <Input placeholder='Name' />
+                        <Input disabled placeholder='Name' />
                     </Form.Item>
                 </div>
 

@@ -4,7 +4,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import {
     MenuFoldOutlined, MenuUnfoldOutlined, TeamOutlined, ExpandOutlined,
-    LineChartOutlined, BulbOutlined, DatabaseOutlined
+    LineChartOutlined, BulbOutlined, DatabaseOutlined, ContactsOutlined
 } from '@ant-design/icons';
 
 import { Layout, Menu, theme } from 'antd';
@@ -126,7 +126,7 @@ export const MainPage: React.FC = () => {
                             },
                             {
                                 key: NavigationEnum.SIX,
-                                icon: <ExpandOutlined />,
+                                icon: <ContactsOutlined />,
                                 label: 'Contact Requests',
                             },
                         ]}

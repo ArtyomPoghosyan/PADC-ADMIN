@@ -11,20 +11,24 @@ import { contactRequestThunk } from "@slices/contact-request/contact-request";
 import { Button } from "antd";
 
 export const ContactRequest: React.FC = () => {
-    const { isLoading,contactData } = useSelector((state: IState) => state.contactRequest)
+    const { isLoading, contactData } = useSelector((state: IState) => state.contactRequest)
     const dispatch = useAppDispatch();
-
     useEffect(() => {
         dispatch(contactRequestThunk())
     }, [])
 
-    const downloadPDF =(event,record) => {
-        event.stopPropagation() 
-        window.open(record?.mediaFiles?.props?.src)
-        
+    const downloadPDF = (event, record) => {
+        event.stopPropagation();
+        const fileName = record?.mediaFiles?.props?.src;
+        if (record?.mediaFiles?.props?.src.endsWith("pdf")) {
+            window.open(fileName)
+        }
+        else {
+            const FileSaver = require('file-saver');
+            const fileTitle=fileName.slice(40,fileName.length);
+            FileSaver.saveAs(`${fileName}`,`${fileTitle}.docx`);
+        }
     }
-
-    console.log(contactData)
 
     const renderTable = () => {
         return (
@@ -57,7 +61,7 @@ export const ContactRequest: React.FC = () => {
                     width: 100,
                     ellipsis: true,
                 },
-                
+
                 {
                     title: 'Address',
                     dataIndex: "address",
@@ -78,10 +82,10 @@ export const ContactRequest: React.FC = () => {
                     key: 'address 3',
                     width: 100,
                     render: (index: number, record) => (
-                        <Button onClick={(event) => { downloadPDF(event, record)  }} type="primary" htmlType="submit" style={{ width: "120px", marginBottom: "15px" }}>
-                          Download 
+                        <Button onClick={(event) => { downloadPDF(event, record) }} type="primary" htmlType="submit" style={{ width: "100%", marginBottom: "15px" }}>
+                            Download
                         </Button>
-                      ),
+                    ),
                     ellipsis: true,
                 },
             ]
@@ -96,7 +100,7 @@ export const ContactRequest: React.FC = () => {
     const user = contactData?.data?.map((item, index: number) => {
         return ({
             ...item,
-            index: index+1,
+            index: index + 1,
         }
         )
     })

@@ -53,15 +53,15 @@ export const CurrentContact: React.FC = () => {
     useEffect(() => {
         if (contactData?.data) {
             const { name, email, phone, address, comment, mediaFiles } = contactData?.data;
-            setPdfFile(mediaFiles.path)
+            setPdfFile(mediaFiles?.path)
             form.setFieldsValue({
-                name, email, phone, address, comment, mediaFiles: `${baseURL}/${mediaFiles.path}`
+                name, email, phone, address, comment, mediaFiles: `${baseURL}/${pdfFile}`
             })
         }
     }, [contactData])
 
-    const downloadPDF =(url:undefined | string,pdfFile:string) => {
-        console.log(typeof url , typeof pdfFile)
+    const downloadFile = (url: undefined | string, pdfFile: string) => {
+        console.log(typeof url, typeof pdfFile)
         const file = `${url}/${pdfFile}`
         const FileSaver = require('file-saver');
         FileSaver.saveAs(file, `${pdfFile}.docx`);
@@ -82,48 +82,55 @@ export const CurrentContact: React.FC = () => {
                 <div>
                     <p>Full Name</p>
                     <Form.Item name="name">
-                        <Input placeholder='Name' />
+                        <Input disabled placeholder='Name' />
                     </Form.Item>
                     <p>Email</p>
                     <Form.Item name="email">
-                        <Input placeholder='Name' />
+                        <Input disabled placeholder='Name' />
                     </Form.Item>
                     <p>Tel.</p>
                     <Form.Item name="phone">
-                        <Input placeholder='Name' />
+                        <Input disabled placeholder='Name' />
                     </Form.Item>
                     <p>Address</p>
                     <Form.Item name="address">
-                        <Input placeholder='Name' />
+                        <Input disabled placeholder='Name' />
                     </Form.Item>
                     <p>Comment</p>
                     <Form.Item name="comment">
                         <TextArea
+                            disabled
                             value={value}
                             onChange={(e) => setValue(e.target.value)}
                             placeholder="Input Short Description"
                             autoSize={{ minRows: 3, maxRows: 8 }} />
                     </Form.Item>
                     <p>Resume</p>
-                    {pdfFile.slice(-3) == "pdf"?
-                    <Form.Item name="mediaFiles">
-                        <Document className={contactStyle.pdf_container} file={`${baseURL}/${pdfFile}`} onLoadSuccess={onDocumentLoadSuccess}>
-                            <Page pageNumber={pageNumber} />
-                        </Document>
-                        <div className={numPages == 1 ? contactStyle.button_container_hidden : contactStyle.button_container}>
-                            <Button type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}
-                                onClick={goToPrevPage}>Prev</Button>
-                            <Button type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}
-                                onClick={goToNextPage}>Next</Button>
-                        </div>
-                        <p>
-                            Page {pageNumber} of {numPages}
-                        </p>
-                    </Form.Item>:
-                    <Button onClick={() => { downloadPDF(baseURL,pdfFile)  }} type="primary" htmlType="submit" style={{ width: "120px", marginBottom: "15px" }}>
-                    Download 
-                  </Button>
-                    }
+                    {pdfFile == undefined ? <div className={contactStyle.emptyResume_container}>
+                        <p className={contactStyle.emptyResume}>The user hasn't sent resume</p>
+                        </div> : <>
+                        {pdfFile?.slice(-3) == "pdf" ?
+                            <Form.Item name="mediaFiles">
+                                <Document className={contactStyle.pdf_container} file={`${baseURL}/${pdfFile}`} onLoadSuccess={onDocumentLoadSuccess}>
+                                    <Page pageNumber={pageNumber} />
+                                </Document>
+                                <div className={numPages == 1 ? contactStyle.button_container_hidden : contactStyle.button_container}>
+                                    <Button type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}
+                                        onClick={goToPrevPage}>Prev</Button>
+                                    <Button type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}
+                                        onClick={goToNextPage}>Next</Button>
+                                </div>
+                                <p>
+                                    Page {pageNumber} of {numPages}
+                                </p>
+                            </Form.Item> :
+                            <div >
+                                <Button onClick={() => { downloadFile(baseURL, pdfFile) }} type="primary" htmlType="submit" style={{ width: "120px", marginBottom: "15px" }}>
+                                    Download
+                                </Button>
+                            </div>
+                        }
+                    </>}
                 </div>
             </Form>
         </div>

@@ -21,8 +21,6 @@ export const AllTrainings: React.FC = () => {
   const { isLoading, trainingData, } = useSelector((state: IState) => state.training)
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
-  const dayFormat = 'YYYY-MM-DD';
-  const dayHourFormat = 'DD/MM/YYYY HH:mm';
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [itemId, setItems] = useState<undefined | number>();
 
@@ -104,7 +102,7 @@ export const AllTrainings: React.FC = () => {
           key: 'address 3',
           width: 30,
           render: (index: number, record: IRecord) => (
-            <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{width: "110px", marginBottom: "15px" }}>
+            <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{width: "100%", marginBottom: "15px" }}>
               Delete
             </Button>
           ),
@@ -118,7 +116,7 @@ export const AllTrainings: React.FC = () => {
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
-  const trainings = trainingData?.data?.data?.map((item: ItrainingData, index) => {
+  const trainings = trainingData?.data?.data?.map((item: ItrainingData, index:number) => {
 
 
     if (item?.description?.length > 500) {

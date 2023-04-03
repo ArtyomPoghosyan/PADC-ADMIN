@@ -8,8 +8,6 @@ import { VacancieThunk } from "@slices/vacancies/vacancie";
 
 import { Button } from "antd";
 
-import moment from "moment";
-
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -66,7 +64,6 @@ export const AllVacancies: React.FC = () => {
                     width: 80,
                     ellipsis: true,
                 },
-
                 {
                     title: 'Short Description',
                     dataIndex: "shortDescription",
@@ -94,7 +91,7 @@ export const AllVacancies: React.FC = () => {
                     key: 'address 2',
                     width: 35,
                     render: (index: number, record: IRecord) => (
-                        <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
+                        <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{ width: "100%", marginBottom: "15px" }}>
                             Delete
                         </Button>
                     ),
@@ -108,7 +105,7 @@ export const AllVacancies: React.FC = () => {
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
         setSelectedRowKeys(newSelectedRowKeys);
     };
-    const data = vacancieData?.data?.map((item: IVacancie, index) => {
+    const data = vacancieData?.data?.map((item: IVacancie, index:number) => {
         return {
             ...item,
             index: index + 1,

@@ -75,7 +75,7 @@ const handleCancel = () => {
           width: 40,
           ellipsis: true,
           render: (index: number, record: IRecord) => (
-            <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
+            <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{ width: "100%", marginBottom: "15px" }}>
               Delete
             </Button>
           ),

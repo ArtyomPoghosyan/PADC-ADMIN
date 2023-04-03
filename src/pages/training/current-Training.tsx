@@ -109,7 +109,6 @@ export const CurrentTraining: React.FC = () => {
     useEffect(() => {
         if (trainingData?.data?.data) {
             const { name, description, date, type, mediaFiles } = trainingData?.data?.data;
-            console.log(mediaFiles)
             const contentBlock = htmlToDraft(description);
             if (contentBlock) {
                 const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
@@ -124,8 +123,6 @@ export const CurrentTraining: React.FC = () => {
 
         }
     }, [trainingData])
-
-    console.log(isLoading, "isLoading")
 
     return (
         <div className={trainingStyle.form_container}>
