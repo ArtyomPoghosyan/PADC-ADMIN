@@ -55,6 +55,7 @@ export const CurrentTraining: React.FC = () => {
         setEditorState(editorState);
     }
 
+
     const onFinish = (values) => {
         const index: number = 0 as number;
         setLoadings((prevLoadings) => {

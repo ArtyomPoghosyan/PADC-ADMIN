@@ -30,7 +30,13 @@ export const LoginThunk = createAsyncThunk(
 const loginSlice = createSlice({
     name: "posts",
     initialState,
-    reducers: {},
+    reducers: {
+        LoginState(state){
+            state.isLoading=false;
+            state.isSuccess= false;
+            state.loginError = null
+        }
+    },
     extraReducers(builder) {
         builder
             .addCase(LoginThunk.pending, (state: CombineLoginState) => {
@@ -49,3 +55,4 @@ const loginSlice = createSlice({
 })
 
 export default loginSlice.reducer;
+export const  LoginState = loginSlice.actions.LoginState;

@@ -12,13 +12,13 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import { Alert } from 'antd';
 import { Spin } from 'antd';
 import { ILogin } from '@models/auth';
-import { LoginThunk } from '@slices/login/login';
+import { LoginState, LoginThunk } from '@slices/login/login';
 import { useForm } from 'antd/es/form/Form';
 import { IState } from '@models/common';
 
 export const Login: React.FC = () => {
     const cookies = new Cookies();
-    const { isLoading, isSuccess, loginData, loginError } = useAppSelector((state:any) => state.login);
+    const { isLoading, isSuccess, loginData, loginError } = useAppSelector((state: any) => state.login);
     const [form] = useForm()
     const dispatch = useAppDispatch();
     const navigation = useNavigate();
@@ -37,7 +37,6 @@ export const Login: React.FC = () => {
             cookies.set("accessToken", loginData?.data?.accessToken);
             navigation("/dashboard")
         }
-
     }, [isSuccess])
 
     useEffect(() => {
@@ -46,6 +45,20 @@ export const Login: React.FC = () => {
             form.setFieldsValue({ email, password })
         }
     }, [])
+
+    useEffect(() => {
+        if (loginError) {
+            setTimeout(() => {
+                dispatch(LoginState())
+            }, 2000)
+        }
+    }, [loginError]);
+
+    useEffect(()=>{
+       
+            cookies.remove("accessToken")
+       
+    },[])
 
     return (
         <>
@@ -58,7 +71,7 @@ export const Login: React.FC = () => {
                     {isLoading ? <p><Spin /></p> : ""}
                 </div>
                 <div style={{ height: "40px" }}>
-                    {loginError ? <p className={LoginStyle.cridential_error}>{loginError}</p> : <p></p>}
+                    {loginError ? <p className={LoginStyle.cridential_error}>{loginError} </p> : <p></p>}
                 </div>
                 <div className={LoginStyle.form_container}>
                     <Form
