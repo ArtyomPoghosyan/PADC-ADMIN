@@ -4,9 +4,6 @@ const cookies = new Cookies();
 
 export const Guard: React.FC = () => {
     const accessToken: string = cookies.get('accessToken');
-    if(accessToken){
-
-    }
     return (
         accessToken ? <Outlet /> : <Navigate to="/auth/login" />
     )
