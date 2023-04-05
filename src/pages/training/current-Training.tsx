@@ -1,36 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import trainingStyle from "./training-style.module.css"
-
-import { Form, Input, Select, DatePicker, Upload, UploadFile, UploadProps, } from 'antd';
-import { Response } from '@shared/response';
-
-import { EditorState, ContentState, convertToRaw } from 'draft-js';
-import dayjs from 'dayjs';
-
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
-import moment from 'moment';
-
-import { useForm } from 'antd/es/form/Form';
 
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { useAppDispatch } from '../../hooks';
+import { EditCurrentTrainingThunk, editTrainingResetState } from '@slices/trainings/edit-trainings';
+import { CurrentTrainingThunk } from '@slices/trainings/current-trainings';
 
+import { useAppDispatch } from '@hooks/hooks';
+
+import trainingStyle from "./training.module.css"
+
+import { Response } from '@components/response';
+
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
+import dayjs from 'dayjs';
+import { Editor } from "react-draft-wysiwyg";
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
+import moment from 'moment';
+
+import { Form, Input, Select, DatePicker, Upload, UploadFile, UploadProps, } from 'antd';
+import { useForm } from 'antd/es/form/Form';
+import { RcFile } from 'antd/es/upload';
 import { PlusOutlined } from '@ant-design/icons';
 
 import { IState } from '@models/common';
 import { IAddTraining } from '@models/trainings';
-import { EditCurrentTrainingThunk, trainingEditState } from '@slices/training/edit-training';
-import { CurrentTrainingThunk, trainingState } from '@slices/training/current-training';
-import { SuccessResponse } from '@shared/success-response';
-import { ButtonLoading } from '@shared/button-loading';
 
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
-import { RcFile } from 'antd/es/upload';
+import { SuccessResponse } from '@components/success-response';
+import { ButtonLoading } from '@components/button-loading';
 
 export const CurrentTraining: React.FC = () => {
 
@@ -38,8 +38,7 @@ export const CurrentTraining: React.FC = () => {
     const { isLoading, trainingData, trainingError } = useSelector((state: IState) => state.currentTraining);
     const { isLoading: isLoadingEdit, isSuccess: isSuccessEdit, trainingError: trainingErrorEdit } = useSelector((state: IState) => state.editCurrentTraining);
     const dispatch = useAppDispatch();
-    const [dateFormat] = useState("");
-    const [fileList, setFileList] = useState<UploadFile<any>[]>([]);
+
     const [form] = useForm();
     const { id } = useParams();
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -54,7 +53,6 @@ export const CurrentTraining: React.FC = () => {
     const onEditorStateChange = (editorState) => {
         setEditorState(editorState);
     }
-
 
     const onFinish = (values) => {
         const index: number = 0 as number;
@@ -129,7 +127,7 @@ export const CurrentTraining: React.FC = () => {
         <div className={trainingStyle.form_container}>
             {trainingErrorEdit ?
                 <Response data={{ error: trainingError }}
-                    defaultState={trainingEditState} /> :
+                    defaultState={editTrainingResetState} /> :
                 <Form
                     form={form}
                     labelCol={{ span: 4 }}
@@ -138,7 +136,7 @@ export const CurrentTraining: React.FC = () => {
                     onFinish={onFinish} autoComplete="off">
 
                     {(isSuccessEdit) ? <SuccessResponse navigate={"trainings"} isLoading={isLoadingEdit} isSuccess={isSuccessEdit}
-                        defaultState={trainingEditState} /> : null}
+                        defaultState={editTrainingResetState} /> : null}
 
                     <p>Name</p>
                     <Form.Item name="name">

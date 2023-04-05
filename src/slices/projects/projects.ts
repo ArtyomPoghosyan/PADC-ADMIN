@@ -4,9 +4,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Project } from '@services/project';
 import axios from 'axios';
 
-export type combineProjectState = IModel & BaseResponse<[], 'projectData'> & ErrorResponse<null, 'projectError'>;
+export type combineEditProjectResetState = IModel & BaseResponse<[], 'projectData'> & ErrorResponse<null, 'projectError'>;
 
-const initialState: combineProjectState = {
+const initialState: combineEditProjectResetState = {
     isLoading: false,
     isSuccess: false,
     projectData: [],
@@ -32,15 +32,15 @@ const projectSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
-            .addCase(axiosProject.pending, (state: combineProjectState) => {
+            .addCase(axiosProject.pending, (state: combineEditProjectResetState) => {
                 state.isLoading = true
             })
-            .addCase(axiosProject.fulfilled, (state: combineProjectState, action: AnyAction) => {
+            .addCase(axiosProject.fulfilled, (state: combineEditProjectResetState, action: AnyAction) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.projectData = action.payload
             })
-            .addCase(axiosProject.rejected, (state: combineProjectState, action: AnyAction) => {
+            .addCase(axiosProject.rejected, (state: combineEditProjectResetState, action: AnyAction) => {
                 state.isSuccess = false;
                 state.projectError = action?.error?.message
             })

@@ -3,21 +3,21 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import { CurrentUserThunk } from "@slices/users/current-users";
+
+import { useAppDispatch } from "@hooks/hooks";
+
+import { dateFormater } from "@helpers/dateFormat";
+
+import { IState } from "@models/common";
+
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import { Input } from "antd"
 import { Form } from 'antd';
 import { useForm } from "antd/es/form/Form";
 
-import userStyle from "./user-style.module.css";
-
-import { useAppDispatch } from "../../hooks";
-
-import moment from "moment";
-import { IState } from "@models/common";
-
-import { CurrentUserThunk } from "@slices/user/current-user";
-import { dateFormat } from "@helpers/dateFormat";
+import userStyle from "./user.module.css";
 
 export const CurrentUser: React.FC = () => {
 
@@ -40,7 +40,7 @@ export const CurrentUser: React.FC = () => {
             setImage(mediaFiles)
             form.setFieldsValue({
                 firstName, lastName, email, role: role.name,
-                createdAt: dateFormat(createdAt)
+                createdAt: dateFormater(createdAt)
             })
         }
     }, [userData])

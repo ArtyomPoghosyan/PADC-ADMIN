@@ -1,15 +1,12 @@
-// import { editCurentProject } from '../../services';
-
 import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { IProject } from '@models/projects';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { editCurentProject } from '@services/project';
 import axios from 'axios';
-// import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
 
-type CombineProjectState = IModel & BaseResponse<[], 'currentProjectData'> & ErrorResponse<null, 'currentProjectError'>;
+type CombineEditProjectResetState = IModel & BaseResponse<[], 'currentProjectData'> & ErrorResponse<null, 'currentProjectError'>;
 
-const initialState: CombineProjectState = {
+const initialState: CombineEditProjectResetState = {
     isLoading: false,
     isSuccess: false,
     currentProjectData: [],
@@ -33,7 +30,7 @@ const editCurrentProjectSlice = createSlice({
     name: "editcurrentProject",
     initialState,
     reducers: {
-        ProjectState(state) {
+        EditProjectResetState(state) {
             state.isLoading = false;
             state.isSuccess = false;
             state.currentProjectError = null
@@ -44,12 +41,12 @@ const editCurrentProjectSlice = createSlice({
             .addCase(EditCurrentProjectThunk.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(EditCurrentProjectThunk.fulfilled, (state: CombineProjectState, action: AnyAction) => {
+            .addCase(EditCurrentProjectThunk.fulfilled, (state: CombineEditProjectResetState, action: AnyAction) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.currentProjectData = action.payload
             })
-            .addCase(EditCurrentProjectThunk.rejected, (state: CombineProjectState, action: AnyAction) => {
+            .addCase(EditCurrentProjectThunk.rejected, (state: CombineEditProjectResetState, action: AnyAction) => {
                 state.isSuccess = false;
                 state.currentProjectError = action?.error?.message;
             })
@@ -57,5 +54,5 @@ const editCurrentProjectSlice = createSlice({
 })
 
 export default editCurrentProjectSlice.reducer;
-export const ProjectState = editCurrentProjectSlice.actions.ProjectState;
+export const EditProjectResetState = editCurrentProjectSlice.actions.EditProjectResetState;
 

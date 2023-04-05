@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { BaseResponse, ErrorResponse, IModel } from "@models/common";
 import { deleteProject } from '@services/project';
-import { axiosProject } from './project';
+import { axiosProject } from './projects';
 import axios from 'axios';
 
-type CombineProjectState = IModel & BaseResponse<[], 'ProjectData'> & ErrorResponse<null, 'ProjectError'>;
+type CombineEditProjectResetState = IModel & BaseResponse<[], 'ProjectData'> & ErrorResponse<null, 'ProjectError'>;
 
-const initialState: CombineProjectState = {
+const initialState: CombineEditProjectResetState = {
     isLoading: false,
     isSuccess: false,
     ProjectData: [],
@@ -32,7 +32,7 @@ const deleteProjectSlice = createSlice({
     name: "deleteProject",
     initialState,
     reducers: {
-        deleteProject(state: CombineProjectState) {
+        deleteProject(state: CombineEditProjectResetState) {
             state.isLoading = false
             state.isSuccess = false
             state.ProjectError = null
@@ -40,15 +40,15 @@ const deleteProjectSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(deleteProjectThunk.pending, (state: CombineProjectState) => {
+            .addCase(deleteProjectThunk.pending, (state: CombineEditProjectResetState) => {
                 state.isLoading = true
             })
-            .addCase(deleteProjectThunk.fulfilled, (state: CombineProjectState, action: AnyAction) => {
+            .addCase(deleteProjectThunk.fulfilled, (state: CombineEditProjectResetState, action: AnyAction) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.ProjectData = action.payload
             })
-            .addCase(deleteProjectThunk.rejected, (state: CombineProjectState, action: AnyAction) => {
+            .addCase(deleteProjectThunk.rejected, (state: CombineEditProjectResetState, action: AnyAction) => {
                 state.isSuccess = true;
                 state.ProjectError = action?.error?.message
             })
@@ -56,4 +56,4 @@ const deleteProjectSlice = createSlice({
 })
 
 export default deleteProjectSlice.reducer;
-export const deleteProjectState = deleteProjectSlice.actions.deleteProject
+export const deleteEditProjectResetState = deleteProjectSlice.actions.deleteProject

@@ -1,19 +1,20 @@
+import { useAppDispatch } from "@hooks/hooks";
+import { IResponse } from "@models/common";
 import { Result, Spin } from "antd";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "../hooks";
 
-
-export const Response: React.FC<any> = (props) => {
+export const Response: React.FC<IResponse> = (props:IResponse) => {
     const dispatch = useAppDispatch();
+    console.log(props)
     const { isLoading, isSuccess, error } = props.data
-    const [errors, setError] = useState("");
-    
+    const [errorTitle, setErrorTitle] = useState("");
+
     useEffect(() => {
         if (error || isSuccess) {
             setTimeout(() => {
                 dispatch(props.defaultState())
             }, 3000);
-            setError(error)
+            setErrorTitle(error)
         }
     }, [error, isSuccess]);
 
@@ -26,7 +27,7 @@ export const Response: React.FC<any> = (props) => {
     if (error) {
         return <Result
             status="403"
-            title={errors} />
+            title={errorTitle} />
     }
 
     if (isLoading) {

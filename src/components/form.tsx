@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-import { PlusOutlined } from '@ant-design/icons';
 import { Form, Input, Button, Select, DatePicker, Upload, UploadFile, UploadProps, } from 'antd';
 
 import moment from 'moment';
 
 import { useForm } from 'antd/es/form/Form';
 import { RcFile } from 'antd/es/upload';
+
 import { ITrainingEdit, ITrainingEditDate } from '@models/common';
 
 export const FormComponent: React.FC = () => {
@@ -64,7 +64,6 @@ export const FormComponent: React.FC = () => {
                 <Form.Item valuePropName="fileList">
 
                     <Upload
-                        // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                         listType="picture-card"
                         fileList={fileList}
                         onChange={onChange}

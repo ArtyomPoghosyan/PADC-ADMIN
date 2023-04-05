@@ -1,26 +1,29 @@
 import React, { useState } from 'react';
-import trainingStyle from "./training-style.module.css"
+
+import { useSelector } from 'react-redux';
+
+import trainingStyle from "./training.module.css";
+
+import { AddTrainingThunk, addTrainingResetState } from '@slices/trainings/add-trainings';
+
 import { Form, Input, Button, Select, DatePicker, Upload, UploadFile, UploadProps } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { RcFile } from 'antd/es/upload';
 
 import { EditorState, convertToRaw } from 'draft-js';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { Response } from '@shared/response';
+import { Response } from '@components/response';
 
 import moment from 'moment';
 
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch } from '@hooks/hooks';
 
-import { useSelector } from 'react-redux';
 import { IState } from '@models/common';
 import { IAddTraining } from '@models/trainings';
-import { AddTrainingThunk, defaultState } from '@slices/training/add-training';
-import { SuccessResponse } from '@shared/success-response';
-
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { SuccessResponse } from '@components/success-response';
 
 import draftToHtml from 'draftjs-to-html';
-import { RcFile } from 'antd/es/upload';
 
 export const AddTraining: React.FC = () => {
     let { isLoading, isSuccess, addTrainingError } = useSelector((state: IState) => state.addTraining);
@@ -71,12 +74,11 @@ export const AddTraining: React.FC = () => {
         reader.readAsDataURL(img);
     };
 
-
     return (
         <div className={trainingStyle.form_container}>
             {addTrainingError ?
                 <Response data={{ isLoading: isLoading, isSuccess: isSuccess, error: addTrainingError }}
-                    defaultState={defaultState} /> :
+                    defaultState={addTrainingResetState} /> :
                 <Form
                     labelCol={{ span: 4 }}
                     wrapperCol={{ span: 14 }}
@@ -84,7 +86,7 @@ export const AddTraining: React.FC = () => {
                     onFinish={onFinish} autoComplete="off">
 
                     {isSuccess ? <SuccessResponse navigate={"trainings"} isLoading={isLoading} isSuccess={isSuccess}
-                        defaultState={defaultState} /> : null}
+                        defaultState={addTrainingResetState} /> : null}
 
                     <p>Name</p>
                     <Form.Item name="name">

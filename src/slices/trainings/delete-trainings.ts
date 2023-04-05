@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { deleteTraining } from '@services/training';
 import { ITrainingData } from '@models/trainings';
-import { TrainingThunk } from './training';
+import { TrainingThunk } from './trainings';
 import axios from 'axios';
 
 const initialState: ITrainingData = {

@@ -1,7 +1,7 @@
+import { IButtonResponse } from "@models/common";
 import { Button } from "antd";
-import { useState } from "react";
 
-export const ButtonLoading = (props) => {     
+export const ButtonLoading:React.FC<IButtonResponse> = (props:IButtonResponse) => {  
     return (
         <div>
             <Button style={{width:"250px"}}  type={props.type} htmlType={props.htmlType} loading={props.loading}>

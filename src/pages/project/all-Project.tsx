@@ -4,18 +4,20 @@ import { Button, Modal } from 'antd';
 
 import { useSelector } from 'react-redux';
 
-import { useAppDispatch } from '../../hooks';
+import { axiosProject } from '@slices/projects/projects';
+import { deleteProjectThunk } from '@slices/projects/delete-projects';
+
+import { useAppDispatch } from '@hooks/hooks';
 
 import { useNavigate } from 'react-router-dom';
-import projectStyle from "./project-style.module.css";
+import projectStyle from "./project.module.css";
 
-import { TableComponent } from '@shared/table';
+import { TableComponent } from '@components/table';
 
 import { IRecord, IState } from '@models/common';
 import { IProjectData } from '@models/projects';
+import { IContactRecord } from '@models/contacts/contacts';
 
-import { axiosProject } from '@slices/project/project';
-import { deleteProjectThunk } from '@slices/project/delete-project';
 
 export const AllProjects: React.FC = () => {
 
@@ -25,7 +27,8 @@ export const AllProjects: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [itemId, setItems] = useState<undefined | number>();
 
-  const showModal = (event, record) => {
+  const showModal = (event:Event, record:IRecord) => {
+    console.log(record)
     event.stopPropagation();
     setIsModalOpen(true);
     setItems(record?.id)
@@ -83,11 +86,6 @@ const handleCancel = () => {
       ]
     )
   }
-
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
 
   const project = projectData?.data?.map((item: IProjectData, index: number) => {
     return {

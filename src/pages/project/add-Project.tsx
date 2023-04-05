@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 
+import { useSelector } from 'react-redux';
+
+import { useAppDispatch } from '@hooks/hooks';
+
+import { AddProjectThunk, addProjectResetState } from '@slices/projects/add-projects';
+
 import { Form, Input, Button } from 'antd';
 
 import { EditorState,convertToRaw } from 'draft-js';
@@ -7,19 +13,14 @@ import draftToHtml from 'draftjs-to-html';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-import { Response } from '@shared/response';
+import { Response } from '@components/response';
 
-import { useSelector } from 'react-redux';
-
-import projectStyle from "./project-style.module.css";
+import projectStyle from "./project.module.css";
 
 import { IState } from '@models/common';
 import { IAddProject } from '@models/projects';
 
-import { useAppDispatch } from '../../hooks';
-
-import { AddProjectThunk, defaultstate } from '@slices/project/add-project';
-import { SuccessResponse } from '@shared/success-response';
+import { SuccessResponse } from '@components/success-response';
 
 export const AddProject: React.FC = () => {
     let { isLoading, isSuccess, addProjectDataError } = useSelector((state: IState) => state.addProject);
@@ -42,7 +43,7 @@ export const AddProject: React.FC = () => {
         <div className={projectStyle.form_container}>
             {addProjectDataError ?
                 <Response data={{ isLoading: isLoading, isSuccess: isSuccess, error: addProjectDataError }}
-                    defaultState={defaultstate} /> :
+                    defaultState={addProjectResetState} /> :
                 <Form
                     labelCol={{ span: 4 }}
                     wrapperCol={{ span: 14 }}
@@ -50,7 +51,7 @@ export const AddProject: React.FC = () => {
                     onFinish={onFinish} autoComplete="off">
 
                     {isSuccess ? <SuccessResponse navigate={"projects"} isLoading={isLoading} isSuccess={isSuccess}
-                        defaultState={defaultstate} /> : null}
+                        defaultState={addProjectResetState} /> : null}
 
                     <p>Name</p>
                     <Form.Item name="title">

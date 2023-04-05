@@ -1,4 +1,5 @@
 import { IAddTraining } from '@models/trainings';
+import { type } from 'os';
 import { AnyAction } from 'redux';
 
 export interface Iaction {
@@ -23,21 +24,21 @@ export interface IState {
     project: AnyAction,
     vacancie: AnyAction,
     training: AnyAction,
-    currentTraining:AnyAction,
-    addTraining:AnyAction,
-    editCurrentTraining:AnyAction
-    addVacancie:AnyAction,
-    currentVacancie:AnyAction,
-    editcurrentVacnacie:AnyAction,
-    currentProject:AnyAction,
-    editCurrentProject:AnyAction,
-    addProject:AnyAction,
-    currentUser:AnyAction,
-    deleteTraining:AnyAction,
-    deleteProject:AnyAction,
-    deleteVacancie:AnyAction,
-    contactRequest:AnyAction,
-    currentContact:AnyAction
+    currentTraining: AnyAction,
+    addTraining: AnyAction,
+    editCurrentTraining: AnyAction
+    addVacancie: AnyAction,
+    currentVacancie: AnyAction,
+    editcurrentVacnacie: AnyAction,
+    currentProject: AnyAction,
+    editCurrentProject: AnyAction,
+    addProject: AnyAction,
+    currentUser: AnyAction,
+    deleteTraining: AnyAction,
+    deleteProject: AnyAction,
+    deleteVacancie: AnyAction,
+    contactRequest: AnyAction,
+    currentContact: AnyAction
 
 }
 
@@ -79,31 +80,31 @@ export interface IMainIndex {
 }
 
 export interface ITableProps {
-    columns:Function,
-    dataSource:undefined | [] ,
-    loading:boolean,
-    pageSize:number,
-    navigationPath:string
+    columns: Function,
+    dataSource: undefined | [],
+    loading: boolean,
+    pageSize: number,
+    navigationPath: string
 }
 
 export interface ITrainingEdit {
-    date:{
-        $d:Date
+    date: {
+        $d: Date
     },
-    name:string,
-    description:any,
-    type:string,
-    image:any
+    name: string,
+    description: any,
+    type: string,
+    image: any
 }
 
-export  type ITrainingEditDate = Omit<ITrainingEdit, 'date'> & Record<'date', string>
+export type ITrainingEditDate = Omit<ITrainingEdit, 'date'> & Record<'date', string>
 
-export interface IEditData{
-    id:string |undefined,
-    data:{}
- }
+export interface IEditData {
+    id: string | undefined,
+    data: {}
+}
 
- export interface IToken<K extends string> {
+export interface IToken<K extends string> {
     config: {
         [P in K]: string
         // [key: string]: string
@@ -123,12 +124,34 @@ export interface IEditData{
 }
 
 export interface IRecord {
-    description:{},
-    id:string,
-    index:number,
-    mediaFiles:{},
-    role:undefined | string,
-    title:string
+    description: {},
+    id:  number |   undefined,
+    index: number,
+    mediaFiles: {},
+    role: undefined | string,
+    title: string
+}
+
+export interface IButtonResponse {
+    type: "link" | "text" | "ghost" | "default" | "primary" | "dashed" | undefined,
+    htmlType: "button" | "reset" | "submit" | undefined,
+    loading: boolean
+}
+
+export interface IResponse {
+    data: {
+        isLoading?: boolean,
+        isSuccess?: boolean,
+        error:  string 
+    }
+    defaultState: Function
+}
+
+export interface ISuccessResponse {
+    navigate: "link" | "text" | "ghost" | "default" | "primary" | "dashed" | string | undefined,
+    isLoading: boolean,
+    isSuccess: boolean
+    defaultState: Function
 }
 
 

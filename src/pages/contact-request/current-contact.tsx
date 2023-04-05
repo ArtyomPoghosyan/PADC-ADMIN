@@ -7,28 +7,30 @@ import { Button, Input } from "antd"
 import { Form } from 'antd';
 import { useForm } from "antd/es/form/Form";
 
-import contactStyle from "./contact-request-style.module.css";
+import contactStyle from "./contact-request.module.css";
 
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch } from "@hooks/hooks";
 
 import { IState } from "@models/common";
 import TextArea from "antd/es/input/TextArea";
 import { currentContactThunk } from "@slices/contact-request/current-contact";
 
 import { Document, Page, pdfjs } from 'react-pdf';
+import { useTranslation } from "react-i18next";
 
 export const CurrentContact: React.FC = () => {
 
     const { contactData } = useSelector((state: IState) => state.currentContact);
+    const {t}= useTranslation();
     const baseURL = process.env.REACT_APP_BASE_URL;
     const [numPages, setNumPages] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const [pdfFile, setPdfFile] = useState("")
-    const [value, setValue] = useState("");
+    const [pdfFile, setPdfFile] = useState<string>("")
+    const [value, setValue] = useState<string>("");
     const [form] = useForm();
     const { id } = useParams();
     const dispatch = useAppDispatch();
-    const onFinish = () => { }
+    const onFinish = () => { };
 
     const onDocumentLoadSuccess = ({ numPages }) => {
         setNumPages(numPages);
@@ -61,7 +63,6 @@ export const CurrentContact: React.FC = () => {
     }, [contactData])
 
     const downloadFile = (url: undefined | string, pdfFile: string) => {
-        console.log(typeof url, typeof pdfFile)
         const file = `${url}/${pdfFile}`
         const FileSaver = require('file-saver');
         FileSaver.saveAs(file, `${pdfFile}.docx`);
@@ -107,7 +108,7 @@ export const CurrentContact: React.FC = () => {
                     </Form.Item>
                     <p>Resume</p>
                     {pdfFile == undefined ? <div className={contactStyle.emptyResume_container}>
-                        <p className={contactStyle.emptyResume}>The user hasn't sent resume</p>
+                        <p className={contactStyle.emptyResume}>{t("NORESUME")}</p>
                         </div> : <>
                         {pdfFile?.slice(-3) == "pdf" ?
                             <Form.Item name="mediaFiles">

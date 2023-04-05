@@ -3,13 +3,9 @@ import { UserOutlined } from '@ant-design/icons';
 
 export const Registration: React.FC = () => {
 
-    const onFinish = (values: any) => {
-        console.log('Success:', values);
-    };
+    const onFinish = (values: any) => { };
 
-    const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
-    };
+    const onFinishFailed = (errorInfo: any) => { };
 
     return (
         <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", height: "700px" }}>

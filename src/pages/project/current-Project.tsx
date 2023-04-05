@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import projectStyle from "./project-style.module.css"
+import projectStyle from "./project.module.css"
 
 import { Form, Input } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 
-import { Response } from '@shared/response';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+
+import { EditCurrentProjectThunk, EditProjectResetState } from '@slices/projects/edit-projects';
+import { CurrentProjectThunk } from '@slices/projects/current-projets';
+
+import { useAppDispatch } from '@hooks/hooks';
+
+import { Response } from '@components/response';
 
 import { EditorState, ContentState,convertToRaw } from 'draft-js';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-
-import { useAppDispatch } from '../../hooks';
-
 import { IState } from '@models/common';
+import {IProjectDatas } from '@models/projects';
 
-import { EditCurrentProjectThunk, ProjectState } from '@slices/project/edit-project';
-import { CurrentProjectThunk } from '@slices/project/current-projet';
-
-import { SuccessResponse } from '@shared/success-response';
-import { ButtonLoading } from '@shared/button-loading';
+import { SuccessResponse } from '@components/success-response';
+import { ButtonLoading } from '@components/button-loading';
 
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
-import {IProjectDatas } from '@models/projects';
 
 export const CurrentProject: React.FC = () => {
 
@@ -36,7 +36,6 @@ export const CurrentProject: React.FC = () => {
     const [form] = useForm();
     const { id } = useParams();
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    const [editorText, setEditorText] = useState("");
 
     const RawDraftContentState = (arg) => {
         let description: string = "";
@@ -48,9 +47,8 @@ export const CurrentProject: React.FC = () => {
     }
 
     const onFinish = (values) => {
-        const { title, description } = values;
+        const { title } = values;
         const data:IProjectDatas = { title, description: draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-        console.log( typeof description)
         dispatch(EditCurrentProjectThunk({ id, data }))
     }
 
@@ -75,7 +73,7 @@ export const CurrentProject: React.FC = () => {
         <div className={projectStyle.form_container}>
             {currentProjectErrorEdit ?
                 <Response data={{ error: currentProjectErrorEdit }}
-                    defaultState={ProjectState} /> :
+                    defaultState={EditProjectResetState} /> :
 
                 <Form
                     form={form}
@@ -85,7 +83,7 @@ export const CurrentProject: React.FC = () => {
                     onFinish={onFinish} autoComplete="off">
 
                     {( isSuccessEdit) ? <SuccessResponse navigate={"projects"} isLoading={isLoadingEdit} isSuccess={isSuccessEdit}
-                        defaultState={ProjectState} /> : null}
+                        defaultState={EditProjectResetState} /> : null}
 
                     <p>Title</p>
                     <Form.Item name="title">

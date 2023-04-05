@@ -4,9 +4,9 @@ import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { addProject } from '@services/project';
 import axios from 'axios';
 
-type CombineProjectState = IModel & BaseResponse<[], 'addProjectData'> & ErrorResponse<null, 'addProjectDataError'>;
+type CombineEditProjectResetState = IModel & BaseResponse<[], 'addProjectData'> & ErrorResponse<null, 'addProjectDataError'>;
 
-const initialState: CombineProjectState = {
+const initialState: CombineEditProjectResetState = {
     isLoading: false,
     isSuccess: false,
     addProjectData: [],
@@ -30,7 +30,7 @@ const addProjectSlice = createSlice({
     name: "addProject",
     initialState,
     reducers: {
-        defaultState(state) {
+        addProjectResetState(state) {
             state.isLoading = false;
             state.isSuccess = false;
             state.addProjectDataError = null
@@ -41,12 +41,12 @@ const addProjectSlice = createSlice({
             .addCase(AddProjectThunk.pending, (state) => {
                 state.isLoading = true
             })
-            .addCase(AddProjectThunk.fulfilled, (state: CombineProjectState, action: AnyAction) => {
+            .addCase(AddProjectThunk.fulfilled, (state: CombineEditProjectResetState, action: AnyAction) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.addProjectData = action.payload
             })
-            .addCase(AddProjectThunk.rejected, (state: CombineProjectState, action: AnyAction) => {
+            .addCase(AddProjectThunk.rejected, (state: CombineEditProjectResetState, action: AnyAction) => {
                 state.isSuccess = false;
                     state.addProjectDataError = action?.error?.message
             })
@@ -54,4 +54,4 @@ const addProjectSlice = createSlice({
 })
 
 export default addProjectSlice.reducer;
-export const defaultstate= addProjectSlice.actions.defaultState;
+export const addProjectResetState= addProjectSlice.actions.addProjectResetState;

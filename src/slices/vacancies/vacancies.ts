@@ -1,7 +1,3 @@
-
-// import { ErrorResponse, IModel } from '../../models/common/common';
-// import { BaseResponse } from '../../models/common/common';
-
 import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { AnyAction, createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';

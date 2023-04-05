@@ -24,3 +24,20 @@ export interface IuserData {
     type: string,
     updatedAt: string
 }
+
+export interface IUSerItem{
+    createdAt:string,
+    email:string,
+    firstName:string,
+    id:number,
+    isActive:boolean,
+    lastName:string,
+    role:{
+        createdAt:string,
+        id:number,
+        key:string,
+        name:string,
+        updatedAt:string,
+    },
+    updatedAt:string
+}

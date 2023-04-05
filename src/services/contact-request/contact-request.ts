@@ -1,4 +1,4 @@
-import { IContact } from '@models/contact/contact';
+import { IContact } from '@models/contacts/contacts';
 import { AxiosResponse } from 'axios';
 import { Api } from './../service';
 

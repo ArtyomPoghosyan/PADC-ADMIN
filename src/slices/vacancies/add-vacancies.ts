@@ -30,7 +30,7 @@ const addVacancieSlice = createSlice({
     name: "AddVacancieThunk",
     initialState,
     reducers: {
-        defaultState(state) {
+        addVacancieResetState(state) {
             state.isLoading = false;
             state.isSuccess = false;
             state.currentVacancieError = null;
@@ -55,4 +55,4 @@ const addVacancieSlice = createSlice({
 })
 
 export default addVacancieSlice.reducer;
-export const defaultState = addVacancieSlice.actions.defaultState
+export const addVacancieResetState = addVacancieSlice.actions.addVacancieResetState

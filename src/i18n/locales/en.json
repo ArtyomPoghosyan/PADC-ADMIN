@@ -1,3 +1,7 @@
 {
-    "BAREV":"barev arev"
+    "BAREV":"barev arev",
+    "REMEMBERME":"rememberMe",
+    "ATTANTION":"Attention !! This website is only for internal usage for users certified by PADC LLC.",
+    "NORESUME":"The user hasn't sent resume",
+    "EMPTY_ACCESSTOKEN":"Access token is empty or invalid"
 }

@@ -1,23 +1,22 @@
-import { IRecord, IState } from "@models/common";
-import { IVacancie } from "@models/vacancies";
-
-import { TableComponent } from "@shared/table";
-import { deleteVacancieThunk } from "@slices/vacancies/delete-vacancie";
-
-import { VacancieThunk } from "@slices/vacancies/vacancie";
-
-import { Button } from "antd";
-
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { useAppDispatch } from "../../hooks";
+import { VacancieThunk } from "@slices/vacancies/vacancies";
+import { deleteVacancieThunk } from "@slices/vacancies/delete-vacancies";
 
-import { Modal } from 'antd';
+import { useAppDispatch } from "@hooks/hooks";
 
-import vacancieStyle from "./vacancie-style.module.css";
-import { dateFormat } from "@helpers/dateFormat";
+import { dateFormater } from "@helpers/dateFormat";
+
+import { TableComponent } from "@components/table";
+
+import { IRecord, IState } from "@models/common";
+import { IVacancie } from "@models/vacancies";
+
+import { Modal,Button  } from 'antd';
+
+import vacancieStyle from "./vacancie.module.css";
 
 export const AllVacancies: React.FC = () => {
 
@@ -31,7 +30,7 @@ export const AllVacancies: React.FC = () => {
         dispatch(VacancieThunk())
     }, [])
 
-    const showModal = (event, record) => {
+    const showModal = (event:Event, record:IRecord) => {
         event.stopPropagation();
         setIsModalOpen(true);
         setItems(record?.id)
@@ -90,7 +89,7 @@ export const AllVacancies: React.FC = () => {
                     dataIndex: "button",
                     key: 'address 2',
                     width: 35,
-                    render: (index: number, record: IRecord) => (
+                    render: (_, record: IRecord) => (
                         <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{ width: "100%", marginBottom: "15px" }}>
                             Delete
                         </Button>
@@ -101,16 +100,12 @@ export const AllVacancies: React.FC = () => {
         )
     }
 
-    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-    const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-        setSelectedRowKeys(newSelectedRowKeys);
-    };
     const data = vacancieData?.data?.map((item: IVacancie, index:number) => {
         return {
             ...item,
             index: index + 1,
-            createdAt: dateFormat(item.createdAt),
-            updatedAt: dateFormat(item.updatedAt)
+            createdAt: dateFormater(item.createdAt),
+            updatedAt: dateFormater(item.updatedAt)
         }
     })
     return (

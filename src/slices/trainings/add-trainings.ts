@@ -4,7 +4,7 @@ import { AnyAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { addTraining } from '@services/training';
 import axios from 'axios';
 
-import { BaseResponse, ErrorResponse, IModel } from '../../models/common';
+import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 
 type CombineTrainingState = IModel & BaseResponse<[], 'addTrainingData'> & ErrorResponse<null, 'addTrainingError'>;
 
@@ -18,7 +18,6 @@ const initialState: CombineTrainingState = {
 export const AddTrainingThunk = createAsyncThunk(
     "addTraingin/AddTrainingThunk",
     async (data: IAddTraining) => {
-        console.log(data,"adddata")
         try {
             const formData = HTTPHelper.generateFormData(data);
             const response = await addTraining(formData);
@@ -34,7 +33,7 @@ const addTrainingSlice = createSlice({
     name: "addTraining",
     initialState,
     reducers: {
-        defaultState(state) {
+        addTrainingResetState(state) {
             state.isLoading = false;
             state.isSuccess = false;
             state.addTrainingError = null;
@@ -58,4 +57,4 @@ const addTrainingSlice = createSlice({
 })
 
 export default addTrainingSlice.reducer
-export const defaultState = addTrainingSlice.actions.defaultState
+export const addTrainingResetState = addTrainingSlice.actions.addTrainingResetState

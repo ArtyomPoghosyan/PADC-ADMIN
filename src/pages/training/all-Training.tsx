@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux"
-
-import trainingStyle from "../training/training-style.module.css";
-import { Button, Modal, Space } from 'antd';
-
-import { useAppDispatch } from "../../hooks";
-
-import moment from 'moment';
-import 'moment-timezone';
 import { useNavigate } from "react-router-dom";
+
+import { TrainingThunk } from "@slices/trainings/trainings";
+import { deleteTrainingThunk } from "@slices/trainings/delete-trainings";
+
+import { useAppDispatch } from "@hooks/hooks";
+
+import trainingStyle from "../training/training.module.css";
+
+import { Button, Modal} from 'antd';
+
+import 'moment-timezone';
+
 import { IRecord, IState } from "@models/common";
-import { TrainingThunk } from "@slices/training/training";
 import { ItrainingData } from "@models/trainings";
-import { TableComponent } from "@shared/table";
-import { deleteTrainingThunk } from "@slices/training/delete-training";
-import { dateFormat } from "@helpers/dateFormat";
+
+import { TableComponent } from "@components/table";
+import { dateFormater } from "@helpers/dateFormat";
 
 export const AllTrainings: React.FC = () => {
 
@@ -28,7 +31,7 @@ export const AllTrainings: React.FC = () => {
     dispatch(TrainingThunk())
   }, [])
 
-  const showModal = (event, record) => {
+  const showModal = (event:Event, record:IRecord) => {
     event.stopPropagation();
     setIsModalOpen(true);
     setItems(record?.id)
@@ -101,7 +104,7 @@ export const AllTrainings: React.FC = () => {
           dataIndex: "button",
           key: 'address 3',
           width: 30,
-          render: (index: number, record: IRecord) => (
+          render: (_, record: IRecord) => (
             <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{width: "100%", marginBottom: "15px" }}>
               Delete
             </Button>
@@ -112,10 +115,6 @@ export const AllTrainings: React.FC = () => {
     )
   }
 
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
   const trainings = trainingData?.data?.data?.map((item: ItrainingData, index:number) => {
 
 
@@ -129,7 +128,7 @@ export const AllTrainings: React.FC = () => {
       description: <p dangerouslySetInnerHTML={{ __html: item?.description }}></p>,
       type: item?.type.charAt(0).toUpperCase() + item?.type.slice(1),
       date: item?.date,
-      createdAt: dateFormat(item?.createdAt)
+      createdAt: dateFormater(item?.createdAt)
 
     }
   })

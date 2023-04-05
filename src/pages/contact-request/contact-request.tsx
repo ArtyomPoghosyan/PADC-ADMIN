@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux"
 import React from 'react';
 
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch } from "@hooks/hooks";
 
 import { IState } from "@models/common";
 
-import { TableComponent } from "@shared/table";
 import { contactRequestThunk } from "@slices/contact-request/contact-request";
 import { Button } from "antd";
+import { TableComponent } from "@components/table";
+import { IContactRecord } from "@models/contacts/contacts";
 
 export const ContactRequest: React.FC = () => {
     const { isLoading, contactData } = useSelector((state: IState) => state.contactRequest)
@@ -17,7 +18,8 @@ export const ContactRequest: React.FC = () => {
         dispatch(contactRequestThunk())
     }, [])
 
-    const downloadPDF = (event, record) => {
+    const downloadPDF = (event:Event, record:IContactRecord) => {
+        console.log(record)
         event.stopPropagation();
         const fileName = record?.mediaFiles?.props?.src;
         if (record?.mediaFiles?.props?.src.endsWith("pdf")) {
@@ -81,7 +83,7 @@ export const ContactRequest: React.FC = () => {
                     dataIndex: "mediaFiles",
                     key: 'address 3',
                     width: 100,
-                    render: (index: number, record) => (
+                    render: (_, record) => (
                         <Button onClick={(event) => { downloadPDF(event, record) }} type="primary" htmlType="submit" style={{ width: "100%", marginBottom: "15px" }}>
                             Download
                         </Button>
@@ -91,11 +93,6 @@ export const ContactRequest: React.FC = () => {
             ]
         )
     }
-
-    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-    const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-        setSelectedRowKeys(newSelectedRowKeys);
-    };
 
     const user = contactData?.data?.map((item, index: number) => {
         return ({

@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { EditVacancie } from '@services/vacancie';
 import axios from 'axios';
 
-import { BaseResponse, ErrorResponse, IEditData, IModel } from '../../models/common';
+import { BaseResponse, ErrorResponse, IEditData, IModel } from '@models/common';
 
 type CombineVacancieState = IModel & BaseResponse<[], 'editVacancieData'> & ErrorResponse<null, 'editVacancieError'>;
 
@@ -17,7 +17,6 @@ const initialState: CombineVacancieState = {
 export const EditCurrentVacancieThunk = createAsyncThunk(
     "ediTCurrentVacancie/ CurrentVacancieThunk",
     async ({ id, data }: IEditData) => {
-        console.log(data)
         try {
             const response = await EditVacancie(id, data);
             return Promise.resolve(response.data);
@@ -32,7 +31,7 @@ const editcurrentVacancieSlice = createSlice({
     name: "editCurrentVacnacie",
     initialState,
     reducers: {
-        vacancieState(state) {
+        editvacancieResetState(state) {
             state.isLoading = false;
             state.isSuccess = false;
             state.editVacancieError = null;
@@ -56,4 +55,4 @@ const editcurrentVacancieSlice = createSlice({
 })
 
 export default editcurrentVacancieSlice.reducer;
-export const vacancieState = editcurrentVacancieSlice.actions.vacancieState
+export const editvacancieResetState = editcurrentVacancieSlice.actions.editvacancieResetState

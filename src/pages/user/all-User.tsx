@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux"
 import React from 'react';
 
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch } from "@hooks/hooks";
 
 import { IState } from "@models/common";
-import { UserThunk } from "@slices/user/user";
-import { TableComponent } from "@shared/table";
-import { dateFormat } from "@helpers/dateFormat";
+import { UserThunk } from "@slices/users/users";
+import { TableComponent } from "@components/table";
+import { dateFormater } from "@helpers/dateFormat";
+import { IUSerItem } from "@models/users";
 
 export const AllUsers: React.FC = () => {
     const { isLoading, userData, } = useSelector((state: IState) => state.user)
@@ -73,17 +74,12 @@ export const AllUsers: React.FC = () => {
         )
     }
 
-    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-    const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-        setSelectedRowKeys(newSelectedRowKeys);
-    };
-
-    const user = userData?.data?.map((item, index: number) => {
+    const user = userData?.data?.map((item:IUSerItem, index: number) => {
         return ({
             ...item,
             index: index + 1,
-            createdAt: dateFormat(item.createdAt),
-            updatedAt: dateFormat(item.updatedAt)
+            createdAt: dateFormater(item.createdAt),
+            updatedAt: dateFormater(item.updatedAt)
         }
         )
     })

@@ -3,37 +3,35 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { Editor } from "react-draft-wysiwyg";
-import { EditorState, ContentState, convertToRaw } from 'draft-js';
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { EditCurrentVacancieThunk, editvacancieResetState } from "@slices/vacancies/edit-vacancies";
+import { CurrentVacancieThunk } from "@slices/vacancies/current-vacancies";
 
-import { Response } from '@shared/response';
-
-import { Input } from "antd"
-import { Form } from 'antd';
-import { useForm } from "antd/es/form/Form";
-
-import vacancieStyle from "./vacancie-style.module.css";
-
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch } from "@hooks/hooks";
 
 import { IState } from "@models/common";
 
-import { EditCurrentVacancieThunk, vacancieState } from "@slices/vacancies/edit-vacancie";
-import { CurrentVacancieThunk } from "@slices/vacancies/current-vacancie";
+import { SuccessResponse } from "@components/success-response";
+import { ButtonLoading } from "@components/button-loading";
 
-import { SuccessResponse } from "@shared/success-response";
-import { ButtonLoading } from "@shared/button-loading";
-
+import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
+import { Response } from '@components/response';
+
+import { Form, Input } from 'antd';
+import { useForm } from "antd/es/form/Form";
+
+import vacancieStyle from "./vacancie.module.css";
 
 export const CurrentVacancie: React.FC = () => {
     const { currentVacancieData } = useSelector((state: IState) => state.currentVacancie);
     const { isLoading: isLoadingEdit, isSuccess: isSuccessEdit, currentVacancieError: currentVacancieErrorEdit } = useSelector((state: IState) => state.editcurrentVacnacie);
 
-    const [value, setValue] = useState("");
-    const [text, setText] = useState("");
+    const [value, setValue] = useState<string>("");
+    const [text, setText] = useState<string>("");
     const [form] = useForm();
     const { id } = useParams();
     const { TextArea } = Input;
@@ -42,7 +40,6 @@ export const CurrentVacancie: React.FC = () => {
 
     const onEditorStateChange = (editorState) => {
         setEditorState(editorState);
-
     }
 
     const onFinish = (values) => {
@@ -76,7 +73,7 @@ export const CurrentVacancie: React.FC = () => {
         <div className={vacancieStyle.form_container}>
             {currentVacancieErrorEdit ?
                 <Response data={{ error: currentVacancieErrorEdit }}
-                    defaultState={vacancieState} /> :
+                    defaultState={editvacancieResetState} /> :
                 <Form
                     form={form}
                     labelCol={{ span: 4 }}
@@ -85,7 +82,7 @@ export const CurrentVacancie: React.FC = () => {
                     onFinish={onFinish} autoComplete="off">
 
                     {(isSuccessEdit) ? <SuccessResponse navigate={"vacancies"} isLoading={isLoadingEdit}
-                        isSuccess={isSuccessEdit} defaultState={vacancieState} /> : null}
+                        isSuccess={isSuccessEdit} defaultState={editvacancieResetState} /> : null}
 
                     <p>Title</p>
                     <Form.Item name="title">

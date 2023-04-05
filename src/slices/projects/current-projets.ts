@@ -3,9 +3,9 @@ import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { currentProject } from '@services/project';
 import axios from 'axios';
 
-type CombineProjectState = IModel & BaseResponse<[], 'currentProjectData'> & ErrorResponse<null, 'currentProjectError'>;
+type CombineEditProjectResetState = IModel & BaseResponse<[], 'currentProjectData'> & ErrorResponse<null, 'currentProjectError'>;
 
-const initialState: CombineProjectState = {
+const initialState: CombineEditProjectResetState = {
     isLoading: false,
     isSuccess: false,
     currentProjectData: [],
@@ -29,7 +29,7 @@ const currentProjectSlice = createSlice({
     name: "currentProject",
     initialState,
     reducers: {
-        defaultState(state) {
+        currentProjectResetState(state) {
             state.isLoading = false;
             state.isSuccess = false;
             state.currentProjectError = null;
@@ -37,15 +37,15 @@ const currentProjectSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(CurrentProjectThunk.pending, (state: CombineProjectState) => {
+            .addCase(CurrentProjectThunk.pending, (state: CombineEditProjectResetState) => {
                 state.isLoading = true
             })
-            .addCase(CurrentProjectThunk.fulfilled, (state: CombineProjectState, action: AnyAction) => {
+            .addCase(CurrentProjectThunk.fulfilled, (state: CombineEditProjectResetState, action: AnyAction) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.currentProjectData = action.payload
             })
-            .addCase(CurrentProjectThunk.rejected, (state: CombineProjectState, action: AnyAction) => {
+            .addCase(CurrentProjectThunk.rejected, (state: CombineEditProjectResetState, action: AnyAction) => {
                 state.isSuccess = false;
                 state.currentProjectError = action?.error?.message
             })
@@ -53,4 +53,4 @@ const currentProjectSlice = createSlice({
 })
 
 export default currentProjectSlice.reducer;
-export const defaulsTate = currentProjectSlice.actions.defaultState
+export const currentProjectResetState = currentProjectSlice.actions.currentProjectResetState

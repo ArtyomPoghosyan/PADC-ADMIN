@@ -6,7 +6,7 @@ import { ITableProps } from "@models/common";
 import { IVacancie } from "@models/vacancies";
 import { ItrainingData } from "@models/trainings";
 
-export const TableComponent = (props: ITableProps) => {
+export const TableComponent:React.FC<ITableProps> = (props: ITableProps) => {
     const { loading, columns, dataSource, pageSize, } = props;
     const baseURL = process.env.REACT_APP_BASE_URL;
     const navigation = useNavigate();

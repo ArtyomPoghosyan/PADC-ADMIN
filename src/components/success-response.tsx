@@ -1,9 +1,10 @@
 import { Spin } from "antd";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../hooks";
+import { useAppDispatch } from "@hooks/hooks";
+import { ISuccessResponse } from "@models/common";
 
-export const SuccessResponse: React.FC<any> = (props) => {
+export const SuccessResponse: React.FC<ISuccessResponse> = (props:ISuccessResponse) => {
 
     const { navigate, isLoading, isSuccess, defaultState } = props;
     const dispatch = useAppDispatch()

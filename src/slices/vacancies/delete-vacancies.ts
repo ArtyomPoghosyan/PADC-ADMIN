@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
 import { deleteVacancie } from '@services/vacancie';
 import axios from 'axios';
 
-import { VacancieThunk } from './vacancie';
+import { VacancieThunk } from './vacancies';
 
 type CombineVacancieState = IModel & BaseResponse<[], 'currentVacancieData'> & ErrorResponse<null, 'currentVacancieError'>;
 const initialState: CombineVacancieState = {

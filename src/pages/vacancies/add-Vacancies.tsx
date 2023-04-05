@@ -2,31 +2,31 @@ import React, { useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
+import { AddVacancieThunk, addVacancieResetState } from '@slices/vacancies/add-vacancies';
+
+import { useAppDispatch } from '@hooks/hooks';
+
+import { Response } from '@components/response';
+import { SuccessResponse } from '@components/success-response';
+
+import { IState } from '@models/common';
+import { IAddVacancieData } from '@models/vacancies';
+
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-import { Response } from '@shared/response';
-
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import vacancieStyle from "./vacancie-style.module.css";
+import vacancieStyle from "./vacancie.module.css";
 
 import { Form, Button, Input, } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 
-import { useAppDispatch } from '../../hooks';
-
-import { IState } from '@models/common';
-import { IAddVacancieData } from '@models/vacancies';
-import { AddVacancieThunk, defaultState } from '@slices/vacancies/add-vacancie';
-import { SuccessResponse } from '@shared/success-response';
-
-import draftToHtml from 'draftjs-to-html';
 
 export const AddVacancie: React.FC = () => {
     const { isLoading, isSuccess, currentVacancieError } = useSelector((state: IState) => state.addVacancie)
     const dispatch = useAppDispatch();
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState<string>("");
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
     const onEditorStateChange = (editorState) => {
@@ -45,7 +45,7 @@ export const AddVacancie: React.FC = () => {
             <div className={vacancieStyle.form_container}>
                 {currentVacancieError ?
                     <Response data={{ isLoading: isLoading, isSuccess: isSuccess, error: currentVacancieError }}
-                        defaultState={defaultState} /> :
+                        defaultState={addVacancieResetState} /> :
                     <Form
                         labelCol={{ span: 4 }}
                         wrapperCol={{ span: 14 }}
@@ -53,7 +53,7 @@ export const AddVacancie: React.FC = () => {
                         onFinish={onFinish} autoComplete="off">
 
                         {isSuccess ? <SuccessResponse navigate={"vacancies"} isLoading={isLoading} isSuccess={isSuccess}
-                            defaultState={defaultState} /> : null}
+                            defaultState={addVacancieResetState} /> : null}
 
                         <p>Title</p>
                         <Form.Item name="title">

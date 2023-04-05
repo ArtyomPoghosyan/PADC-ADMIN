@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
@@ -11,11 +11,11 @@ import { Layout, Menu, theme } from 'antd';
 
 import logo from "@assests/images/padc-logo.svg";
 
-import mainStyle from "./main-style.module.css";
+import mainStyle from "./main.module.css";
 import { IMainIndex } from '@models/common';
 
 export enum NavigationEnum {
-    ZERO="0",
+    ZERO = "0",
     FIRST = "1",
     SECOND = "2",
     THIRD = "3",
@@ -25,19 +25,16 @@ export enum NavigationEnum {
 }
 
 export enum NavigationPath {
-    DASHBOARD = "dashboard",
-    USERS = "users",
-    TRAINING = "trainings",
-    PROJECTS = "projects",
-    VACANCIES = "vacancies",
-    CONTACTREQUEST = "contact-request"
+    DASHBOARD = "/dashboard",
+    USERS = "/users",
+    TRAINING = "/trainings",
+    PROJECTS = "/projects",
+    VACANCIES = "/vacancies",
+    CONTACTREQUEST = "/contact"
 }
 
 export const MainPage: React.FC = () => {
-    let { pathname } = useLocation();
-    pathname = pathname.slice(1, pathname.length);
-    const path = useRef("");
-
+    const { pathname } = useLocation();
     const navigate = useNavigate();
     const { Header, Sider, Content } = Layout;
     const [collapsed, setCollapsed] = useState(false);
@@ -48,26 +45,26 @@ export const MainPage: React.FC = () => {
     const navigationTo = (ev: IMainIndex) => {
         switch (ev.key) {
             case NavigationEnum.FIRST:
-                return navigate("/dashboard")
+                return navigate(NavigationPath.DASHBOARD)
             case NavigationEnum.SECOND:
-                return navigate("/users")
+                return navigate(NavigationPath.USERS)
             case NavigationEnum.THIRD:
-                return navigate("/trainings")
+                return navigate(NavigationPath.TRAINING)
             case NavigationEnum.FOURTH:
-                return navigate("/projects")
+                return navigate(NavigationPath.PROJECTS)
             case NavigationEnum.FIFTH:
-                return navigate("/vacancies")
+                return navigate(NavigationPath.VACANCIES)
             case NavigationEnum.SIX:
-                return navigate("/contact")
+                return navigate(NavigationPath.CONTACTREQUEST)
         }
     }
 
     const pathRender = (): string[] => {
         switch (pathname) {
             case NavigationPath.DASHBOARD:
-                return [ NavigationEnum.FIRST]
+                return [NavigationEnum.FIRST]
             case NavigationPath.USERS:
-                return  [NavigationEnum.SECOND]
+                return [NavigationEnum.SECOND]
             case NavigationPath.TRAINING:
                 return [NavigationEnum.THIRD]
             case NavigationPath.PROJECTS:
@@ -78,7 +75,6 @@ export const MainPage: React.FC = () => {
                 return [NavigationEnum.SIX]
             default:
                 return [NavigationEnum.ZERO]
-
         }
     }
 

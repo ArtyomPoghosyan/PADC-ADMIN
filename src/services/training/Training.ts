@@ -12,12 +12,10 @@ export const CurrentTraining = (id): Promise<AxiosResponse<ITrainingData[]>> => 
 }
 
 export const EditCurrentTraining = (id: string | undefined, data: Object): Promise<AxiosResponse<ITrainingData[]>> => {
-    console.log(data)
     return Api.put<ITrainingData[]>(`/trainings/${id}`, data)
 }
 
 export const addTraining = (data): Promise<AxiosResponse<ITrainingData[]>> => {
-    console.log(data)
     return Api.post<ITrainingData[]>("/trainings", data)
 }
 
