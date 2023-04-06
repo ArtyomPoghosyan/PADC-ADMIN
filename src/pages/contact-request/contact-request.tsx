@@ -19,7 +19,6 @@ export const ContactRequest: React.FC = () => {
     }, [])
 
     const downloadPDF = (event:Event, record:IContactRecord) => {
-        console.log(record)
         event.stopPropagation();
         const fileName = record?.mediaFiles?.props?.src;
         if (record?.mediaFiles?.props?.src.endsWith("pdf")) {

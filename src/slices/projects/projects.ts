@@ -1,7 +1,10 @@
-import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { AnyAction, createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import { BaseResponse, ErrorResponse, IModel } from '@models/common';
+
 import { Project } from '@services/project';
+
 import axios from 'axios';
 
 export type combineEditProjectResetState = IModel & BaseResponse<[], 'projectData'> & ErrorResponse<null, 'projectError'>;

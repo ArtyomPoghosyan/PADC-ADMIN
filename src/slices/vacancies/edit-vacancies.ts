@@ -1,6 +1,8 @@
 import { createSlice, AnyAction } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import { EditVacancie } from '@services/vacancie';
+
 import axios from 'axios';
 
 import { BaseResponse, ErrorResponse, IEditData, IModel } from '@models/common';

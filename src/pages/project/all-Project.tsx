@@ -16,32 +16,32 @@ import { TableComponent } from '@components/table';
 
 import { IRecord, IState } from '@models/common';
 import { IProjectData } from '@models/projects';
-import { IContactRecord } from '@models/contacts/contacts';
+import { useTranslation } from 'react-i18next';
 
 
 export const AllProjects: React.FC = () => {
-
+  const { t } = useTranslation();
   const { isLoading, projectData } = useSelector((state: IState) => state.project)
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [itemId, setItems] = useState<undefined | number>();
 
-  const showModal = (event:Event, record:IRecord) => {
+  const showModal = (event: Event, record: IRecord) => {
     console.log(record)
     event.stopPropagation();
     setIsModalOpen(true);
     setItems(record?.id)
-};
+  };
 
-const handleOk = () => {
+  const handleOk = () => {
     dispatch(deleteProjectThunk(itemId))
     setIsModalOpen(false);
-};
+  };
 
-const handleCancel = () => {
+  const handleCancel = () => {
     setIsModalOpen(false);
-};
+  };
 
   useEffect(() => {
     dispatch(axiosProject())
@@ -77,7 +77,7 @@ const handleCancel = () => {
           key: 'address 1',
           width: 40,
           ellipsis: true,
-          render: (index: number, record: IRecord) => (
+          render: (_, record: IRecord) => (
             <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{ width: "100%", marginBottom: "15px" }}>
               Delete
             </Button>
@@ -100,9 +100,9 @@ const handleCancel = () => {
     <div className={projectStyle.training_page_container}>
 
       <Modal title="Delete Project" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <p>Do you want to delete this project?</p>
+        <p>{t("DELETE_PROJECT")}</p>
       </Modal>
-      
+
       <div className={projectStyle.button_container}>
         <Button onClick={() => { navigation("add") }} type="primary" htmlType="submit" style={{ width: "110px", marginBottom: "15px" }}>
           Add Project

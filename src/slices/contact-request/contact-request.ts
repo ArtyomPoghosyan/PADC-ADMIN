@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
+
 import { BaseResponse, ErrorResponse, IModel } from "@models/common";
+
 import { contactRequest } from '@services/contact-request';
+
 import axios from 'axios';
 
 export type CombineContactState = IModel & BaseResponse<[], 'contactData'> & ErrorResponse<null, 'contactError'>;

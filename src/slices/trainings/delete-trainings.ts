@@ -1,7 +1,11 @@
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
+
 import { deleteTraining } from '@services/training';
+
 import { ITrainingData } from '@models/trainings';
+
 import { TrainingThunk } from './trainings';
+
 import axios from 'axios';
 
 const initialState: ITrainingData = {
@@ -15,7 +19,7 @@ const initialState: ITrainingData = {
 
 export const deleteTrainingThunk = createAsyncThunk(
     "deleteTraining/deleteTrainingThunk",
-    async (id: undefined | number, { fulfillWithValue, rejectWithValue, dispatch }) => {
+    async (id: undefined | number, { fulfillWithValue, dispatch }) => {
         try {
             const response = await deleteTraining(id);
             dispatch(TrainingThunk())

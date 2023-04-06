@@ -1,6 +1,9 @@
-import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
+
+import { BaseResponse, ErrorResponse, IModel } from '@models/common';
+
 import { currentProject } from '@services/project';
+
 import axios from 'axios';
 
 type CombineEditProjectResetState = IModel & BaseResponse<[], 'currentProjectData'> & ErrorResponse<null, 'currentProjectError'>;

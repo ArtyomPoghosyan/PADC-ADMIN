@@ -14,12 +14,13 @@ import { TableComponent } from "@components/table";
 import { IRecord, IState } from "@models/common";
 import { IVacancie } from "@models/vacancies";
 
-import { Modal,Button  } from 'antd';
+import { Modal, Button } from 'antd';
 
 import vacancieStyle from "./vacancie.module.css";
+import { useTranslation } from "react-i18next";
 
 export const AllVacancies: React.FC = () => {
-
+    const { t } = useTranslation();
     const { isLoading, vacancieData, } = useSelector((state: IState) => state.vacancie);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const dispatch = useAppDispatch();
@@ -30,7 +31,7 @@ export const AllVacancies: React.FC = () => {
         dispatch(VacancieThunk())
     }, [])
 
-    const showModal = (event:Event, record:IRecord) => {
+    const showModal = (event: Event, record: IRecord) => {
         event.stopPropagation();
         setIsModalOpen(true);
         setItems(record?.id)
@@ -100,7 +101,7 @@ export const AllVacancies: React.FC = () => {
         )
     }
 
-    const data = vacancieData?.data?.map((item: IVacancie, index:number) => {
+    const data = vacancieData?.data?.map((item: IVacancie, index: number) => {
         return {
             ...item,
             index: index + 1,
@@ -112,7 +113,7 @@ export const AllVacancies: React.FC = () => {
         <div className={vacancieStyle.training_page_container}>
 
             <Modal title="Delete Vacancie" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <p>Do you want to delete this vacancie?</p>
+                <p>{t("DELETE_VACANCIE")}</p>
             </Modal>
 
             <div className={vacancieStyle.button_container}>

@@ -1,6 +1,9 @@
-import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
+
+import { BaseResponse, ErrorResponse, IModel } from '@models/common';
+
 import { deleteVacancie } from '@services/vacancie';
+
 import axios from 'axios';
 
 import { VacancieThunk } from './vacancies';

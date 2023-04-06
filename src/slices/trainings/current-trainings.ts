@@ -1,6 +1,9 @@
-import { ITrainingData } from '@models/trainings';
 import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
+
+import { ITrainingData } from '@models/trainings';
+
 import { CurrentTraining } from '@services/training';
+
 import axios from 'axios';
 
 const initialState: ITrainingData = {

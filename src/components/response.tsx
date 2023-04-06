@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 
 export const Response: React.FC<IResponse> = (props:IResponse) => {
     const dispatch = useAppDispatch();
-    console.log(props)
     const { isLoading, isSuccess, error } = props.data
     const [errorTitle, setErrorTitle] = useState("");
 

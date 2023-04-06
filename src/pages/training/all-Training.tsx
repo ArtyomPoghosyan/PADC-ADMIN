@@ -9,7 +9,7 @@ import { useAppDispatch } from "@hooks/hooks";
 
 import trainingStyle from "../training/training.module.css";
 
-import { Button, Modal} from 'antd';
+import { Button, Modal } from 'antd';
 
 import 'moment-timezone';
 
@@ -18,9 +18,10 @@ import { ItrainingData } from "@models/trainings";
 
 import { TableComponent } from "@components/table";
 import { dateFormater } from "@helpers/dateFormat";
+import { useTranslation } from "react-i18next";
 
 export const AllTrainings: React.FC = () => {
-
+  const { t } = useTranslation();
   const { isLoading, trainingData, } = useSelector((state: IState) => state.training)
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
@@ -31,7 +32,7 @@ export const AllTrainings: React.FC = () => {
     dispatch(TrainingThunk())
   }, [])
 
-  const showModal = (event:Event, record:IRecord) => {
+  const showModal = (event: Event, record: IRecord) => {
     event.stopPropagation();
     setIsModalOpen(true);
     setItems(record?.id)
@@ -105,17 +106,16 @@ export const AllTrainings: React.FC = () => {
           key: 'address 3',
           width: 30,
           render: (_, record: IRecord) => (
-            <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{width: "100%", marginBottom: "15px" }}>
+            <Button danger onClick={(event) => { showModal(event, record) }} type="primary" htmlType="submit" style={{ width: "100%", marginBottom: "15px" }}>
               Delete
             </Button>
           ),
-         
         }
       ]
     )
   }
 
-  const trainings = trainingData?.data?.data?.map((item: ItrainingData, index:number) => {
+  const trainings = trainingData?.data?.data?.map((item: ItrainingData, index: number) => {
 
 
     if (item?.description?.length > 500) {
@@ -129,14 +129,13 @@ export const AllTrainings: React.FC = () => {
       type: item?.type.charAt(0).toUpperCase() + item?.type.slice(1),
       date: item?.date,
       createdAt: dateFormater(item?.createdAt)
-
     }
   })
   return (
     <div className={trainingStyle.training_page_container}>
 
       <Modal title="Delete Training" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <p>Do you want to delete this training?</p>
+        <p>{t("DELETE_TRAINING")}</p>
       </Modal>
 
       <div className={trainingStyle.button_container}>

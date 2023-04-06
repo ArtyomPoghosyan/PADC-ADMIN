@@ -32,7 +32,6 @@ export const AddTraining: React.FC = () => {
 
     const [localImage, setLocalImage] = useState<string>('');
 
-
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const dayFormat = 'YYYY-MM-DD';
 

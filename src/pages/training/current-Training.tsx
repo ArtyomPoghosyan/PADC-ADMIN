@@ -35,7 +35,7 @@ import { ButtonLoading } from '@components/button-loading';
 export const CurrentTraining: React.FC = () => {
 
     const baseURL = process.env.REACT_APP_BASE_URL;
-    const { isLoading, trainingData, trainingError } = useSelector((state: IState) => state.currentTraining);
+    const { trainingData, trainingError } = useSelector((state: IState) => state.currentTraining);
     const { isLoading: isLoadingEdit, isSuccess: isSuccessEdit, trainingError: trainingErrorEdit } = useSelector((state: IState) => state.editCurrentTraining);
     const dispatch = useAppDispatch();
 

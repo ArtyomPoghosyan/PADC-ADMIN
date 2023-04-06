@@ -3,5 +3,10 @@
     "REMEMBERME":"rememberMe",
     "ATTANTION":"Attention !! This website is only for internal usage for users certified by PADC LLC.",
     "NORESUME":"The user hasn't sent resume",
-    "EMPTY_ACCESSTOKEN":"Access token is empty or invalid"
+    "EMPTY_ACCESSTOKEN":"Access token is empty or invalid",
+    "DELETE_VACANCIE":"Do you wantto delete this vacancie?",
+    "ADD_VACANCIE":"Add Vacancie",
+    "DELETE":"Delete",
+    "DELETE_TRAINING":"Do you want to delete this training?",
+    "DELETE_PROJECT":"Do you want to delete this project?"
 }

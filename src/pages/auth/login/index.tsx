@@ -36,7 +36,7 @@ export const Login: React.FC = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            cookies.set("accessToken", loginData?.data?.accessToken);
+            cookies.set(accessToken, loginData?.data?.accessToken);
             navigation("/dashboard")
         }
     }, [isSuccess])
@@ -79,7 +79,7 @@ export const Login: React.FC = () => {
                         style={{ width: "850px", marginTop: "10px" }}
                         name="normal_login"
                         className="login-form"
-                        initialValues={{ remember: true }}
+                        initialValues={{ remember: false }}
                         onFinish={onFinish}>
 
                         <Form.Item style={{ width: "500px", flexWrap: "nowrap" }}

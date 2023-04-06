@@ -13,8 +13,7 @@ import { IState } from "@models/common";
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-import { Input } from "antd"
-import { Form } from 'antd';
+import { Input,Form } from "antd"
 import { useForm } from "antd/es/form/Form";
 
 import userStyle from "./user.module.css";

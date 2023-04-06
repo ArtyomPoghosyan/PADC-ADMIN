@@ -1,7 +1,11 @@
-import { HTTPHelper } from '@helpers/http.helper';
-import { IAddTraining } from '@models/trainings';
 import { AnyAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+import { HTTPHelper } from '@helpers/http.helper';
+
+import { IAddTraining } from '@models/trainings';
+
 import { addTraining } from '@services/training';
+
 import axios from 'axios';
 
 import { BaseResponse, ErrorResponse, IModel } from '@models/common';

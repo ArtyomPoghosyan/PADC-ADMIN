@@ -2,13 +2,16 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux"
 import React from 'react';
 
+import { UserThunk } from "@slices/users/users";
+
 import { useAppDispatch } from "@hooks/hooks";
 
-import { IState } from "@models/common";
-import { UserThunk } from "@slices/users/users";
 import { TableComponent } from "@components/table";
+
 import { dateFormater } from "@helpers/dateFormat";
+
 import { IUSerItem } from "@models/users";
+import { IState } from "@models/common";
 
 export const AllUsers: React.FC = () => {
     const { isLoading, userData, } = useSelector((state: IState) => state.user)

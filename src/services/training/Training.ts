@@ -1,4 +1,3 @@
-// import { Api } from './../service';
 import { ITrainingData } from '@models/trainings';
 import { AxiosResponse } from 'axios';
 import { Api } from '@services/service';

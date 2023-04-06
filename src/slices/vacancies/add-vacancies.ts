@@ -1,7 +1,10 @@
+import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
+
 import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { IAddVacancieData } from '@models/vacancies';
-import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
+
 import { AddVacancie } from '@services/vacancie';
+
 import axios from 'axios';
 
 type CombineVacancieState = IModel & BaseResponse<[], 'currentVacancieData'> & ErrorResponse<null, 'currentVacancieError'>;

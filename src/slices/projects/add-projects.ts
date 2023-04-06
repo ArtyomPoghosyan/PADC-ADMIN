@@ -1,7 +1,10 @@
+import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
+
 import { BaseResponse, ErrorResponse, IModel } from '@models/common';
 import { IAddProject } from '@models/projects';
-import { createAsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit';
+
 import { addProject } from '@services/project';
+
 import axios from 'axios';
 
 type CombineEditProjectResetState = IModel & BaseResponse<[], 'addProjectData'> & ErrorResponse<null, 'addProjectDataError'>;
